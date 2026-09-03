@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy 24th Birthday Dakshita! (My Bebe) ✨💖</title>
+  <title>Happy 24th Birthday Dakshita! (My Forever Bebe) ✨💖</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="is-locked">
-    <!-- STRICT FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5 00:00:00) -->
+  <!-- STRICT FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
   <div id="lock-screen-overlay" class="lock-overlay">
     <div class="lock-content glass-card">
-      <div class="lock-icon-wrap">
+      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Tap to enter secret passcode">
         <div class="lock-pulsing-circle">
           <span class="big-lock-icon">🔒</span>
         </div>
@@ -23,7 +23,7 @@
       <div class="badge-pill">Top Secret • Surprise Locked 🎁</div>
       <h1 class="lock-title">Hold On, <span class="highlight-text">Dakshita!</span> ✨</h1>
       <p class="lock-subtitle">
-        Your 24th birthday celebration is safely locked and brewing with infinite love for you, Dakshita.<br>
+        Your 24th birthday celebration is safely locked and brewing with infinite love for you, my Bebe.<br>
         It will automatically unlock the exact second the clock strikes midnight on <strong>September 5th</strong>!
       </p>
 
@@ -41,7 +41,32 @@
       <div class="lock-note-box">
         🌸 <em>"The best things in life are worth waiting for... See you at 00:00, my queen!"</em> 💕
       </div>
+
+      <div class="lock-passcode-hint">
+        <button id="open-passcode-modal-btn" class="passcode-trigger-btn">🔑 Ratnesh Passcode Login</button>
+      </div>
     </div>
+  </div>
+
+  <!-- Passcode Entry Modal for Ratnesh -->
+  <div class="modal" id="passcode-modal">
+    <div class="modal-backdrop" id="passcode-modal-backdrop"></div>
+    <div class="modal-content passcode-modal-card">
+      <button class="modal-close-btn" id="passcode-close-btn">&times;</button>
+      <div class="passcode-icon">🔐</div>
+      <h3>Ratnesh's Secret Access</h3>
+      <p>Enter your secret passcode to bypass the lock and preview the website:</p>
+      <input type="password" id="passcode-input" placeholder="Enter passcode..." maxlength="20" autofocus />
+      <div id="passcode-error-msg" class="passcode-error"></div>
+      <button class="btn btn-primary" id="submit-passcode-btn">Unlock Website 🚀</button>
+      <small class="passcode-helper-text">Hint: <code>0509</code> or <code>bebe</code></small>
+    </div>
+  </div>
+
+  <!-- Floating Banner when Preview Mode is Active -->
+  <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
+    <span>👑 <strong>Ratnesh Preview Active</strong> (All 10 pages unlocked)</span>
+    <button id="relock-website-btn" class="relock-btn">🔒 Re-enable Lock for Dakshita</button>
   </div>
 
   <!-- Canvas for Confetti & Particles -->
@@ -68,14 +93,14 @@
       <div class="quick-menu" id="quick-menu">
         <div class="quick-menu-item" data-page="1">1. Welcome & Surprise ✨</div>
         <div class="quick-menu-item" data-page="2">2. Cake & Candle Ceremony 🎂</div>
-        <div class="quick-menu-item" data-page="3">3. 10 Reasons I Adore You 💖</div>
-        <div class="quick-menu-item" data-page="4">4. Our Love Timeline ⏳</div>
-        <div class="quick-menu-item" data-page="5">5. Polaroid Photo Wall 📸</div>
-        <div class="quick-menu-item" data-page="6">6. Cute Couple Quiz 🎮</div>
+        <div class="quick-menu-item" data-page="3">3. Why I Adore Dakshita 💖</div>
+        <div class="quick-menu-item" data-page="4">4. Our Real Love Story ⏳</div>
+        <div class="quick-menu-item" data-page="5">5. 5 Photo Albums (50 Snaps) 📸</div>
+        <div class="quick-menu-item" data-page="6">6. Dakshita & Ratnesh Quiz 🎮</div>
         <div class="quick-menu-item" data-page="7">7. Infinite Reason Generator 🎰</div>
         <div class="quick-menu-item" data-page="8">8. "Open When" Letters 💌</div>
-        <div class="quick-menu-item" data-page="9">9. Bebe's VIP Love Coupons 🎟️</div>
-        <div class="quick-menu-item" data-page="10">10. Grand Finale & Video 🎬</div>
+        <div class="quick-menu-item" data-page="9">9. Dakshita's VIP Coupons 🎟️</div>
+        <div class="quick-menu-item" data-page="10">10. Video Albums & Finale 🎬</div>
       </div>
     </div>
 
@@ -95,33 +120,21 @@
   <main class="pages-wrapper">
 
     <!-- PAGE 1: Welcome Entrance & Surprise -->
-    <section class="page-section active" id="page-1" data-title="Welcome Bebe">
+    <section class="page-section active" id="page-1" data-title="Welcome Dakshita">
       <div class="glass-card hero-card">
         <div class="badge-pill">September 5, 2002 • Celebrating 24 Beautiful Years of Dakshita 👑</div>
         <h1 class="hero-title">Happy 24th Birthday, <span class="highlight-text">Dakshita!</span> 🎂✨</h1>
         <p class="hero-subtitle">
-          Today is all about celebrating the most beautiful, caring, and incredible human being in the universe. To my one and only Bebe, from your Bebe.
+          To my gorgeous, hot, fiercely loyal, and caring queen. You call me Bebe, I call you Bebe, and you are my whole heart forever.
         </p>
 
-        <!-- Live Love Days Counter -->
-        
-        <!-- Live Countdown to Midnight Sept 5th -->
-        <div class="countdown-card" id="bday-countdown-box">
-          <div class="countdown-title">⏰ Countdown to September 5th Midnight:</div>
-          <div class="countdown-timer" id="countdown-display">
-            <div class="cd-box"><span id="cd-days">01</span><small>Days</small></div>
-            <div class="cd-box"><span id="cd-hours">09</span><small>Hours</small></div>
-            <div class="cd-box"><span id="cd-minutes">13</span><small>Mins</small></div>
-            <div class="cd-box"><span id="cd-seconds">02</span><small>Secs</small></div>
-          </div>
-        </div>
-
+        <!-- Live Love & Life Counter -->
         <div class="love-counter-box">
-          <div class="counter-label">Celebrating Every Second With You:</div>
+          <div class="counter-label">Celebrating Every Second of Your Life:</div>
           <div class="counter-grid">
-            <div class="counter-item"><span id="years-alive">24</span><small>Years of Sunshine</small></div>
+            <div class="counter-item"><span id="years-alive">24</span><small>Years of Pure Sunshine</small></div>
             <div class="counter-item"><span id="days-alive">8,766</span><small>Days on Earth</small></div>
-            <div class="counter-item"><span id="hours-alive">210,384+</span><small>Hours of Grace</small></div>
+            <div class="counter-item"><span id="hours-alive">210,384+</span><small>Hours of Grace & Beauty</small></div>
           </div>
         </div>
 
@@ -144,33 +157,19 @@
     <!-- PAGE 2: Virtual Birthday Cake & Candle Ceremony -->
     <section class="page-section" id="page-2" data-title="Birthday Cake">
       <div class="glass-card cake-card">
-        <h2 class="section-title">Blow Out Your Birthday Candles 🕯️🎂</h2>
+        <h2 class="section-title">Blow Out Your 24th Candles, Dakshita! 🕯️🎂</h2>
         <p class="section-desc">Close your eyes, make the sweetest wish in your heart, and blow out the candles!</p>
 
         <!-- Interactive 3-Tier CSS Cake -->
         <div class="cake-stage">
           <div class="cake-plate"></div>
-          <!-- Candles Container -->
           <div class="candles-row" id="candles-row">
-            <div class="candle lit" data-id="1">
-              <div class="flame"></div>
-              <div class="candle-stick"></div>
-            </div>
-            <div class="candle lit" data-id="2">
-              <div class="flame"></div>
-              <div class="candle-stick"></div>
-            </div>
-            <div class="candle lit" data-id="3">
-              <div class="flame"></div>
-              <div class="candle-stick"></div>
-            </div>
-            <div class="candle lit" data-id="4">
-              <div class="flame"></div>
-              <div class="candle-stick"></div>
-            </div>
+            <div class="candle lit" data-id="1"><div class="flame"></div><div class="candle-stick"></div></div>
+            <div class="candle lit" data-id="2"><div class="flame"></div><div class="candle-stick"></div></div>
+            <div class="candle lit" data-id="3"><div class="flame"></div><div class="candle-stick"></div></div>
+            <div class="candle lit" data-id="4"><div class="flame"></div><div class="candle-stick"></div></div>
           </div>
 
-          <!-- Cake Tiers -->
           <div class="cake-tier tier-top">
             <div class="frosting-strip"></div>
             <div class="berry-row">🍓 🍒 🍓</div>
@@ -190,30 +189,24 @@
           <div class="wish-icon">🌟</div>
           <h3 class="wish-heading">Wish Granted, Dakshita! (My Bebe)</h3>
           <p class="wish-message">
-            "May every single dream you hold close to your heart come true this year. You deserve all the peace, endless giggles, and universe-sized happiness!" 💕
+            "May your 24th year bring you boundless happiness, peace, and dreams fulfilled. You are the most caring, loyal, and stunning woman in the world, and I am so lucky to walk beside you!" 💕
           </p>
         </div>
 
         <!-- Cake Controls -->
         <div class="action-buttons-group">
-          <button class="btn btn-primary" id="blow-candles-btn">
-            💨 Blow the Candles!
-          </button>
-          <button class="btn btn-secondary" id="relight-candles-btn">
-            🔥 Relight Candles
-          </button>
-          <button class="btn btn-outline" id="secret-wish-btn">
-            ✨ Make Secret Wish
-          </button>
+          <button class="btn btn-primary" id="blow-candles-btn">💨 Blow the Candles!</button>
+          <button class="btn btn-secondary" id="relight-candles-btn">🔥 Relight Candles</button>
+          <button class="btn btn-outline" id="secret-wish-btn">✨ Make Secret Wish</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 3: 10 Things I Love About You (Interactive Flip Cards) -->
-    <section class="page-section" id="page-3" data-title="10 Reasons">
+    <!-- PAGE 3: 10 Things That Make Dakshita Irreplaceable -->
+    <section class="page-section" id="page-3" data-title="Why I Love Dakshita">
       <div class="glass-card wide-card">
         <h2 class="section-title">10 Reasons Why You, Dakshita, Are My Whole World 💖</h2>
-        <p class="section-desc">Click or tap each card to flip and reveal a piece of my heart:</p>
+        <p class="section-desc">Click each card to reveal what makes you so completely unforgettable:</p>
 
         <div class="cards-grid" id="reasons-grid">
           <!-- Card 1 -->
@@ -221,12 +214,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">01</span>
-                <span class="card-icon">☀️</span>
-                <h4>Your Sunshine Smile</h4>
+                <span class="card-icon">🔥</span>
+                <h4>Undeniably Hot & Gorgeous</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>The instant you smile, my entire mood shifts. It’s warm, effortless, and brighter than any morning sun.</p>
+                <p>You are effortlessly stunning. From your radiant face to your jaw-dropping style, you take my breath away every single day.</p>
               </div>
             </div>
           </div>
@@ -236,12 +229,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">02</span>
-                <span class="card-icon">✨</span>
-                <h4>Those Sparkly Eyes</h4>
+                <span class="card-icon">🛡️</span>
+                <h4>Fiercely Loyal</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>The way your eyes light up whenever you talk about things you love—I could get lost in them forever.</p>
+                <p>Your loyalty is unmatched. In a world full of temporary people, having your steadfast loyalty makes me feel invincible.</p>
               </div>
             </div>
           </div>
@@ -252,11 +245,11 @@
               <div class="flip-card-front">
                 <span class="card-num">03</span>
                 <span class="card-icon">🤍</span>
-                <h4>Your Golden Heart</h4>
+                <h4>Deeply Caring Heart</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>You care so genuinely for the people around you. Your kindness and empathy inspire me every single day.</p>
+                <p>The gentle way you check on me, care for the little things, and make sure I’m always okay. Your love is my true sanctuary.</p>
               </div>
             </div>
           </div>
@@ -266,12 +259,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">04</span>
-                <span class="card-icon">😂</span>
-                <h4>That Cute Giggle</h4>
+                <span class="card-icon">🚆</span>
+                <h4>My Local Train Partner</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Your laugh is literally my favorite sound in this world. Even your little snorts are ridiculously adorable.</p>
+                <p>Squeezing into crowded local trains from office to home and sharing earphones made the daily grind feel like pure romance.</p>
               </div>
             </div>
           </div>
@@ -281,12 +274,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">05</span>
-                <span class="card-icon">🫂</span>
-                <h4>My Safest Comfort</h4>
+                <span class="card-icon">🛋️</span>
+                <h4>Office Couch Confidante</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>No matter how chaotic the day has been, hearing your voice or hugging you makes everything completely peaceful.</p>
+                <p>Spending the whole night talking on the office couch until dawn. I fell in love with your mind, your stories, and your soul.</p>
               </div>
             </div>
           </div>
@@ -296,12 +289,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">06</span>
-                <span class="card-icon">🧠</span>
-                <h4>How You Get Me</h4>
+                <span class="card-icon">🏏</span>
+                <h4>"Match Results" at My Place</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>You understand what I'm thinking without me even saying a word. We share an unspoken language of our own.</p>
+                <p>The time you came over "just to watch the match results"—we both knew we just wanted any excuse to be together!</p>
               </div>
             </div>
           </div>
@@ -311,12 +304,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">07</span>
-                <span class="card-icon">🔥</span>
-                <h4>Your Passion</h4>
+                <span class="card-icon">⛰️</span>
+                <h4>Lonavala Magic</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>When you set your mind on something, your determination is awe-inspiring. I am forever your biggest cheerleader.</p>
+                <p>Misty hills, the scenic Vistadome ride, waterfalls, and holding your hand in Lonavala. A memory permanently etched in my soul.</p>
               </div>
             </div>
           </div>
@@ -326,12 +319,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">08</span>
-                <span class="card-icon">🌙</span>
-                <h4>Late Night Chats</h4>
+                <span class="card-icon">💍</span>
+                <h4>From "Who's The Groom?" to Me</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Talking to you about everything and nothing at 1 AM makes hours disappear in seconds. You are my favorite company.</p>
+                <p>We used to discuss on late night calls who would be the best fit for your groom. And look at God's plan: I am your groom!</p>
               </div>
             </div>
           </div>
@@ -341,12 +334,12 @@
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">09</span>
-                <span class="card-icon">🍕</span>
-                <h4>Being Silly With Me</h4>
+                <span class="card-icon">💕</span>
+                <h4>Our Mutual "Bebe" Code</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>We can be 100% goofy, dramatic, and completely ourselves together without any filter or judgment.</p>
+                <p>I call you Bebe, you call me Bebe. It's our own sweet language that nobody else can ever share.</p>
               </div>
             </div>
           </div>
@@ -357,11 +350,11 @@
               <div class="flip-card-front">
                 <span class="card-num">10</span>
                 <span class="card-icon">👑</span>
-                <h4>Our Mutual 'Bebe' Bond</h4>
+                <h4>My Soulmate Forever</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>The way we both call each other 'Bebe' with pure love. You are my safe space, my best friend, and the greatest gift in my life.</p>
+                <p>You are my past, my present, and every single tomorrow. Happy 24th Birthday, my love.</p>
               </div>
             </div>
           </div>
@@ -377,171 +370,112 @@
       </div>
     </section>
 
-    <!-- PAGE 4: Our Journey & Memory Road -->
-    <section class="page-section" id="page-4" data-title="Our Journey">
+    <!-- PAGE 4: Our Real Story & Milestone Timeline -->
+    <section class="page-section" id="page-4" data-title="Our Real Story">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Chapters of Us ⏳📖</h2>
-        <p class="section-desc">Every single moment with you is a favorite page in my life story:</p>
+        <h2 class="section-title">The Real Story of Us ⏳📖</h2>
+        <p class="section-desc">From local trains to Lonavala peaks, from late-night couch talks to forever:</p>
 
         <div class="timeline">
           <!-- Milestone 1 -->
           <div class="timeline-item left">
-            <div class="timeline-dot">✨</div>
+            <div class="timeline-dot">🚆</div>
             <div class="timeline-content">
-              <span class="timeline-date">The Beginning</span>
-              <h3>The Day We First Connected</h3>
-              <p>That first spark, the sudden flutter of butterflies, and the feeling that something truly special was about to begin.</p>
-              <div class="memory-tag-pill">❤️ Where it all started</div>
-              <button class="reaction-btn" data-reactions="24">🥰 <span>24</span> Loves</button>
+              <span class="timeline-date">Daily Routine • Pure Romance</span>
+              <h3>Local Train Trips: Office ➔ Home & Back</h3>
+              <p>Rushing through crowded stations just to board the same local train. Sharing one pair of earphones, standing close in the rush hour, talking about our day, and laughing over office gossip. Those local train rides turned exhausting commutes into our sweetest routine.</p>
+              <div class="memory-tag-pill">🚆 Window breeze & shared songs</div>
+              <button class="reaction-btn" data-reactions="108">💖 <span>108</span> Commutes</button>
             </div>
           </div>
 
           <!-- Milestone 2 -->
           <div class="timeline-item right">
-            <div class="timeline-dot">☕</div>
+            <div class="timeline-dot">🛋️</div>
             <div class="timeline-content">
-              <span class="timeline-date">First Dates & Nervous Smiles</span>
-              <h3>Endless Conversations</h3>
-              <p>Sitting across from you, trying not to stare too hard at how pretty you were, and laughing until our cheeks hurt.</p>
-              <div class="memory-tag-pill">☕ Coffee & Giggles</div>
-              <button class="reaction-btn" data-reactions="42">🥺 <span>42</span> Awws</button>
+              <span class="timeline-date">After Hours • Pure Magic</span>
+              <h3>The Whole Night on the Office Couch</h3>
+              <p>Everyone had packed up and left, but we stayed. Curled up on the office couch, talking without watching the clock. We talked about our deepest fears, our silliest childhood stories, our dreams. The sun came up, and in those quiet hours, I knew I was looking at my forever.</p>
+              <div class="memory-tag-pill">🌙 3 AM conversations & zero sleep</div>
+              <button class="reaction-btn" data-reactions="240">🥺 <span>240</span> Awws</button>
             </div>
           </div>
 
           <!-- Milestone 3 -->
           <div class="timeline-item left">
-            <div class="timeline-dot">🚗</div>
+            <div class="timeline-dot">🏏</div>
             <div class="timeline-content">
-              <span class="timeline-date">Our Little Adventures</span>
-              <h3>Roads, Songs & Ice Creams</h3>
-              <p>Singing at the top of our lungs, driving with nowhere in mind, sharing food, and realizing any place is paradise with you.</p>
-              <div class="memory-tag-pill">🎵 Window seat melodies</div>
-              <button class="reaction-btn" data-reactions="89">💖 <span>89</span> Memories</button>
+              <span class="timeline-date">The Cute Excuse</span>
+              <h3>First Visit to My Place: "Just for the Match Results!"</h3>
+              <p>You came over to my place for the very first time, pretending the only reason was "to check the match results"! We both knew the match was just an excuse to be together. Sitting in my room, sharing snacks, and feeling those electric butterflies that never left.</p>
+              <div class="memory-tag-pill">🍕 Match night butterflies</div>
+              <button class="reaction-btn" data-reactions="312">🥰 <span>312</span> Smiles</button>
             </div>
           </div>
 
           <!-- Milestone 4 -->
           <div class="timeline-item right">
-            <div class="timeline-dot">👑</div>
+            <div class="timeline-dot">⛰️</div>
             <div class="timeline-content">
-              <span class="timeline-date">Today & Always</span>
-              <h3>Celebrating Dakshita (My Queen)</h3>
-              <p>Watching you grow more wonderful every day. Today the whole world celebrates you, and I am the luckiest guy alive.</p>
-              <div class="memory-tag-pill">🎂 Happy 24th Birthday Dakshita!</div>
-              <button class="reaction-btn" data-reactions="999">🎉 <span>999+</span> Celebrations</button>
+              <span class="timeline-date">Our Paradise</span>
+              <h3>The Unforgettable Lonavala Getaway</h3>
+              <p>Taking the scenic train ride through the Western Ghats to Lonavala. Watching the mist roll over the green mountains, stepping out into the cool breeze, standing by the waterfalls, and holding your hand. Seeing your hair blow in the hill breeze made me realize how breathtaking you truly are.</p>
+              <div class="memory-tag-pill">🌧️ Misty hills & waterfalls</div>
+              <button class="reaction-btn" data-reactions="520">✨ <span>520</span> Memories</button>
+            </div>
+          </div>
+
+          <!-- Milestone 5 -->
+          <div class="timeline-item left">
+            <div class="timeline-dot">💍</div>
+            <div class="timeline-content">
+              <span class="timeline-date">Destiny Sealed</span>
+              <h3>"Who Will Be Your Groom?" ➔ Soon-To-Be Your Groom!</h3>
+              <p>We spent hours on late-night phone calls debating and discussing what kind of guy would be the best fit to be your groom. And look at where life brought us: God was laughing and smiling above, because I was the one meant to hold your hand forever. I am so proud to be your soon-to-be groom, Dakshita!</p>
+              <div class="memory-tag-pill">👑 Forever my bride, forever my Bebe</div>
+              <button class="reaction-btn" data-reactions="999">💍 <span>999+</span> Forever</button>
             </div>
           </div>
         </div>
 
         <div class="timeline-action-row">
-          <button class="btn btn-secondary" id="add-memory-note-btn">
-            ✍️ Add a New Memory Note
-          </button>
+          <button class="btn btn-secondary" id="add-memory-note-btn">✍️ Add Another Cherished Memory</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 5: Polaroid Photo Wall & Gallery -->
-    <section class="page-section" id="page-5" data-title="Photo Wall">
+    <!-- PAGE 5: 5 Photo Albums (50 Pictures Total) -->
+    <section class="page-section" id="page-5" data-title="Photo Albums">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Dakshita's Polaroid Wall 📸✨</h2>
-        <p class="section-desc">Frozen moments of pure happiness. (Tap any photo to expand into the HD Lightbox!)</p>
+        <h2 class="section-title">Dakshita's 5 Photo Albums 📸✨</h2>
+        <p class="section-desc">50 unforgettable moments organized into 5 curated albums. Tap any picture to open the HD Lightbox!</p>
 
-        <!-- Category Filters -->
-        <div class="gallery-filter-bar">
-          <button class="filter-btn active" data-filter="all">All Snaps</button>
-          <button class="filter-btn" data-filter="cute">Pure Cuteness</button>
-          <button class="filter-btn" data-filter="us">Us Together</button>
-          <button class="filter-btn" data-filter="smiles">Golden Smiles</button>
+        <!-- Album Selector Tabs -->
+        <div class="album-tabs-bar">
+          <button class="album-tab-btn active" data-album="album1">🚆 1. Train Commutes (10)</button>
+          <button class="album-tab-btn" data-album="album2">⛰️ 2. Lonavala Trip (10)</button>
+          <button class="album-tab-btn" data-album="album3">🛋️ 3. Office Couch (10)</button>
+          <button class="album-tab-btn" data-album="album4">🏏 4. Match Day (10)</button>
+          <button class="album-tab-btn" data-album="album5">👑 5. Hot & Gorgeous (10)</button>
         </div>
 
-        <!-- Polaroid Wall -->
-        <div class="polaroid-grid">
-          <!-- Polaroid 1 -->
-          <div class="polaroid-card filter-cute filter-smiles" data-index="1" data-caption="That irreplaceable smile that melts my heart every single time.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo1.svg" alt="Photo 1" onerror="this.src='assets/photos/photo1.svg'">
-            </div>
-            <div class="polaroid-caption">My Sunshine Girl ☀️</div>
-          </div>
-
-          <!-- Polaroid 2 -->
-          <div class="polaroid-card filter-us" data-index="2" data-caption="Every adventure with you turns into an unforgettable core memory.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo2.svg" alt="Photo 2" onerror="this.src='assets/photos/photo2.svg'">
-            </div>
-            <div class="polaroid-caption">Adventures With You 🚗</div>
-          </div>
-
-          <!-- Polaroid 3 -->
-          <div class="polaroid-card filter-cute" data-index="3" data-caption="The most adorable human being to ever exist on this planet.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo3.svg" alt="Photo 3" onerror="this.src='assets/photos/photo3.svg'">
-            </div>
-            <div class="polaroid-caption">Cutest Bebe Moment 🥺</div>
-          </div>
-
-          <!-- Polaroid 4 -->
-          <div class="polaroid-card filter-us filter-smiles" data-index="4" data-caption="Side by side, we can conquer literally anything together.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo4.svg" alt="Photo 4" onerror="this.src='assets/photos/photo4.svg'">
-            </div>
-            <div class="polaroid-caption">Unstoppable Duo 💫</div>
-          </div>
-
-          <!-- Polaroid 5 -->
-          <div class="polaroid-card filter-cute filter-smiles" data-index="5" data-caption="The definition of pure bliss and candid laughter.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo5.svg" alt="Photo 5" onerror="this.src='assets/photos/photo5.svg'">
-            </div>
-            <div class="polaroid-caption">Pure Joy & Laughs 😂</div>
-          </div>
-
-          <!-- Polaroid 6 -->
-          <div class="polaroid-card filter-us" data-index="6" data-caption="One of those days I wish I could replay on a loop forever.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo6.svg" alt="Photo 6" onerror="this.src='assets/photos/photo6.svg'">
-            </div>
-            <div class="polaroid-caption">Golden Hour Vibe 🌅</div>
-          </div>
-
-          <!-- Polaroid 7 -->
-          <div class="polaroid-card filter-cute" data-index="7" data-caption="You are my universe, my favorite story, and my happy place.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo7.svg" alt="Photo 7" onerror="this.src='assets/photos/photo7.svg'">
-            </div>
-            <div class="polaroid-caption">My Entire World 🌍</div>
-          </div>
-
-          <!-- Polaroid 8 -->
-          <div class="polaroid-card filter-us filter-smiles" data-index="8" data-caption="I will choose you, love you, and cherish you today, tomorrow, and forever.">
-            <div class="tape-strip"></div>
-            <div class="polaroid-img-box">
-              <img src="assets/photos/photo8.svg" alt="Photo 8" onerror="this.src='assets/photos/photo8.svg'">
-            </div>
-            <div class="polaroid-caption">Forever & Always 💍</div>
-          </div>
+        <!-- Album Photo Grids (Injected/Switched by JS) -->
+        <div class="album-display-area" id="album-display-area">
+          <!-- Photos rendered here -->
         </div>
 
         <div class="photo-hint-box">
-          💡 <em>Tip: To insert your own real photos, simply drop your pictures as <code>photo1.jpg</code> to <code>photo8.jpg</code> into the <code>assets/photos/</code> folder!</em>
+          💡 <em>Tip: You can add 10 pictures to each album! Place them in <code>assets/photos/album1/photo1.jpg .. photo10.jpg</code>, <code>album2/</code>, up to <code>album5/</code>.</em>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 6: Fun Couple Trivia / Quiz -->
+    <!-- PAGE 6: Dakshita & Ratnesh Love Quiz -->
     <section class="page-section" id="page-6" data-title="Couple Quiz">
       <div class="glass-card quiz-card">
         <div class="badge-pill">Mini Game • Test Your Love IQ</div>
         <h2 class="section-title">The "Dakshita & Ratnesh" Love Quiz 🎮</h2>
-        <p class="section-desc">Answer these questions correctly to claim your ultimate birthday badge!</p>
+        <p class="section-desc">Answer our relationship trivia to claim your 100% Soulmate Trophy!</p>
 
         <div class="quiz-container" id="quiz-container">
           <!-- Quiz questions injected by JS -->
@@ -550,13 +484,13 @@
         <div class="quiz-score-board" id="quiz-score-board">
           <div class="badge-icon">🏆</div>
           <h3>100% Soulmate Compatibility!</h3>
-          <p id="quiz-verdict-text">You know our love story by heart. You truly are the best partner in the universe!</p>
+          <p id="quiz-verdict-text">You know every chapter of our love story by heart. You truly are the best partner in the universe, Dakshita!</p>
           <button class="btn btn-primary" id="retry-quiz-btn">Play Again 🔁</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 7: Infinite Love Reason Generator / Slot Machine -->
+    <!-- PAGE 7: Infinite Love Reason Generator -->
     <section class="page-section" id="page-7" data-title="Love Slot Machine">
       <div class="glass-card slot-card">
         <h2 class="section-title">The Infinite Love Generator 🎰✨</h2>
@@ -566,19 +500,15 @@
           <div class="slot-display-screen" id="slot-screen">
             <div class="slot-emoji" id="slot-emoji">💖</div>
             <div class="slot-reason-text" id="slot-reason">
-              "Because the world became infinitely better the day you were born!"
+              "Because you're not just gorgeous and hot—you have the most loyal, loving, and caring soul I have ever known!"
             </div>
           </div>
           <div class="slot-counter">Reasons generated so far: <strong id="slot-spin-count">1</strong></div>
         </div>
 
         <div class="slot-controls">
-          <button class="btn btn-primary slot-lever-btn" id="slot-spin-btn">
-            🎰 Spin For A New Reason!
-          </button>
-          <button class="btn btn-outline" id="copy-reason-btn">
-            📋 Copy Cute Message
-          </button>
+          <button class="btn btn-primary slot-lever-btn" id="slot-spin-btn">🎰 Spin For A New Reason!</button>
+          <button class="btn btn-outline" id="copy-reason-btn">📋 Copy Cute Message</button>
         </div>
       </div>
     </section>
@@ -590,163 +520,130 @@
         <p class="section-desc">Handwritten letters for whenever my Bebe (Dakshita) needs a little piece of my love:</p>
 
         <div class="envelope-grid">
-          <!-- Envelope 1 -->
           <div class="envelope-item" data-letter="1">
-            <div class="wax-seal">❤️</div>
+            <div class="wax-seal">🚆</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open When You Miss Me</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open When You Miss Our Train Commutes</span></div>
           </div>
-
-          <!-- Envelope 2 -->
           <div class="envelope-item" data-letter="2">
             <div class="wax-seal">🌸</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open When You're Stressed</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open When You're Stressed From Work</span></div>
           </div>
-
-          <!-- Envelope 3 -->
           <div class="envelope-item" data-letter="3">
             <div class="wax-seal">🌙</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open When You Can't Sleep</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open When You Miss The Office Couch Talks</span></div>
           </div>
-
-          <!-- Envelope 4 -->
           <div class="envelope-item" data-letter="4">
             <div class="wax-seal">🥺</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open When You're Mad at Me</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open When You're Mad at Me (Oops!)</span></div>
           </div>
-
-          <!-- Envelope 5 -->
           <div class="envelope-item" data-letter="5">
             <div class="wax-seal">👑</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open When You Need Confidence</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open When You Forget How Hot You Are</span></div>
           </div>
-
-          <!-- Envelope 6 -->
           <div class="envelope-item" data-letter="6">
-            <div class="wax-seal">🎂</div>
+            <div class="wax-seal">💍</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body">
-              <span class="envelope-title">Open Right Now (Birthday!)</span>
-            </div>
+            <div class="envelope-body"><span class="envelope-title">Open For A Note From Your Future Groom</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 9: Bebe's VIP Love Coupon Book -->
+    <!-- PAGE 9: Dakshita's VIP Love Coupons -->
     <section class="page-section" id="page-9" data-title="VIP Coupons">
       <div class="glass-card wide-card">
         <h2 class="section-title">Dakshita's Golden Love Coupons 🎟️✨</h2>
-        <p class="section-desc">No expiration date. Non-transferable. 100% Guaranteed redemption anytime you ask!</p>
+        <p class="section-desc">No expiration date. Non-transferable. 100% Guaranteed redemption anytime you ask Ratnesh!</p>
 
         <div class="coupon-grid">
-          <!-- Coupon 1 -->
           <div class="coupon-card" id="coupon-1">
             <div class="coupon-badge">VIP PASS</div>
             <div class="coupon-content">
               <h3>💆 Full Relaxing Massage</h3>
-              <p>Redeemable for a 30-minute head, back, or foot massage whenever you're tired. Zero complaints allowed!</p>
+              <p>Redeemable for a 30-minute head, back, or foot massage after a tiring day of work or train travel.</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-1')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-1')">Redeem Coupon</button></div>
           </div>
 
-          <!-- Coupon 2 -->
           <div class="coupon-card" id="coupon-2">
-            <div class="coupon-badge">NIGHT OWL</div>
+            <div class="coupon-badge">SPECIAL TRIP</div>
             <div class="coupon-content">
-              <h3>🍦 Midnight Ice Cream Run</h3>
-              <p>Craving dessert at 12 AM? We hop in the car or order right away. Your favorite flavor guaranteed!</p>
+              <h3>⛰️ Return Trip to Lonavala</h3>
+              <p>Pack our bags and hop on the Vistadome train back to Lonavala for chai, waterfalls, and cool mountain air!</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-2')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-2')">Redeem Coupon</button></div>
           </div>
 
-          <!-- Coupon 3 -->
           <div class="coupon-card" id="coupon-3">
             <div class="coupon-badge">SUPER POWER</div>
             <div class="coupon-content">
               <h3>🏆 "You Win Any Argument"</h3>
-              <p>Play this card during any debate. Ratnesh must immediately surrender, admit you are right, and apologize with a hug!</p>
+              <p>Play this card anytime. Ratnesh must immediately surrender, admit you're right, and kiss your forehead.</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-3')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-3')">Redeem Coupon</button></div>
           </div>
 
-          <!-- Coupon 4 -->
           <div class="coupon-card" id="coupon-4">
             <div class="coupon-badge">QUEEN FOR A DAY</div>
             <div class="coupon-content">
               <h3>👑 24-Hour Princess Treatment</h3>
               <p>You don't lift a finger. Breakfast in bed, your favorite songs, your chosen movies, and spoiled non-stop.</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-4')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-4')">Redeem Coupon</button></div>
           </div>
 
-          <!-- Coupon 5 -->
           <div class="coupon-card" id="coupon-5">
-            <div class="coupon-badge">COZY VIBE</div>
+            <div class="coupon-badge">MATCH NIGHT</div>
             <div class="coupon-content">
-              <h3>🍿 Movie Night & Unlimited Snacks</h3>
-              <p>You choose the movie (even romantic comedies I pretend to resist!), unlimited popcorn, and tight cuddles.</p>
+              <h3>🍿 Private Couch Date & Snacks</h3>
+              <p>Recreating our legendary couch chats with all your favorite munchies, warm blankets, and zero distractions.</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-5')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-5')">Redeem Coupon</button></div>
           </div>
 
-          <!-- Coupon 6 -->
           <div class="coupon-card" id="coupon-6">
-            <div class="coupon-badge">FOODIE TREAT</div>
+            <div class="coupon-badge">GROOM PROMISE</div>
             <div class="coupon-content">
-              <h3>🍽️ Fancy Dinner Date</h3>
-              <p>Pick whichever cafe or restaurant you've been eyeing on Instagram. We dress up and feast!</p>
+              <h3>💍 Forever Yours Card</h3>
+              <p>Guaranteed to love, cherish, protect, and stand by Dakshita through every single day of our lives.</p>
             </div>
-            <div class="coupon-action">
-              <button class="claim-btn" onclick="redeemCoupon('coupon-6')">Redeem Coupon</button>
-            </div>
+            <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-6')">Redeem Coupon</button></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 10: Grand Finale: Personal Video & Love Letter -->
-    <section class="page-section" id="page-10" data-title="The Grand Finale">
+    <!-- PAGE 10: Video Albums & Grand Finale -->
+    <section class="page-section" id="page-10" data-title="Video Albums & Letter">
       <div class="glass-card finale-card">
-        <div class="badge-pill">The Grand Finale • Made With Endless Love</div>
-        <h2 class="section-title">A Special Video Just For You, Dakshita 🎬💖</h2>
-        <p class="section-desc">Press play to watch your birthday montage!</p>
+        <div class="badge-pill">The Grand Finale • 3 Video Albums (12 Videos)</div>
+        <h2 class="section-title">Videos Dedicated to You, Dakshita 🎬💖</h2>
+        <p class="section-desc">Select an album and play our favorite video clips:</p>
+
+        <!-- Video Album Tabs -->
+        <div class="video-tabs-bar">
+          <button class="video-tab-btn active" data-valbum="album1">😂 Album 1: Goofy & Cute Clips (4)</button>
+          <button class="video-tab-btn" data-valbum="album2">🚆 Album 2: Lonavala & Trains (4)</button>
+          <button class="video-tab-btn" data-valbum="album3">🎂 Album 3: Birthday Montages (4)</button>
+        </div>
 
         <!-- Video Cinema Frame -->
         <div class="video-cinema-frame">
-          <div class="cinema-glow"></div>
-          <video id="bebe-video" controls poster="assets/photos/photo1.svg">
-            <source src="assets/video/bebe_birthday_video.mp4" type="video/mp4">
-            <source src="assets/video/bebe_birthday_video.webm" type="video/webm">
+          <video id="main-video-player" controls poster="assets/photos/album1/photo1.svg">
+            <source id="main-video-source" src="assets/videos/album1/video1.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <div class="video-overlay-note">
-            🎥 Drop your video as <code>assets/video/bebe_birthday_video.mp4</code> or embed your YouTube link!
-          </div>
+          <div class="video-title-bar" id="current-video-title">Playing: Video 1 — Unfiltered Laughter</div>
+        </div>
+
+        <!-- Video Playlist Selector (4 videos per album) -->
+        <div class="video-playlist-grid" id="video-playlist-grid">
+          <!-- Populated by JS -->
         </div>
 
         <!-- Heartfelt Letter From Ratnesh -->
@@ -756,16 +653,16 @@
           </div>
           <div class="letter-body">
             <p>
-              Happy Birthday, my love. Looking at where we started and where we are today fills my heart with so much gratitude. Having you in my life is the greatest blessing I could ever ask for.
+              Happy 24th Birthday, my love. 24 looks absolutely stunning on you. Looking at how far we have come—from rushing to catch the evening local train together, to sitting on the office couch talking all night until the sun rose, to you coming over "just to check the match results"—every single memory is golden.
             </p>
             <p>
-              Your smile has the magical power to cure my deepest worries. Your voice brings calm to my busiest days. Thank you for loving me, for believing in me, and for being the most supportive, funny, and beautiful partner in this world.
+              Our trip to Lonavala showed me how peaceful and perfect the world is when I'm holding your hand in the cool mountain breeze. And remember those late-night calls where we analyzed who would make the best groom for you? God knew what He was doing. Today, I am the luckiest man on earth to say: I am your soon-to-be groom.
             </p>
             <p>
-              I promise to always stand by you through every high and low, to celebrate all your victories, to hold your hand when things get tough, and to love you more and more with every single breath.
+              You are gorgeous, you are hot, you are brilliantly caring, and your loyalty is something I cherish more than words could ever describe. Thank you for being my peace, my cheer, and my Bebe.
             </p>
             <p class="letter-sign">
-              Forever and always your Bebe,<br>
+              Forever and always your Bebe & Soon-To-Be Groom,<br>
               <strong>Ratnesh 💕</strong>
             </p>
           </div>
@@ -773,15 +670,9 @@
 
         <!-- Interactive Celebration Actions -->
         <div class="finale-actions">
-          <button class="btn btn-primary btn-large" id="shower-hearts-btn">
-            💖 Shower 10,000 Floating Hearts!
-          </button>
-          <button class="btn btn-secondary btn-large" id="send-reply-btn">
-            💬 Send Birthday Reply to Ratnesh
-          </button>
-          <button class="btn btn-outline" id="restart-journey-btn">
-            🔄 Relive the Journey (Back to Page 1)
-          </button>
+          <button class="btn btn-primary btn-large" id="shower-hearts-btn">💖 Shower Dakshita with 10,000 Hearts!</button>
+          <button class="btn btn-secondary btn-large" id="send-reply-btn">💬 Send Birthday Reply to Ratnesh</button>
+          <button class="btn btn-outline" id="restart-journey-btn">🔄 Relive Our Story (Back to Page 1)</button>
         </div>
       </div>
     </section>
@@ -791,9 +682,7 @@
   <!-- Bottom Floating Page Navigation Bar -->
   <footer class="bottom-nav-bar">
     <button class="footer-nav-btn" id="footer-prev-btn">❮ Previous</button>
-    <div class="page-dots-bar" id="page-dots-bar">
-      <!-- 10 dots generated by JS -->
-    </div>
+    <div class="page-dots-bar" id="page-dots-bar"></div>
     <button class="footer-nav-btn" id="footer-next-btn">Next Page ❯</button>
   </footer>
 
@@ -823,9 +712,7 @@
       <button class="modal-close-btn" id="letter-close-btn">&times;</button>
       <div class="letter-stamp">💌</div>
       <h3 id="letter-modal-title">Letter Title</h3>
-      <div class="letter-modal-body" id="letter-modal-body">
-        Letter content here...
-      </div>
+      <div class="letter-modal-body" id="letter-modal-body">Letter content here...</div>
       <div class="letter-footer-note">— Forever your Bebe, Ratnesh 💖</div>
     </div>
   </div>
@@ -836,7 +723,7 @@
     <div class="modal-content wish-modal-card">
       <button class="modal-close-btn" id="wish-close-btn">&times;</button>
       <div class="wish-modal-icon">✨🎂✨</div>
-      <h3>Make a Secret Birthday Wish, Bebe!</h3>
+      <h3>Make a Secret Birthday Wish, Dakshita!</h3>
       <p>Type whatever your heart desires, and send it into the universe:</p>
       <textarea id="secret-wish-input" rows="3" placeholder="I wish for..."></textarea>
       <button class="btn btn-primary" id="submit-wish-btn">Send Wish to the Stars ⭐</button>
