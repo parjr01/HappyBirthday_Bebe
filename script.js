@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ------------------------------------------------------------------------
-  // 0. STRICT FULL-SCREEN LOCK CONTROLLER & PASSCODE SYSTEM
+  // 0. LUXURY FULL-SCREEN LOCK CONTROLLER (PASSCODE: 0802 ONLY)
   // ------------------------------------------------------------------------
   const lockOverlay = document.getElementById('lock-screen-overlay');
   const lockDays = document.getElementById('lock-days');
@@ -13,14 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const lockMinutes = document.getElementById('lock-minutes');
   const lockSeconds = document.getElementById('lock-seconds');
 
-  // Passcode Modal Elements
+  // Inline Passcode Elements
   const lockIconTrigger = document.getElementById('lock-icon-trigger');
-  const openPasscodeBtn = document.getElementById('open-passcode-modal-btn');
-  const passcodeModal = document.getElementById('passcode-modal');
-  const passcodeCloseBtn = document.getElementById('passcode-close-btn');
-  const passcodeBackdrop = document.getElementById('passcode-modal-backdrop');
-  const passcodeSubmitBtn = document.getElementById('submit-passcode-btn');
+  const togglePasscodeBtn = document.getElementById('toggle-passcode-box-btn');
+  const inlinePasscodeBox = document.getElementById('inline-passcode-box');
   const passcodeInput = document.getElementById('passcode-input');
+  const passcodeSubmitBtn = document.getElementById('submit-passcode-btn');
   const passcodeErrorMsg = document.getElementById('passcode-error-msg');
   const previewBanner = document.getElementById('preview-active-banner');
   const relockBtn = document.getElementById('relock-website-btn');
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Keep locked until midnight
+    // Keep strictly locked until midnight
     document.body.classList.add('is-locked');
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -70,37 +68,41 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLockCountdown();
   setInterval(updateLockCountdown, 1000);
 
-  // Passcode Modal Controls
-  function openPasscodeModal() {
-    passcodeModal.classList.add('show');
-    passcodeErrorMsg.textContent = '';
-    passcodeInput.value = '';
-    setTimeout(() => passcodeInput.focus(), 200);
+  // Toggle Inline Passcode Box
+  function togglePasscodeBox() {
+    if (!inlinePasscodeBox) return;
+    if (inlinePasscodeBox.style.display === 'none' || !inlinePasscodeBox.style.display) {
+      inlinePasscodeBox.style.display = 'block';
+      if (passcodeInput) {
+        passcodeInput.value = '';
+        passcodeInput.focus();
+      }
+      if (passcodeErrorMsg) passcodeErrorMsg.textContent = '';
+    } else {
+      inlinePasscodeBox.style.display = 'none';
+    }
   }
 
-  function closePasscodeModal() {
-    passcodeModal.classList.remove('show');
-  }
+  if (togglePasscodeBtn) togglePasscodeBtn.addEventListener('click', togglePasscodeBox);
+  if (lockIconTrigger) lockIconTrigger.addEventListener('click', togglePasscodeBox);
 
-  if (lockIconTrigger) lockIconTrigger.addEventListener('click', openPasscodeModal);
-  if (openPasscodeBtn) openPasscodeBtn.addEventListener('click', openPasscodeModal);
-  if (passcodeCloseBtn) passcodeCloseBtn.addEventListener('click', closePasscodeModal);
-  if (passcodeBackdrop) passcodeBackdrop.addEventListener('click', closePasscodeModal);
-
+  // Strictly verify 0802 ONLY
   function verifyPasscode() {
-    const entered = passcodeInput.value.trim().toLowerCase();
-    // Valid passcodes: 0509, bebe, 05092002, ratnesh
-    if (entered === '0509' || entered === 'bebe' || entered === '05092002' || entered === 'ratnesh') {
+    if (!passcodeInput) return;
+    const entered = passcodeInput.value.trim();
+
+    if (entered === '0802') {
       isBypassed = true;
       document.body.classList.remove('is-locked');
-      closePasscodeModal();
+      if (inlinePasscodeBox) inlinePasscodeBox.style.display = 'none';
       if (previewBanner) previewBanner.style.display = 'flex';
       goToPage(1);
-      launchConfetti(120);
+      launchConfetti(150);
       playChime(783.99, 0.4);
     } else {
-      passcodeErrorMsg.textContent = '❌ Incorrect passcode! Try: 0509 or bebe';
-      playChime(300, 0.2);
+      if (passcodeErrorMsg) passcodeErrorMsg.textContent = '❌ Incorrect passcode! Try again.';
+      passcodeInput.style.borderColor = '#ff4d6d';
+      playChime(250, 0.25);
     }
   }
 
@@ -111,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Relock Button
   if (relockBtn) {
     relockBtn.addEventListener('click', () => {
       isBypassed = false;
@@ -121,8 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ------------------------------------------------------------------------
-  // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
+    // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
   // ------------------------------------------------------------------------
   const totalPages = 10;
   let currentPage = 1;

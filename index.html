@@ -12,61 +12,90 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="is-locked">
-  <!-- STRICT FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
+    <!-- LUXURY FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
   <div id="lock-screen-overlay" class="lock-overlay">
-    <div class="lock-content glass-card">
-      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Tap to enter secret passcode">
-        <div class="lock-pulsing-circle">
-          <span class="big-lock-icon">🔒</span>
+    <!-- Ambient glowing light orbs -->
+    <div class="lock-glow-orb orb-1"></div>
+    <div class="lock-glow-orb orb-2"></div>
+    <div class="lock-glow-orb orb-3"></div>
+
+    <div class="lock-content glass-card luxury-lock-card">
+      <!-- Shimmering Top Badge -->
+      <div class="luxury-badge">
+        <span class="sparkle-star">✨</span> Top Secret • Birthday Vault <span class="sparkle-star">✨</span>
+      </div>
+
+      <!-- Glowing Padlock Icon with Interactive Click -->
+      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Tap to enter passcode 0802">
+        <div class="lock-glow-ring">
+          <div class="lock-center-circle">
+            <span class="luxury-lock-icon">🔒</span>
+          </div>
         </div>
       </div>
-      <div class="badge-pill">Top Secret • Surprise Locked 🎁</div>
-      <h1 class="lock-title">Hold On, <span class="highlight-text">Dakshita!</span> ✨</h1>
+
+      <h1 class="lock-title">Hold On, <span class="highlight-text-luxury">Dakshita!</span> 💖</h1>
       <p class="lock-subtitle">
-        Your 24th birthday celebration is safely locked and brewing with infinite love for you, my Bebe.<br>
+        Your 24th birthday celebration is safely locked and brewing with infinite love from your Bebe (Ratnesh).<br>
         It will automatically unlock the exact second the clock strikes midnight on <strong>September 5th</strong>!
       </p>
 
-      <!-- Live Full Countdown Screen -->
-      <div class="lock-countdown-box">
-        <div class="lock-cd-label">Countdown to Dakshita's 24th Birthday (Sept 5, 2002 ➔ 2026):</div>
-        <div class="lock-cd-grid">
-          <div class="lock-cd-item"><span id="lock-days">01</span><small>Days</small></div>
-          <div class="lock-cd-item"><span id="lock-hours">08</span><small>Hours</small></div>
-          <div class="lock-cd-item"><span id="lock-minutes">47</span><small>Mins</small></div>
-          <div class="lock-cd-item"><span id="lock-seconds">00</span><small>Secs</small></div>
+      <!-- High-End Glass Countdown Timer -->
+      <div class="luxury-countdown-box">
+        <div class="luxury-cd-header">
+          <span class="cd-dot"></span> Countdown to 5th September 2026, 00:00:00 IST <span class="cd-dot"></span>
+        </div>
+        <div class="luxury-cd-grid">
+          <div class="luxury-cd-tile">
+            <span class="cd-num" id="lock-days">01</span>
+            <span class="cd-unit">Days</span>
+          </div>
+          <div class="luxury-cd-separator">:</div>
+          <div class="luxury-cd-tile">
+            <span class="cd-num" id="lock-hours">08</span>
+            <span class="cd-unit">Hours</span>
+          </div>
+          <div class="luxury-cd-separator">:</div>
+          <div class="luxury-cd-tile">
+            <span class="cd-num" id="lock-minutes">31</span>
+            <span class="cd-unit">Mins</span>
+          </div>
+          <div class="luxury-cd-separator">:</div>
+          <div class="luxury-cd-tile">
+            <span class="cd-num" id="lock-seconds">20</span>
+            <span class="cd-unit">Secs</span>
+          </div>
         </div>
       </div>
 
-      <div class="lock-note-box">
-        🌸 <em>"The best things in life are worth waiting for... See you at 00:00, my queen!"</em> 💕
+      <div class="luxury-quote">
+        🌸 <em>"The most beautiful girl in the world deserves the most unforgettable surprise. See you at midnight, my queen!"</em> 💕
       </div>
 
-      <div class="lock-passcode-hint">
-        <button id="open-passcode-modal-btn" class="passcode-trigger-btn">🔑 Ratnesh Passcode Login</button>
-      </div>
-    </div>
-  </div>
+      <!-- Direct Inline Passcode Access Section (Passcode: 0802) -->
+      <div class="passcode-section-wrapper">
+        <button id="toggle-passcode-box-btn" class="luxury-passcode-toggle-btn" type="button">
+          <span class="key-icon">🔑</span> Ratnesh Passcode Login
+        </button>
 
-  <!-- Passcode Entry Modal for Ratnesh -->
-  <div class="modal" id="passcode-modal">
-    <div class="modal-backdrop" id="passcode-modal-backdrop"></div>
-    <div class="modal-content passcode-modal-card">
-      <button class="modal-close-btn" id="passcode-close-btn">&times;</button>
-      <div class="passcode-icon">🔐</div>
-      <h3>Ratnesh's Secret Access</h3>
-      <p>Enter your secret passcode to bypass the lock and preview the website:</p>
-      <input type="password" id="passcode-input" placeholder="Enter passcode..." maxlength="20" autofocus />
-      <div id="passcode-error-msg" class="passcode-error"></div>
-      <button class="btn btn-primary" id="submit-passcode-btn">Unlock Website 🚀</button>
-      <small class="passcode-helper-text">Hint: <code>0509</code> or <code>bebe</code></small>
+        <!-- Slide-down Inline Passcode Box -->
+        <div id="inline-passcode-box" class="inline-passcode-box" style="display: none;">
+          <div class="inline-passcode-title">Enter Secret Passcode (0802):</div>
+          <div class="passcode-input-group">
+            <input type="password" id="passcode-input" placeholder="Enter PIN" maxlength="10" inputmode="numeric" autocomplete="off" />
+            <button id="submit-passcode-btn" class="passcode-submit-btn" type="button">Unlock 🚀</button>
+          </div>
+          <div id="passcode-error-msg" class="passcode-error-text"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- Floating Banner when Preview Mode is Active -->
   <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
-    <span>👑 <strong>Ratnesh Preview Active</strong> (All 10 pages unlocked)</span>
-    <button id="relock-website-btn" class="relock-btn">🔒 Re-enable Lock for Dakshita</button>
+    <span>👑 <strong>Ratnesh Preview Active</strong> (Passcode 0802 verified)</span>
+    <button id="relock-website-btn" class="relock-btn" type="button">🔒 Re-enable Lock for Dakshita</button>
   </div>
 
   <!-- Canvas for Confetti & Particles -->
