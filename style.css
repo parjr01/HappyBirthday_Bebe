@@ -962,7 +962,7 @@ body:not(.is-locked) .lock-overlay {
 }
 
 /* ==========================================================================
-   PAGE 2: BIRTHDAY CAKE & CANDLE CEREMONY
+   PAGE 2: REALISTIC CANDLE BLOWING, SMOKE WISPS & WIND GUST
    ========================================================================== */
 .cake-stage {
   position: relative;
@@ -971,6 +971,28 @@ body:not(.is-locked) .lock-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.wind-gust {
+  position: absolute;
+  top: -15px;
+  left: -80px;
+  font-size: 42px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.6));
+}
+
+.wind-gust.active {
+  animation: windSwoosh 0.85s ease-in-out forwards;
+}
+
+@keyframes windSwoosh {
+  0% { transform: translateX(0) scale(0.7); opacity: 0; }
+  25% { opacity: 1; transform: translateX(110px) scale(1.3); }
+  65% { opacity: 0.85; transform: translateX(250px) scale(1.1); }
+  100% { transform: translateX(400px) scale(0.8); opacity: 0; }
 }
 
 .cake-plate {
@@ -1039,11 +1061,13 @@ body:not(.is-locked) .lock-overlay {
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Realistic Candles & Flames */
 .candles-row {
   display: flex;
-  gap: 16px;
-  margin-bottom: 4px;
-  z-index: 10;
+  gap: 20px;
+  margin-bottom: 2px;
+  z-index: 15;
+  position: relative;
 }
 
 .candle {
@@ -1052,35 +1076,152 @@ body:not(.is-locked) .lock-overlay {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.candle:hover {
+  transform: scale(1.08);
 }
 
 .candle-stick {
-  width: 8px;
-  height: 32px;
-  background: repeating-linear-gradient(45deg, #fff, #fff 4px, #ff4d6d 4px, #ff4d6d 8px);
-  border-radius: 4px 4px 0 0;
+  width: 9px;
+  height: 36px;
+  background: repeating-linear-gradient(45deg, #fff, #fff 4px, #ff4d6d 4px, #ff4d6d 9px);
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.wick {
+  width: 2px;
+  height: 7px;
+  background: #2b1020;
+  border-radius: 1px;
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 3;
 }
 
 .flame {
-  width: 14px;
-  height: 22px;
-  background: radial-gradient(circle, #ffea00 30%, #ff7b00 70%, transparent 100%);
+  width: 16px;
+  height: 26px;
+  background: radial-gradient(ellipse at 50% 85%, #ffffff 15%, #ffea00 45%, #ff5400 80%, transparent 98%);
   border-radius: 50% 50% 35% 35%;
   margin-bottom: 2px;
-  box-shadow: 0 0 14px #ffea00, 0 0 26px #ff7b00;
-  animation: flicker 0.6s infinite alternate ease-in-out;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  box-shadow: 0 0 16px #ffea00, 0 0 28px #ff7b00, 0 0 45px rgba(255, 120, 0, 0.45);
+  animation: naturalFlameFlicker 0.9s infinite alternate ease-in-out;
+  transform-origin: center bottom;
+  position: relative;
+  z-index: 5;
+  transition: all 0.25s ease;
 }
 
-@keyframes flicker {
-  0% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
-  50% { transform: scale(1.15) rotate(2deg); opacity: 1; }
-  100% { transform: scale(0.92) rotate(-1deg); opacity: 0.9; }
+@keyframes naturalFlameFlicker {
+  0% { transform: scale(1) rotate(-2deg); }
+  25% { transform: scale(1.04, 0.96) rotate(1.5deg); }
+  50% { transform: scale(0.96, 1.05) rotate(-1deg); }
+  75% { transform: scale(1.06, 0.94) rotate(2deg); }
+  100% { transform: scale(1, 1.02) rotate(-0.5deg); }
+}
+
+.candle.blowing .flame {
+  animation: candleBlownOff 0.5s ease-out forwards;
+}
+
+@keyframes candleBlownOff {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.3, 0.45) skewX(-45deg) translateX(10px);
+    opacity: 0.95;
+    box-shadow: 0 0 20px #ff7b00;
+  }
+  55% {
+    transform: scale(0.8, 0.25) skewX(-65deg) translateX(22px) translateY(-8px);
+    opacity: 0.6;
+    filter: blur(1.5px);
+  }
+  100% {
+    transform: scale(0) translateX(36px) translateY(-18px);
+    opacity: 0;
+  }
 }
 
 .candle.blown .flame {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.smoke {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
   opacity: 0;
-  transform: scale(0.1) translateY(-10px);
+  z-index: 10;
+}
+
+.candle.blown .smoke {
+  opacity: 1;
+  animation: smokeCurlUp 2.4s ease-out forwards;
+}
+
+@keyframes smokeCurlUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(0.5);
+    box-shadow: 0 0 4px 3px rgba(230, 230, 230, 0.9);
+    border-radius: 50%;
+  }
+  15% {
+    opacity: 0.85;
+    transform: translateX(-35%) translateY(-15px) scale(1.3);
+    box-shadow: -4px 0 8px 6px rgba(210, 210, 210, 0.7);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  45% {
+    opacity: 0.65;
+    transform: translateX(-65%) translateY(-38px) scale(2.2);
+    box-shadow: 6px 0 14px 10px rgba(190, 190, 190, 0.5);
+    border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%;
+  }
+  75% {
+    opacity: 0.3;
+    transform: translateX(-40%) translateY(-65px) scale(3.4);
+    box-shadow: -8px 0 20px 14px rgba(180, 180, 180, 0.25);
+    border-radius: 50%;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-55%) translateY(-90px) scale(4.8);
+    box-shadow: 0 0 24px 18px rgba(170, 170, 170, 0);
+  }
+}
+
+.candle.blown .wick::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ff5400;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff5400;
+  animation: emberGlowFade 3s ease-out forwards;
+}
+
+@keyframes emberGlowFade {
+  0% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  50% { opacity: 0.8; background: #c9184a; }
+  100% { opacity: 0; transform: translateX(-50%) scale(0.5); }
 }
 
 .wish-reveal-box {
@@ -2072,4 +2213,359 @@ body:not(.is-locked) .lock-overlay {
   .glass-card {
     padding: 28px 18px;
   }
+}
+
+
+/* ==========================================================================
+   DYNAMIC RESPONSIVE DESIGN: MOBILE, TABLET, PROJECTOR, AND TV
+   ========================================================================== */
+
+/* Safe area support for iOS notched devices */
+@supports (padding: max(0px)) {
+  .top-nav {
+    padding-top: max(0px, env(safe-area-inset-top));
+    height: calc(70px + max(0px, env(safe-area-inset-top)));
+  }
+  .bottom-nav-bar {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    height: calc(70px + max(0px, env(safe-area-inset-bottom)));
+  }
+  .pages-wrapper {
+    padding-top: calc(85px + max(0px, env(safe-area-inset-top)));
+    padding-bottom: calc(95px + max(0px, env(safe-area-inset-bottom)));
+  }
+}
+
+/* Fluid Typography Across All Viewports */
+.hero-title {
+  font-size: clamp(2rem, 5vw + 0.5rem, 3.8rem);
+}
+.highlight-text, .highlight-text-luxury {
+  font-size: clamp(2.6rem, 7vw + 0.5rem, 5rem);
+}
+.section-title {
+  font-size: clamp(1.6rem, 3.8vw + 0.4rem, 2.8rem);
+}
+.section-desc {
+  font-size: clamp(0.92rem, 1.8vw + 0.2rem, 1.2rem);
+}
+.lock-title {
+  font-size: clamp(1.8rem, 4.5vw + 0.5rem, 3.2rem);
+}
+
+/* Video Player Aspect Ratio */
+.video-cinema-frame video {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+/* Small Mobiles & Phones (< 576px) */
+@media (max-width: 576px) {
+  .top-nav {
+    padding: 0 12px;
+  }
+  .logo-text {
+    font-size: 1.35rem;
+  }
+  .btn-label {
+    display: none !important;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .page-indicator-wrap {
+    gap: 4px;
+  }
+  .page-pill {
+    padding: 5px 10px;
+    font-size: 0.82rem;
+  }
+  .nav-arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .glass-card {
+    padding: 26px 16px;
+    border-radius: 20px;
+  }
+  
+  /* Cake Scaling for Mobile */
+  .cake-stage {
+    transform: scale(0.85);
+    margin: 20px auto 10px auto;
+  }
+  
+  /* Countdown Timer Mobile Wrap */
+  .luxury-cd-grid {
+    gap: 6px;
+  }
+  .luxury-cd-tile {
+    min-width: 58px;
+    padding: 8px 10px;
+  }
+  .cd-num {
+    font-size: 1.6rem;
+  }
+  .cd-unit {
+    font-size: 0.65rem;
+  }
+  .luxury-cd-separator {
+    font-size: 1.4rem;
+  }
+
+  /* Photo & Video Grids */
+  .album-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .album-img-wrap {
+    height: 145px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .flip-card {
+    height: 185px;
+  }
+  .flip-card-front, .flip-card-back {
+    padding: 12px 8px;
+    font-size: 0.8rem;
+  }
+
+  /* Lounge buttons grid */
+  .lounge-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Bottom nav bar */
+  .bottom-nav-bar {
+    padding: 0 14px;
+  }
+  .footer-nav-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+  .page-dot {
+    width: 7px;
+    height: 7px;
+  }
+  .page-dot.active {
+    width: 18px;
+  }
+}
+
+/* Extra Small Phones (< 360px) */
+@media (max-width: 360px) {
+  .cake-stage {
+    transform: scale(0.74);
+  }
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .lounge-buttons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablets & iPads (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .pages-wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .album-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .album-img-wrap {
+    height: 200px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .video-playlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Screens, Projectors & Smart TVs (>= 1600px) */
+@media (min-width: 1600px) {
+  .pages-wrapper {
+    max-width: 1380px;
+    margin: 0 auto;
+  }
+  .page-section {
+    max-width: 1300px;
+  }
+  .glass-card {
+    padding: 56px 48px;
+    border-radius: 32px;
+  }
+  .luxury-lock-card {
+    max-width: 860px !important;
+    padding: 54px 44px !important;
+  }
+  .cake-stage {
+    transform: scale(1.28);
+    margin: 50px auto 40px auto;
+  }
+  .album-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px;
+  }
+  .album-img-wrap {
+    height: 230px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .flip-card {
+    height: 250px;
+  }
+  .video-cinema-frame {
+    max-width: 980px;
+  }
+  .letter-box {
+    max-width: 900px;
+    padding: 48px;
+  }
+  .luxury-cd-tile {
+    min-width: 96px;
+    padding: 16px 22px;
+  }
+  .cd-num {
+    font-size: 2.8rem;
+  }
+  .luxury-cd-separator {
+    font-size: 2.4rem;
+  }
+}
+
+/* 4K Displays & High-End Laser Projectors (>= 2200px) */
+@media (min-width: 2200px) {
+  html {
+    font-size: 19px;
+  }
+  .pages-wrapper {
+    max-width: 1700px;
+  }
+  .page-section {
+    max-width: 1600px;
+  }
+  .cake-stage {
+    transform: scale(1.5);
+    margin: 60px auto 50px auto;
+  }
+  .video-cinema-frame {
+    max-width: 1280px;
+  }
+  .album-img-wrap {
+    height: 280px;
+  }
+}
+
+/* High Contrast Mode Optimization for Projectors (Keeps text vivid on washed-out walls) */
+@media screen and (min-width: 1024px) {
+  .section-title, .hero-title, .lock-title {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+  .timeline-content {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+/* Specific Album Styling */
+.album-header-banner {
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.08), rgba(255, 209, 102, 0.12));
+  border: 1px solid #ffd1dc;
+  border-radius: 16px;
+  padding: 14px 20px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.album-header-banner h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--deep-rose);
+  margin-bottom: 4px;
+}
+
+.album-header-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.album-tag-pill {
+  display: inline-block;
+  background: var(--soft-blush);
+  color: var(--deep-rose);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #ffd1dc;
+  line-height: 1.3;
+}
+
+.album-caption-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  text-align: center;
+  padding: 0 4px;
+}
+
+
+/* Video Album Wrappers & Detailed Cards */
+.video-album-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin: 20px 0 30px 0;
+}
+
+.video-card-item {
+  background: #ffffff;
+  border: 1.5px solid #ffd1dc;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-card-item:hover, .video-card-item.active {
+  background: var(--soft-blush);
+  border-color: var(--primary-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 77, 109, 0.2);
+}
+
+.video-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+
+.video-card-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.35;
 }

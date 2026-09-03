@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       launchConfetti(150);
       playChime(783.99, 0.4);
     } else {
-      if (passcodeErrorMsg) passcodeErrorMsg.textContent = '❌ Incorrect passcode! Try again.';
+      if (passcodeErrorMsg) passcodeErrorMsg.textContent = '❌ Incorrect passcode! Access denied.';
       passcodeInput.style.borderColor = '#ff4d6d';
       playChime(250, 0.25);
     }
@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  
   // ------------------------------------------------------------------------
   // WAITING LOUNGE INTERACTIVE PLAY BUTTONS FOR DAKSHITA
   // ------------------------------------------------------------------------
@@ -146,12 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let pleadIndex = 0;
 
   const secretTeasers = [
-    { icon: "🎂", text: "Hint #1: There's an interactive 3-tier birthday cake inside where you can literally blow out the candles!" },
-    { icon: "🚆", text: "Hint #2: 5 photo albums with 50 pictures... including our chaotic daily local train rides together!" },
-    { icon: "💍", text: "Hint #3: A secret letter from your soon-to-be groom that will make your heart flutter!" },
-    { icon: "🎟️", text: "Hint #4: 6 golden VIP coupons (massages, return trip to Lonavala, argument-pass) that Ratnesh cannot refuse!" },
-    { icon: "🛋️", text: "Hint #5: The untold memories of our legendary all-nighter on the office couch until dawn..." },
-    { icon: "🎬", text: "Hint #6: 3 video albums with 12 video clips dedicated entirely to you!" }
+    { icon: "🎂", text: "Hint #1: There's an interactive 3-tier cake where you can literally blow out the candles with real wind!" },
+    { icon: "📸", text: "Hint #2: 5 curated photo albums with 50 pictures exploring our goofiest, stylish, and cozy sides!" },
+    { icon: "💍", text: "Hint #3: A private love letter from your soon-to-be groom that will definitely make you blush..." },
+    { icon: "🎟️", text: "Hint #4: 6 VIP Golden Coupons (head massage, zero chores, argument passes) Ratnesh cannot refuse!" },
+    { icon: "🛋️", text: "Hint #5: The origin story of how staying on the office couch until dawn changed everything between us..." },
+    { icon: "🎬", text: "Hint #6: 3 dedicated video albums with 12 video clips waiting inside!" }
   ];
 
   const loveFortunes = [
@@ -177,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
     feedbackText.textContent = text;
   }
 
-  // 1. Pop Confetti
   if (btnPopConfetti) {
     btnPopConfetti.addEventListener('click', () => {
       launchConfetti(120);
@@ -186,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. Secret Teaser Hint
   if (btnDropTeaser) {
     btnDropTeaser.addEventListener('click', () => {
       const item = secretTeasers[teaserIndex % secretTeasers.length];
@@ -196,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Send Virtual Hugs
   if (btnSendHugs) {
     btnSendHugs.addEventListener('click', () => {
       hugsSent++;
@@ -209,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Love Fortune Cookie
   if (btnFortune) {
     btnFortune.addEventListener('click', () => {
       const item = loveFortunes[fortuneIndex % loveFortunes.length];
@@ -219,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Play Sweet Melody
   if (btnPlayMelody) {
     btnPlayMelody.addEventListener('click', () => {
       initAudio();
@@ -237,7 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Plead to open early
   if (btnPleadUnlock) {
     btnPleadUnlock.addEventListener('click', () => {
       const item = pleadResponses[pleadIndex % pleadResponses.length];
@@ -247,6 +240,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ------------------------------------------------------------------------
+  // TV / PROJECTOR FULLSCREEN TOGGLE
+  // ------------------------------------------------------------------------
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+        }
+        fullscreenBtn.innerHTML = '⛶ <span class="btn-label">Exit Fullscreen</span>';
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+        fullscreenBtn.innerHTML = '📺 <span class="btn-label">TV / Fullscreen</span>';
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        fullscreenBtn.innerHTML = '📺 <span class="btn-label">TV / Fullscreen</span>';
+      } else {
+        fullscreenBtn.innerHTML = '⛶ <span class="btn-label">Exit Fullscreen</span>';
+      }
+    });
+  }
+
+  // ------------------------------------------------------------------------
   // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
   // ------------------------------------------------------------------------
   const totalPages = 10;
@@ -262,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const quickMenu = document.getElementById('quick-menu');
   const quickMenuItems = document.querySelectorAll('.quick-menu-item');
 
-  // Build dots
   for (let i = 1; i <= totalPages; i++) {
     const dot = document.createElement('div');
     dot.className = `page-dot ${i === 1 ? 'active' : ''}`;
@@ -339,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Touch swipe gesture navigation
   let touchStartX = 0;
   let touchEndX = 0;
   document.addEventListener('touchstart', (e) => {
@@ -356,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ------------------------------------------------------------------------
-  // 2. ROMANTIC AMBIENT SYNTHESIZER (Web Audio API)
+  // 2. ROMANTIC AMBIENT SYNTHESIZER & WIND AUDIO (Web Audio API)
   // ------------------------------------------------------------------------
   let audioCtx = null;
   let isPlayingMusic = false;
@@ -389,15 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {}
   }
 
-  const romanticMelody = [
-    523.25, 659.25, 783.99, 987.77, 1046.50,
-    587.33, 698.46, 880.00, 1046.50,
-    659.25, 783.99, 987.77, 1174.66,
-    440.00, 523.25, 659.25, 783.99
-  ];
-  let noteIndex = 0;
-
-    // Realistic Wind Breath Sound Synthesizer
   function playWindBlowSound() {
     try {
       initAudio();
@@ -431,6 +446,14 @@ document.addEventListener('DOMContentLoaded', () => {
       noise.stop(audioCtx.currentTime + 0.85);
     } catch (e) {}
   }
+
+  const romanticMelody = [
+    523.25, 659.25, 783.99, 987.77, 1046.50,
+    587.33, 698.46, 880.00, 1046.50,
+    659.25, 783.99, 987.77, 1174.66,
+    440.00, 523.25, 659.25, 783.99
+  ];
+  let noteIndex = 0;
 
   function loopMelody() {
     if (!isPlayingMusic) return;
@@ -602,14 +625,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
-  // Click individual candles to blow out
   candles.forEach(candle => {
     candle.addEventListener('click', () => {
       if (!candle.classList.contains('blown')) {
         playWindBlowSound();
         blowSingleCandle(candle, 0);
       } else {
-        // Tap to relight individual candle
         candle.classList.remove('blown');
         candle.classList.remove('blowing');
         playChime(523.25, 0.15);
@@ -632,15 +653,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (blowCandlesBtn) {
     blowCandlesBtn.addEventListener('click', () => {
       playWindBlowSound();
-
-      // Trigger wind gust swoosh across cake
       if (windGust) {
         windGust.classList.remove('active');
         void windGust.offsetWidth;
         windGust.classList.add('active');
       }
-
-      // Staggered breath blow across candles 1, 2, 3, 4
       candles.forEach((candle, idx) => {
         blowSingleCandle(candle, idx * 110);
       });
@@ -680,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 6. PAGE 3: 10 REASONS FLIP CARDS & LOVE METER
+  // 6. PAGE 3: 10 NUANCES FLIP CARDS & LOVE METER
   // ------------------------------------------------------------------------
   const flipCards = document.querySelectorAll('.flip-card');
   flipCards.forEach(card => {
@@ -735,98 +752,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 8. PAGE 5: 5 PHOTO ALBUMS (10 PICTURES EACH = 50 PHOTOS TOTAL)
+  // 8. PAGE 5: 5 SPECIFIC CURATED PHOTO ALBUMS & LIGHTBOX
   // ------------------------------------------------------------------------
-  const albumData = {
-    album1: {
-      name: "Daily Train Commutes",
-      desc: "Our daily local train rides between office and home.",
-      count: 10,
-      captions: [
-        "Waiting on the platform for our train 🚆",
-        "Sharing earphones and listening to our playlist 🎵",
-        "Squeezing together in the rush hour rush 💕",
-        "Evening city lights passing by the window ✨",
-        "Laughing about our crazy workday 😂",
-        "That cute tired smile on the train seat 🥺",
-        "Holding hands as the train speeds ahead 🤝",
-        "Stealing glances in the crowded compartment 👀",
-        "Our favorite commuting spot 🚉",
-        "Making every commute feel like a date ❤️"
-      ]
-    },
-    album2: {
-      name: "Our Lonavala Getaway",
-      desc: "Scenic train ride, misty hills, and waterfalls in Lonavala.",
-      count: 10,
-      captions: [
-        "Boarding the scenic train to Lonavala 🚂",
-        "Watching the Western Ghats roll by the glass 🌿",
-        "Cool mountain breeze in your hair ⛰️",
-        "Holding hands in the misty rain 🌧️",
-        "Standing beside the gushing waterfalls 💦",
-        "Hot chai and cozy moments in the hills ☕",
-        "You looking breathtaking against the green valleys 🌲",
-        "Golden hour sunset behind the clouds 🌅",
-        "Unforgettable laughter in the quiet hills 😂",
-        "Forever grateful for our Lonavala trip 💖"
-      ]
-    },
-    album3: {
-      name: "Office Couch All-Nighter",
-      desc: "The legendary night we spent talking on the office couch.",
-      count: 10,
-      captions: [
-        "Late evening when the office went completely quiet 🤫",
-        "Settling into the cozy office couch 🛋️",
-        "Midnight snacks and deep conversations 🍕",
-        "Talking about our wildest dreams at 2 AM 🌟",
-        "Your contagious giggles echoing in the empty hall 😂",
-        "Sharing secrets that brought us so close 🤍",
-        "3 AM sleepy eyes and cute yawns 🥺",
-        "Watching the dark sky slowly turn to dawn 🌅",
-        "The moment I knew you were my forever 💍",
-        "A night that changed everything between us 💕"
-      ]
-    },
-    album4: {
-      name: "Match Day at My Place",
-      desc: "When you came over 'just to check the match results'!",
-      count: 10,
-      captions: [
-        "The first time you walked through my door 🚪",
-        "Pretending it was strictly 'about the match' 😉",
-        "Cheering and yelling at the screen together 🏏",
-        "Sharing snacks and stealing cute glances 👀",
-        "Butterflies that refused to go away 🦋",
-        "Laughing at how little we actually watched the game 😂",
-        "Making my room feel like home for the first time 🏡",
-        "That unforgettable smile on my couch 🥰",
-        "The best excuse we ever came up with 💖",
-        "The beginning of so many cozy home moments ✨"
-      ]
-    },
-    album5: {
-      name: "Hot, Gorgeous & Loyal Dakshita",
-      desc: "Celebrating my queen—radiant, stunning, and fiercely loyal.",
-      count: 10,
-      captions: [
-        "Undeniably hot—turning heads effortlessly 🔥",
-        "The most stunning smile in the universe ☀️",
-        "Elegance and grace in every single frame 👑",
-        "That radiant glow that lights up my world ✨",
-        "Fiercely loyal and deeply caring heart 🤍",
-        "My favorite person to stare at forever 😍",
-        "Perfection without even trying 🌸",
-        "Beauty, intelligence, and unmatched charm 💎",
-        "My queen, my inspiration, my Bebe 🌹",
-        "I am so blessed to be your soon-to-be groom 💍"
-      ]
-    }
-  };
-
-  const albumDisplayArea = document.getElementById('album-display-area');
   const albumTabBtns = document.querySelectorAll('.album-tab-btn');
+  const albumWrappers = document.querySelectorAll('.album-grid-wrapper');
 
   // Lightbox Modal Elements
   const photoModal = document.getElementById('photo-modal');
@@ -838,57 +767,73 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxPrevBtn = document.getElementById('lightbox-prev-btn');
   const lightboxNextBtn = document.getElementById('lightbox-next-btn');
 
-  let currentAlbumKey = 'album1';
-  let activeLightboxIndex = 0;
+  let currentActiveAlbum = 'album1';
+  let activePhotoIndex = 0;
 
-  function renderAlbum(albumKey) {
-    currentAlbumKey = albumKey;
-    const album = albumData[albumKey];
-    if (!album) return;
+  // Album Titles Mapping
+  const albumTitlesMap = {
+    album1: "Local Train Trips: Office ➔ Home",
+    album2: "The Whole Night on Office Couch",
+    album3: "Match Day: Your First Visit",
+    album4: "Our Lonavala Getaway",
+    album5: "Soon-To-Be Groom & Queen"
+  };
 
-    let html = `<div class="album-grid">`;
-    for (let i = 1; i <= album.count; i++) {
-      const caption = album.captions[i - 1] || `Photo #${i}`;
-      // Check real jpg with svg fallback
-      const imgSrc = `assets/photos/${albumKey}/photo${i}.jpg`;
-      const fallbackSvg = `assets/photos/${albumKey}/photo${i}.svg`;
+  // Switch Album Tabs
+  albumTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      albumTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      html += `
-        <div class="album-photo-card" data-index="${i - 1}">
-          <div class="album-img-wrap">
-            <img src="${imgSrc}" onerror="this.onerror=null; this.src='${fallbackSvg}';" alt="${caption}">
-          </div>
-          <div class="album-caption">${caption}</div>
-        </div>
-      `;
-    }
-    html += `</div>`;
-    albumDisplayArea.innerHTML = html;
+      const targetAlbum = btn.getAttribute('data-album');
+      currentActiveAlbum = targetAlbum;
 
-    // Attach click listeners to cards
-    const cards = albumDisplayArea.querySelectorAll('.album-photo-card');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const idx = parseInt(card.getAttribute('data-index'));
-        openAlbumLightbox(idx);
+      albumWrappers.forEach(wrap => {
+        if (wrap.id === `grid-${targetAlbum}`) {
+          wrap.style.display = 'block';
+          wrap.classList.add('active');
+        } else {
+          wrap.style.display = 'none';
+          wrap.classList.remove('active');
+        }
       });
-    });
-  }
 
-  function openAlbumLightbox(index) {
-    activeLightboxIndex = index;
-    const album = albumData[currentAlbumKey];
-    const itemCaption = album.captions[activeLightboxIndex] || `Photo #${activeLightboxIndex + 1}`;
-    const imgSrc = `assets/photos/${currentAlbumKey}/photo${activeLightboxIndex + 1}.jpg`;
-    const fallbackSvg = `assets/photos/${currentAlbumKey}/photo${activeLightboxIndex + 1}.svg`;
+      playChime(600, 0.15);
+    });
+  });
+
+  // Attach Lightbox click to all pre-rendered photo cards
+  const allPhotoCards = document.querySelectorAll('.album-photo-card');
+  allPhotoCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const alb = card.getAttribute('data-album');
+      const idx = parseInt(card.getAttribute('data-index')) || 0;
+      openPhotoLightbox(alb, idx);
+    });
+  });
+
+  function openPhotoLightbox(alb, index) {
+    currentActiveAlbum = alb;
+    activePhotoIndex = index;
+
+    // Find the card in DOM to get exact tag and caption
+    const card = document.querySelector(`.album-photo-card[data-album="${alb}"][data-index="${index}"]`);
+    if (!card) return;
+
+    const tag = card.getAttribute('data-tag') || `Photo #${index + 1}`;
+    const caption = card.getAttribute('data-caption') || '';
+    const imgSrc = `assets/photos/${alb}/photo${index + 1}.jpg`;
+    const fallbackSvg = `assets/photos/${alb}/photo${index + 1}.svg`;
 
     modalImg.src = imgSrc;
     modalImg.onerror = function() {
       this.onerror = null;
       this.src = fallbackSvg;
     };
-    modalCaptionTitle.textContent = `${album.name} (#${activeLightboxIndex + 1}/10)`;
-    modalCaptionText.textContent = itemCaption;
+
+    const albumName = albumTitlesMap[alb] || alb;
+    modalCaptionTitle.textContent = `${albumName} (#${index + 1}/10)`;
+    modalCaptionText.innerHTML = `<strong>"${tag}"</strong><br><span style="font-size:0.9rem; color:#666;">${caption}</span>`;
     photoModal.classList.add('show');
   }
 
@@ -897,57 +842,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (lightboxPrevBtn) {
     lightboxPrevBtn.addEventListener('click', () => {
-      activeLightboxIndex = (activeLightboxIndex - 1 + 10) % 10;
-      openAlbumLightbox(activeLightboxIndex);
+      activePhotoIndex = (activePhotoIndex - 1 + 10) % 10;
+      openPhotoLightbox(currentActiveAlbum, activePhotoIndex);
     });
   }
 
   if (lightboxNextBtn) {
     lightboxNextBtn.addEventListener('click', () => {
-      activeLightboxIndex = (activeLightboxIndex + 1) % 10;
-      openAlbumLightbox(activeLightboxIndex);
+      activePhotoIndex = (activePhotoIndex + 1) % 10;
+      openPhotoLightbox(currentActiveAlbum, activePhotoIndex);
     });
   }
 
-  albumTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      albumTabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const albumKey = btn.getAttribute('data-album');
-      renderAlbum(albumKey);
-    });
-  });
-
-  renderAlbum('album1');
-
   // ------------------------------------------------------------------------
-  // 9. PAGE 6: DAKSHITA & RATNESH QUIZ
+  // 9. PAGE 6: DAKSHITA & RATNESH QUIZ (FRESH & WITTY)
   // ------------------------------------------------------------------------
   const quizData = [
     {
-      question: "1. What legendary miracle occurred on 5th September 2002?",
+      question: "1. What miraculous event took place on 5th September 2002?",
       options: [
-        "The world was blessed with Dakshita's birth 👼",
-        "The sweetest, prettiest angel landed on Earth ✨",
-        "The universe created Ratnesh's favorite human 💕",
+        "The world was blessed with Dakshita's arrival 👼",
+        "The prettiest girl in history landed on Earth ✨",
+        "The beginning of Ratnesh's future happiness 💕",
         "All of the above (100% indisputable facts!) 👑"
       ],
       correct: 3,
-      note: "All of the above! Sept 5, 2002 is the best day in history! 💖"
+      note: "All of the above! Sept 5, 2002 changed the universe forever! 💖"
     },
     {
-      question: "2. What is Dakshita's absolute superpower?",
+      question: "2. When Dakshita says 'I don't care, you pick what to eat', what does it mean?",
       options: [
-        "Looking ridiculously hot without even trying 🔥",
-        "Her fierce, unconditional loyalty & giant heart 🛡️",
-        "Making the hardest day peaceful just by smiling ☀️",
-        "All of the above (and infinitely more!) 👑"
+        "She genuinely doesn't care (a total myth!)",
+        "She will reject your first 4 suggestions until you guess her secret craving 🍔",
+        "She wants you to order pizza immediately",
+        "She will just eat half of your plate anyway"
       ],
-      correct: 3,
-      note: "All of the above! You are truly magical, Dakshita. ✨"
+      correct: 1,
+      note: "The classic guessing game! We all know it's a sacred ritual! 😂"
     },
     {
-      question: "3. What is our special mutual pet name for each other?",
+      question: "3. What is our exclusive mutual pet name for each other?",
       options: [
         "Bebe (I call her Bebe, and she calls me Bebe!) 💕",
         "Babu / Shona",
@@ -955,18 +889,18 @@ document.addEventListener('DOMContentLoaded', () => {
         "Partner in crime"
       ],
       correct: 0,
-      note: "Bebe! It's our own sweet language of love! 🥰"
+      note: "Bebe! Our own sweet language that belongs only to us! 🥰"
     },
     {
-      question: "4. Where did we debate 'Who will be the best groom for you'?",
+      question: "4. Who ended up being your groom after all those late-night consultations?",
       options: [
-        "During late-night phone calls... leading to Ratnesh being the groom! 💍",
-        "At a cafe",
-        "In an email",
-        "We never talked about it"
+        "Some random guy we debated on the phone",
+        "Ratnesh—the luckiest, happiest soon-to-be groom on earth! 💍",
+        "The search is still going on (impossible!)",
+        "A movie actor"
       ],
-      correct: 0,
-      note: "Those late-night phone calls sealed our destiny! Soon-to-be your groom! 💍"
+      correct: 1,
+      note: "The search was always meant to lead right to me! Forever your groom! 💍"
     }
   ];
 
@@ -1032,19 +966,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 10. PAGE 7: INFINITE LOVE REASON GENERATOR
+  // 10. PAGE 7: APPRECIATION MACHINE (FRESH MICRO-COMPLIMENTS)
   // ------------------------------------------------------------------------
   const loveReasons = [
-    { text: "Because your smile has the power to fix my worst days instantly.", emoji: "☀️" },
-    { text: "Because you make our daily local train rides feel like romantic movie scenes.", emoji: "🚆" },
-    { text: "Because our all-nighter on the office couch showed me my forever.", emoji: "🛋️" },
-    { text: "Because you came over 'just for match results'—my favorite excuse in history!", emoji: "🏏" },
-    { text: "Because you looked unimaginably gorgeous standing in the misty hills of Lonavala.", emoji: "⛰️" },
-    { text: "Because after wondering who your groom would be... I get to be your groom!", emoji: "💍" },
-    { text: "Because you are fiercely loyal, deeply caring, and undeniably hot.", emoji: "🔥" },
-    { text: "Because the sweetest sound in the world is hearing you call me 'Bebe'.", emoji: "🥰" },
-    { text: "Because you give the warmest, safest, and most comforting hugs on earth.", emoji: "🫂" },
-    { text: "Because loving you is the easiest, most natural thing I have ever done.", emoji: "💖" }
+    { text: "Because you are turning 24, yet your radiant heart and timeless beauty only get more mesmerizing every single year.", emoji: "☀️" },
+    { text: "Because your sharp mind and ambitious goals inspire me to be a better man every day.", emoji: "🎯" },
+    { text: "Because you look like an absolute dream whether dressed up in a saree or in cozy sweatpants.", emoji: "👑" },
+    { text: "Because the genuine kindness you show to strangers and animals reveals how pure your soul is.", emoji: "🤍" },
+    { text: "Because you make the most mundane errands feel like the most thrilling adventures.", emoji: "🚗" },
+    { text: "Because you understand what I'm feeling without me having to speak a single sentence.", emoji: "🧠" },
+    { text: "Because your laugh is infectious—it can light up an entire crowded room in seconds.", emoji: "😂" },
+    { text: "Because you are fiercely protective and loyal to the people who matter to you.", emoji: "🛡️" },
+    { text: "Because no matter how chaotic the outside world is, resting in your hug is pure peace.", emoji: "🫂" },
+    { text: "Because out of 8 billion people on Earth, God chose me to be your Bebe and future groom.", emoji: "💍" },
+    { text: "Because you are unapologetically yourself around me, and that is my greatest treasure.", emoji: "✨" },
+    { text: "Because simply seeing your name flash on my phone still gives me butterflies.", emoji: "📱" }
   ];
 
   const slotSpinBtn = document.getElementById('slot-spin-btn');
@@ -1090,32 +1026,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 11. PAGE 8: "OPEN WHEN..." LETTERS
+  // 11. PAGE 8: "OPEN WHEN..." LETTERS (REAL LIFE SUPPORT)
   // ------------------------------------------------------------------------
   const letterContents = {
     "1": {
-      title: "Open When You Miss Our Train Commutes 🚆",
-      body: "My dearest Dakshita (my Bebe),<br><br>Whenever you're on a journey and miss our chats, close your eyes. Remember how we rushed to catch the same compartment, how we shared earphones with our favorite songs, and how we stood close in the crowd. Those rides were pure heaven because I was with you.<br><br>Can't wait for our next trip together, my love."
+      title: "Open When You're Exhausted by Work & Routine 💼",
+      body: "Hey my resilient, hard-working Dakshita,<br><br>Take a long, deep breath right now. Drop your shoulders, unclench your jaw, and let go of the pressure. You carry so much with such quiet strength, but remember: you don't have to be a superhero every single second. The emails can wait, the tasks can pause. Your peace comes before everything else in this world.<br><br>Close your laptop, take a hot shower, and know that I am so endlessly proud of how hard you strive. I've got your back, always."
     },
     "2": {
-      title: "Open When You're Stressed From Work 🌸",
-      body: "Hey my hard-working Dakshita,<br><br>Take a deep breath right now. Drop your shoulders, unclench your jaw, and let go. You have handled so much, and you do it with so much grace. It is okay to rest. The world can wait—your peace comes first.<br><br>I am so proud of you, always."
+      title: "Open When Self-Doubt Creeps In 🪞",
+      body: "Look in the mirror right this second, my queen.<br><br>I wish you could see yourself through my eyes just for ten seconds. You would see a woman of breathtaking grace, unmatched sharp intellect, a golden heart of empathy, and a rare fierce loyalty that anyone would be blessed to have in their corner. You are capable of moving mountains, and no temporary setback can ever diminish the powerhouse you are.<br><br>Hold your chin up high, Bebe. You are extraordinary."
     },
     "3": {
-      title: "Open When You Miss The Office Couch Talks 🌙",
-      body: "To my favorite human,<br><br>Do you remember when the office went dark and quiet, and it was just you and me on that couch? We didn't sleep a single minute, and we didn't care. That night was one of the happiest nights of my life because I got to know the real, raw, beautiful soul of Dakshita.<br><br>I will stay up talking to you for the rest of my life."
+      title: "Open When Your Mind Won't Let You Sleep at 2 AM 🌙",
+      body: "Sweet dreams, my favorite human,<br><br>If overthinking is keeping you awake tonight, let your thoughts gently rest on the happiness we've built. Think of our silliest laughs, the warmth of holding hands, and all the incredible sunrises we are going to watch together in the years ahead. You are safe, you are cherished beyond measure, and tomorrow is a fresh page.<br><br>I'll be waiting for you in our dreams tonight."
     },
     "4": {
-      title: "Open When You're Mad at Me 🥺",
-      body: "My beautiful Bebe,<br><br>First: I am sorry. Whatever silly thing I said or did to upset you, your happiness means more to me than being right. You are my priority, and I never want to be the cause of your frown.<br><br>I'm ready with snacks, a tight apology hug, and unlimited listening whenever you're ready."
+      title: "Open When We Had a Disagreement ⚡",
+      body: "To my forever partner,<br><br>First and foremost: I love you. Even when we disagree, even when we are stubborn or words come out clumsy, my love for you does not waver for a single millisecond. Our bond is bigger and deeper than any argument. Your feelings matter to me, and your happiness is my priority.<br><br>Whenever you're ready, come into my arms. No ego, no pride—just you, me, and an apology hug waiting for you."
     },
     "5": {
-      title: "Open When You Need a Reminder of How Hot You Are 👑",
-      body: "Look in the mirror right now, Dakshita.<br><br>You are looking at the most breathtakingly hot and gorgeous woman in this world. From your stunning eyes to your radiant smile and effortless poise, you make my jaw drop every single day.<br><br>Never forget how utterly irresistible you are!"
+      title: "Open When You Need a Deep Hug From Afar 🫂",
+      body: "My dearest Bebe,<br><br>Distance might put physical miles between us right now, but you carry a giant piece of my heart wherever you walk. Close your eyes, wrap your arms around yourself, and feel this: I am sending you the warmest, tightest, most comforting hug imaginable. You are never alone in this world.<br><br>I am just one thought, one call, and one heartbeat away."
     },
     "6": {
-      title: "Open For A Note From Your Soon-To-Be Groom 💍",
-      body: "My soon-to-be bride, Dakshita,<br><br>Remember when we used to discuss who would be the best fit to be your groom on those late-night calls? Every time we talked about it, deep down my heart was screaming: 'Please let it be me.'<br><br>And God answered my prayers. I promise to be the best groom, partner, best friend, and protector for you every single day of our lives. Happy 24th Birthday, my queen!"
+      title: "Open on the Morning of Your 24th Birthday! 🎂✨",
+      body: "HAPPY 24TH BIRTHDAY, DAKSHITA!<br><br>As you wake up today to enter your 24th year, I hope you feel the boundless warmth of how adored you are. You bring so much light into every room you enter, and you have turned my life into a beautiful dream. This year is going to bring you career triumphs, peace, deep happiness, and unforgettable adventures.<br><br>Let's celebrate you today, tomorrow, and every day for the rest of our lives!"
     }
   };
 
@@ -1156,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(`coupon_${couponId}`, 'redeemed');
     launchConfetti(80);
     playChime(783.99, 0.3);
-    alert("🎉 Coupon claimed! Show this to Ratnesh to redeem your treat! 💕");
+    alert("🎉 Coupon claimed! Show this to Ratnesh to redeem your royal treat! 💕");
   };
 
   for (let i = 1; i <= 6; i++) {
@@ -1172,97 +1108,65 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 13. PAGE 10: 3 VIDEO ALBUMS (12 VIDEOS TOTAL) & FINALE ACTIONS
+  // 13. PAGE 10: 3 SPECIFIC VIDEO ALBUMS (12 VIDEOS TOTAL)
   // ------------------------------------------------------------------------
-  const videoAlbumData = {
-    album1: {
-      name: "Goofy & Cute Clips",
-      videos: [
-        { title: "Video 1: Unfiltered Laughter & Giggles", src: "assets/videos/album1/video1.mp4" },
-        { title: "Video 2: Goofy Moments Together", src: "assets/videos/album1/video2.mp4" },
-        { title: "Video 3: The Cutest Expressions", src: "assets/videos/album1/video3.mp4" },
-        { title: "Video 4: Pure Chaos & Fun", src: "assets/videos/album1/video4.mp4" }
-      ]
-    },
-    album2: {
-      name: "Lonavala & Trains",
-      videos: [
-        { title: "Video 1: The Local Train Commute Ride", src: "assets/videos/album2/video1.mp4" },
-        { title: "Video 2: Scenic Train into Lonavala", src: "assets/videos/album2/video2.mp4" },
-        { title: "Video 3: Misty Hills & Waterfalls", src: "assets/videos/album2/video3.mp4" },
-        { title: "Video 4: Holding Hands in the Mountains", src: "assets/videos/album2/video4.mp4" }
-      ]
-    },
-    album3: {
-      name: "Birthday Montages",
-      videos: [
-        { title: "Video 1: Celebrating 24 Years of Dakshita", src: "assets/videos/album3/video1.mp4" },
-        { title: "Video 2: Memories We Built This Year", src: "assets/videos/album3/video2.mp4" },
-        { title: "Video 3: A Message from Your Soon-To-Be Groom", src: "assets/videos/album3/video3.mp4" },
-        { title: "Video 4: Forever and Always With You", src: "assets/videos/album3/video4.mp4" }
-      ]
-    }
-  };
-
+  const videoTabBtns = document.querySelectorAll('.video-tab-btn');
+  const videoWrappers = document.querySelectorAll('.video-album-wrapper');
   const mainVideoPlayer = document.getElementById('main-video-player');
   const mainVideoSource = document.getElementById('main-video-source');
   const currentVideoTitle = document.getElementById('current-video-title');
-  const videoPlaylistGrid = document.getElementById('video-playlist-grid');
-  const videoTabBtns = document.querySelectorAll('.video-tab-btn');
+  const allVideoCards = document.querySelectorAll('.video-card-item');
 
-  let currentVideoAlbumKey = 'album1';
-
-  function renderVideoAlbum(albumKey) {
-    currentVideoAlbumKey = albumKey;
-    const vAlbum = videoAlbumData[albumKey];
-    if (!vAlbum || !videoPlaylistGrid) return;
-
-    let html = '';
-    vAlbum.videos.forEach((v, idx) => {
-      html += `
-        <div class="video-card-item ${idx === 0 ? 'active' : ''}" data-index="${idx}">
-          <div class="video-card-icon">▶️</div>
-          <div class="video-card-title">${v.title}</div>
-        </div>
-      `;
-    });
-    videoPlaylistGrid.innerHTML = html;
-
-    // Load first video of the album
-    playSelectedVideo(0);
-
-    // Attach click listeners to cards
-    const cards = videoPlaylistGrid.querySelectorAll('.video-card-item');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        cards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        const idx = parseInt(card.getAttribute('data-index'));
-        playSelectedVideo(idx);
-      });
-    });
-  }
-
-  function playSelectedVideo(index) {
-    const vAlbum = videoAlbumData[currentVideoAlbumKey];
-    const target = vAlbum.videos[index];
-    if (!target) return;
-
-    currentVideoTitle.textContent = `Playing: ${target.title}`;
-    mainVideoSource.src = target.src;
-    mainVideoPlayer.load();
-  }
-
+  // Video Tab Switching
   videoTabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       videoTabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const albumKey = btn.getAttribute('data-valbum');
-      renderVideoAlbum(albumKey);
+
+      const targetValbum = btn.getAttribute('data-valbum');
+
+      videoWrappers.forEach(wrap => {
+        if (wrap.id === `vwrap-${targetValbum}`) {
+          wrap.style.display = 'grid';
+          wrap.classList.add('active');
+          const firstCard = wrap.querySelector('.video-card-item');
+          if (firstCard) {
+            wrap.querySelectorAll('.video-card-item').forEach(c => c.classList.remove('active'));
+            firstCard.classList.add('active');
+            playVideoCard(firstCard);
+          }
+        } else {
+          wrap.style.display = 'none';
+          wrap.classList.remove('active');
+        }
+      });
+
+      playChime(650, 0.15);
     });
   });
 
-  renderVideoAlbum('album1');
+  // Clicking any video card
+  allVideoCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const parentWrap = card.closest('.video-album-wrapper');
+      if (parentWrap) {
+        parentWrap.querySelectorAll('.video-card-item').forEach(c => c.classList.remove('active'));
+      }
+      card.classList.add('active');
+      playVideoCard(card);
+    });
+  });
+
+  function playVideoCard(card) {
+    if (!mainVideoPlayer || !mainVideoSource) return;
+    const src = card.getAttribute('data-src');
+    const title = card.getAttribute('data-title') || 'Playing Video';
+
+    if (currentVideoTitle) currentVideoTitle.textContent = `Playing: ${title}`;
+    mainVideoSource.src = src;
+    mainVideoPlayer.load();
+    playChime(700, 0.12);
+  }
 
   // Finale Actions
   const showerHeartsBtn = document.getElementById('shower-hearts-btn');

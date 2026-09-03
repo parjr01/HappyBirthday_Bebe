@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3.2" />
 <style>
 /* ==========================================================================
    HAPPY BIRTHDAY DAKSHITA (BEBE) - MASTER LUXURY STYLESHEET
@@ -975,7 +975,7 @@ body:not(.is-locked) .lock-overlay {
 }
 
 /* ==========================================================================
-   PAGE 2: BIRTHDAY CAKE & CANDLE CEREMONY
+   PAGE 2: REALISTIC CANDLE BLOWING, SMOKE WISPS & WIND GUST
    ========================================================================== */
 .cake-stage {
   position: relative;
@@ -984,6 +984,28 @@ body:not(.is-locked) .lock-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.wind-gust {
+  position: absolute;
+  top: -15px;
+  left: -80px;
+  font-size: 42px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.6));
+}
+
+.wind-gust.active {
+  animation: windSwoosh 0.85s ease-in-out forwards;
+}
+
+@keyframes windSwoosh {
+  0% { transform: translateX(0) scale(0.7); opacity: 0; }
+  25% { opacity: 1; transform: translateX(110px) scale(1.3); }
+  65% { opacity: 0.85; transform: translateX(250px) scale(1.1); }
+  100% { transform: translateX(400px) scale(0.8); opacity: 0; }
 }
 
 .cake-plate {
@@ -1052,11 +1074,13 @@ body:not(.is-locked) .lock-overlay {
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Realistic Candles & Flames */
 .candles-row {
   display: flex;
-  gap: 16px;
-  margin-bottom: 4px;
-  z-index: 10;
+  gap: 20px;
+  margin-bottom: 2px;
+  z-index: 15;
+  position: relative;
 }
 
 .candle {
@@ -1065,35 +1089,152 @@ body:not(.is-locked) .lock-overlay {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.candle:hover {
+  transform: scale(1.08);
 }
 
 .candle-stick {
-  width: 8px;
-  height: 32px;
-  background: repeating-linear-gradient(45deg, #fff, #fff 4px, #ff4d6d 4px, #ff4d6d 8px);
-  border-radius: 4px 4px 0 0;
+  width: 9px;
+  height: 36px;
+  background: repeating-linear-gradient(45deg, #fff, #fff 4px, #ff4d6d 4px, #ff4d6d 9px);
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.wick {
+  width: 2px;
+  height: 7px;
+  background: #2b1020;
+  border-radius: 1px;
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 3;
 }
 
 .flame {
-  width: 14px;
-  height: 22px;
-  background: radial-gradient(circle, #ffea00 30%, #ff7b00 70%, transparent 100%);
+  width: 16px;
+  height: 26px;
+  background: radial-gradient(ellipse at 50% 85%, #ffffff 15%, #ffea00 45%, #ff5400 80%, transparent 98%);
   border-radius: 50% 50% 35% 35%;
   margin-bottom: 2px;
-  box-shadow: 0 0 14px #ffea00, 0 0 26px #ff7b00;
-  animation: flicker 0.6s infinite alternate ease-in-out;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  box-shadow: 0 0 16px #ffea00, 0 0 28px #ff7b00, 0 0 45px rgba(255, 120, 0, 0.45);
+  animation: naturalFlameFlicker 0.9s infinite alternate ease-in-out;
+  transform-origin: center bottom;
+  position: relative;
+  z-index: 5;
+  transition: all 0.25s ease;
 }
 
-@keyframes flicker {
-  0% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
-  50% { transform: scale(1.15) rotate(2deg); opacity: 1; }
-  100% { transform: scale(0.92) rotate(-1deg); opacity: 0.9; }
+@keyframes naturalFlameFlicker {
+  0% { transform: scale(1) rotate(-2deg); }
+  25% { transform: scale(1.04, 0.96) rotate(1.5deg); }
+  50% { transform: scale(0.96, 1.05) rotate(-1deg); }
+  75% { transform: scale(1.06, 0.94) rotate(2deg); }
+  100% { transform: scale(1, 1.02) rotate(-0.5deg); }
+}
+
+.candle.blowing .flame {
+  animation: candleBlownOff 0.5s ease-out forwards;
+}
+
+@keyframes candleBlownOff {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.3, 0.45) skewX(-45deg) translateX(10px);
+    opacity: 0.95;
+    box-shadow: 0 0 20px #ff7b00;
+  }
+  55% {
+    transform: scale(0.8, 0.25) skewX(-65deg) translateX(22px) translateY(-8px);
+    opacity: 0.6;
+    filter: blur(1.5px);
+  }
+  100% {
+    transform: scale(0) translateX(36px) translateY(-18px);
+    opacity: 0;
+  }
 }
 
 .candle.blown .flame {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.smoke {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
   opacity: 0;
-  transform: scale(0.1) translateY(-10px);
+  z-index: 10;
+}
+
+.candle.blown .smoke {
+  opacity: 1;
+  animation: smokeCurlUp 2.4s ease-out forwards;
+}
+
+@keyframes smokeCurlUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(0.5);
+    box-shadow: 0 0 4px 3px rgba(230, 230, 230, 0.9);
+    border-radius: 50%;
+  }
+  15% {
+    opacity: 0.85;
+    transform: translateX(-35%) translateY(-15px) scale(1.3);
+    box-shadow: -4px 0 8px 6px rgba(210, 210, 210, 0.7);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  45% {
+    opacity: 0.65;
+    transform: translateX(-65%) translateY(-38px) scale(2.2);
+    box-shadow: 6px 0 14px 10px rgba(190, 190, 190, 0.5);
+    border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%;
+  }
+  75% {
+    opacity: 0.3;
+    transform: translateX(-40%) translateY(-65px) scale(3.4);
+    box-shadow: -8px 0 20px 14px rgba(180, 180, 180, 0.25);
+    border-radius: 50%;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-55%) translateY(-90px) scale(4.8);
+    box-shadow: 0 0 24px 18px rgba(170, 170, 170, 0);
+  }
+}
+
+.candle.blown .wick::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ff5400;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff5400;
+  animation: emberGlowFade 3s ease-out forwards;
+}
+
+@keyframes emberGlowFade {
+  0% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+  50% { opacity: 0.8; background: #c9184a; }
+  100% { opacity: 0; transform: translateX(-50%) scale(0.5); }
 }
 
 .wish-reveal-box {
@@ -2087,10 +2228,365 @@ body:not(.is-locked) .lock-overlay {
   }
 }
 
+
+/* ==========================================================================
+   DYNAMIC RESPONSIVE DESIGN: MOBILE, TABLET, PROJECTOR, AND TV
+   ========================================================================== */
+
+/* Safe area support for iOS notched devices */
+@supports (padding: max(0px)) {
+  .top-nav {
+    padding-top: max(0px, env(safe-area-inset-top));
+    height: calc(70px + max(0px, env(safe-area-inset-top)));
+  }
+  .bottom-nav-bar {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    height: calc(70px + max(0px, env(safe-area-inset-bottom)));
+  }
+  .pages-wrapper {
+    padding-top: calc(85px + max(0px, env(safe-area-inset-top)));
+    padding-bottom: calc(95px + max(0px, env(safe-area-inset-bottom)));
+  }
+}
+
+/* Fluid Typography Across All Viewports */
+.hero-title {
+  font-size: clamp(2rem, 5vw + 0.5rem, 3.8rem);
+}
+.highlight-text, .highlight-text-luxury {
+  font-size: clamp(2.6rem, 7vw + 0.5rem, 5rem);
+}
+.section-title {
+  font-size: clamp(1.6rem, 3.8vw + 0.4rem, 2.8rem);
+}
+.section-desc {
+  font-size: clamp(0.92rem, 1.8vw + 0.2rem, 1.2rem);
+}
+.lock-title {
+  font-size: clamp(1.8rem, 4.5vw + 0.5rem, 3.2rem);
+}
+
+/* Video Player Aspect Ratio */
+.video-cinema-frame video {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+/* Small Mobiles & Phones (< 576px) */
+@media (max-width: 576px) {
+  .top-nav {
+    padding: 0 12px;
+  }
+  .logo-text {
+    font-size: 1.35rem;
+  }
+  .btn-label {
+    display: none !important;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .page-indicator-wrap {
+    gap: 4px;
+  }
+  .page-pill {
+    padding: 5px 10px;
+    font-size: 0.82rem;
+  }
+  .nav-arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .glass-card {
+    padding: 26px 16px;
+    border-radius: 20px;
+  }
+  
+  /* Cake Scaling for Mobile */
+  .cake-stage {
+    transform: scale(0.85);
+    margin: 20px auto 10px auto;
+  }
+  
+  /* Countdown Timer Mobile Wrap */
+  .luxury-cd-grid {
+    gap: 6px;
+  }
+  .luxury-cd-tile {
+    min-width: 58px;
+    padding: 8px 10px;
+  }
+  .cd-num {
+    font-size: 1.6rem;
+  }
+  .cd-unit {
+    font-size: 0.65rem;
+  }
+  .luxury-cd-separator {
+    font-size: 1.4rem;
+  }
+
+  /* Photo & Video Grids */
+  .album-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .album-img-wrap {
+    height: 145px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .flip-card {
+    height: 185px;
+  }
+  .flip-card-front, .flip-card-back {
+    padding: 12px 8px;
+    font-size: 0.8rem;
+  }
+
+  /* Lounge buttons grid */
+  .lounge-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Bottom nav bar */
+  .bottom-nav-bar {
+    padding: 0 14px;
+  }
+  .footer-nav-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+  .page-dot {
+    width: 7px;
+    height: 7px;
+  }
+  .page-dot.active {
+    width: 18px;
+  }
+}
+
+/* Extra Small Phones (< 360px) */
+@media (max-width: 360px) {
+  .cake-stage {
+    transform: scale(0.74);
+  }
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .lounge-buttons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablets & iPads (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .pages-wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .album-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .album-img-wrap {
+    height: 200px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .video-playlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Screens, Projectors & Smart TVs (>= 1600px) */
+@media (min-width: 1600px) {
+  .pages-wrapper {
+    max-width: 1380px;
+    margin: 0 auto;
+  }
+  .page-section {
+    max-width: 1300px;
+  }
+  .glass-card {
+    padding: 56px 48px;
+    border-radius: 32px;
+  }
+  .luxury-lock-card {
+    max-width: 860px !important;
+    padding: 54px 44px !important;
+  }
+  .cake-stage {
+    transform: scale(1.28);
+    margin: 50px auto 40px auto;
+  }
+  .album-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px;
+  }
+  .album-img-wrap {
+    height: 230px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .flip-card {
+    height: 250px;
+  }
+  .video-cinema-frame {
+    max-width: 980px;
+  }
+  .letter-box {
+    max-width: 900px;
+    padding: 48px;
+  }
+  .luxury-cd-tile {
+    min-width: 96px;
+    padding: 16px 22px;
+  }
+  .cd-num {
+    font-size: 2.8rem;
+  }
+  .luxury-cd-separator {
+    font-size: 2.4rem;
+  }
+}
+
+/* 4K Displays & High-End Laser Projectors (>= 2200px) */
+@media (min-width: 2200px) {
+  html {
+    font-size: 19px;
+  }
+  .pages-wrapper {
+    max-width: 1700px;
+  }
+  .page-section {
+    max-width: 1600px;
+  }
+  .cake-stage {
+    transform: scale(1.5);
+    margin: 60px auto 50px auto;
+  }
+  .video-cinema-frame {
+    max-width: 1280px;
+  }
+  .album-img-wrap {
+    height: 280px;
+  }
+}
+
+/* High Contrast Mode Optimization for Projectors (Keeps text vivid on washed-out walls) */
+@media screen and (min-width: 1024px) {
+  .section-title, .hero-title, .lock-title {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+  .timeline-content {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+/* Specific Album Styling */
+.album-header-banner {
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.08), rgba(255, 209, 102, 0.12));
+  border: 1px solid #ffd1dc;
+  border-radius: 16px;
+  padding: 14px 20px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.album-header-banner h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--deep-rose);
+  margin-bottom: 4px;
+}
+
+.album-header-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.album-tag-pill {
+  display: inline-block;
+  background: var(--soft-blush);
+  color: var(--deep-rose);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #ffd1dc;
+  line-height: 1.3;
+}
+
+.album-caption-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  text-align: center;
+  padding: 0 4px;
+}
+
+
+/* Video Album Wrappers & Detailed Cards */
+.video-album-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin: 20px 0 30px 0;
+}
+
+.video-card-item {
+  background: #ffffff;
+  border: 1.5px solid #ffd1dc;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-card-item:hover, .video-card-item.active {
+  background: var(--soft-blush);
+  border-color: var(--primary-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 77, 109, 0.2);
+}
+
+.video-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+
+.video-card-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
 </style>
 </head>
 <body class="is-locked">
-    <!-- LUXURY FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
+  <!-- LUXURY FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
   <div id="lock-screen-overlay" class="lock-overlay">
     <!-- Ambient glowing light orbs -->
     <div class="lock-glow-orb orb-1"></div>
@@ -2150,7 +2646,7 @@ body:not(.is-locked) .lock-overlay {
         🌸 <em>"The most beautiful girl in the world deserves the most unforgettable surprise. See you at midnight, my queen!"</em> 💕
       </div>
 
-            <!-- WAITING LOUNGE: INTERACTIVE PLAY BUTTONS FOR DAKSHITA -->
+      <!-- WAITING LOUNGE: INTERACTIVE PLAY BUTTONS FOR DAKSHITA -->
       <div class="lock-waiting-lounge">
         <div class="waiting-lounge-header">
           <span class="lounge-sparkle">✨</span> Dakshita's Pre-Midnight Play Lounge <span class="lounge-sparkle">✨</span>
@@ -2191,7 +2687,7 @@ body:not(.is-locked) .lock-overlay {
           <span class="key-icon">🔑</span> Ratnesh Passcode Login
         </button>
 
-        <!-- Slide-down Inline Passcode Box -->
+        <!-- Slide-down Inline Passcode Box  -->
         <div id="inline-passcode-box" class="inline-passcode-box" style="display: none;">
           <div class="inline-passcode-title">Enter Secret Passcode:</div>
           <div class="passcode-input-group">
@@ -2207,7 +2703,7 @@ body:not(.is-locked) .lock-overlay {
 
   <!-- Floating Banner when Preview Mode is Active -->
   <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
-    <span>👑 <strong>Ratnesh Preview Active</strong> (Unlocked)</span>
+    <span>👑 <strong>Ratnesh Preview Active</strong> (Admin Access Unlocked)</span>
     <button id="relock-website-btn" class="relock-btn" type="button">🔒 Re-enable Lock for Dakshita</button>
   </div>
 
@@ -2233,21 +2729,24 @@ body:not(.is-locked) .lock-overlay {
 
       <!-- Dropdown Quick Menu -->
       <div class="quick-menu" id="quick-menu">
-        <div class="quick-menu-item" data-page="1">1. Welcome & Surprise ✨</div>
+        <div class="quick-menu-item" data-page="1">1. The 24th Spotlight ✨</div>
         <div class="quick-menu-item" data-page="2">2. Cake & Candle Ceremony 🎂</div>
-        <div class="quick-menu-item" data-page="3">3. Why I Adore Dakshita 💖</div>
+        <div class="quick-menu-item" data-page="3">3. 10 Nuances I Adore 💖</div>
         <div class="quick-menu-item" data-page="4">4. Our Real Love Story ⏳</div>
-        <div class="quick-menu-item" data-page="5">5. 5 Photo Albums (50 Snaps) 📸</div>
+        <div class="quick-menu-item" data-page="5">5. 5 Curated Photo Albums 📸</div>
         <div class="quick-menu-item" data-page="6">6. Dakshita & Ratnesh Quiz 🎮</div>
-        <div class="quick-menu-item" data-page="7">7. Infinite Reason Generator 🎰</div>
+        <div class="quick-menu-item" data-page="7">7. Appreciation Machine 🎰</div>
         <div class="quick-menu-item" data-page="8">8. "Open When" Letters 💌</div>
-        <div class="quick-menu-item" data-page="9">9. Dakshita's VIP Coupons 🎟️</div>
-        <div class="quick-menu-item" data-page="10">10. Video Albums & Finale 🎬</div>
+        <div class="quick-menu-item" data-page="9">9. VIP Golden Coupons 🎟️</div>
+        <div class="quick-menu-item" data-page="10">10. Video Albums & Vows 🎬</div>
       </div>
     </div>
 
     <!-- Interactive Top Controls -->
     <div class="nav-actions">
+      <button id="fullscreen-btn" class="icon-btn tv-btn" title="Toggle Fullscreen for Projector / TV">
+        📺 <span class="btn-label">TV / Fullscreen</span>
+      </button>
       <button id="music-toggle-btn" class="icon-btn" title="Toggle Romantic Music">
         <span id="music-icon">🎵</span>
         <span class="btn-label">Music</span>
@@ -2261,20 +2760,20 @@ body:not(.is-locked) .lock-overlay {
   <!-- Main Multi-Page Container -->
   <main class="pages-wrapper">
 
-    <!-- PAGE 1: Welcome Entrance & Surprise -->
-    <section class="page-section active" id="page-1" data-title="Welcome Dakshita">
+    <!-- PAGE 1: The Birthday Girl's Spotlight (Turning 24) -->
+    <section class="page-section active" id="page-1" data-title="The 24th Spotlight">
       <div class="glass-card hero-card">
-        <div class="badge-pill">September 5, 2002 • Celebrating 24 Beautiful Years of Dakshita 👑</div>
+        <div class="badge-pill">September 5, 2002 • Celebrating 24 Radiant Years 👑</div>
         <h1 class="hero-title">Happy 24th Birthday, <span class="highlight-text">Dakshita!</span> 🎂✨</h1>
         <p class="hero-subtitle">
-          To my gorgeous, hot, fiercely loyal, and caring queen. You call me Bebe, I call you Bebe, and you are my whole heart forever.
+          Today, the entire universe pauses to celebrate the girl with the most magnetic smile, the sharpest wit, and the warmest, most loyal heart. To my one and only Bebe, from your Bebe.
         </p>
 
         <!-- Live Love & Life Counter -->
         <div class="love-counter-box">
-          <div class="counter-label">Celebrating Every Second of Your Life:</div>
+          <div class="counter-label">Celebrating Every Single Breath of Your Journey:</div>
           <div class="counter-grid">
-            <div class="counter-item"><span id="years-alive">24</span><small>Years of Pure Sunshine</small></div>
+            <div class="counter-item"><span id="years-alive">24</span><small>Years of Radiance</small></div>
             <div class="counter-item"><span id="days-alive">8,766</span><small>Days on Earth</small></div>
             <div class="counter-item"><span id="hours-alive">210,384+</span><small>Hours of Grace & Beauty</small></div>
           </div>
@@ -2282,10 +2781,10 @@ body:not(.is-locked) .lock-overlay {
 
         <div class="hero-cta-group">
           <button class="btn btn-primary" id="start-journey-btn">
-            <span>Open Your Birthday Surprise</span> 🎁
+            <span>Step Into Your Birthday World</span> 🎁
           </button>
           <button class="btn btn-secondary" id="confetti-blast-btn">
-            <span>Pop Birthday Confetti</span> 🎉
+            <span>Pop Birthday Sparkles</span> 🎉
           </button>
         </div>
 
@@ -2296,13 +2795,13 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-    <!-- PAGE 2: Virtual Birthday Cake & Candle Ceremony -->
+    <!-- PAGE 2: Virtual Birthday Cake Ceremony with Realistic Blowing -->
     <section class="page-section" id="page-2" data-title="Birthday Cake">
       <div class="glass-card cake-card">
-        <h2 class="section-title">Blow Out Your 24th Candles, Dakshita! 🕯️🎂</h2>
-        <p class="section-desc">Close your eyes, make the sweetest wish in your heart, and blow out the candles!</p>
+        <h2 class="section-title">Make a Wish & Blow the Candles, Dakshita! 🕯️🎂</h2>
+        <p class="section-desc">Take a deep breath, close your eyes, wish for whatever your heart desires, and blow them out!</p>
 
-                <!-- Interactive 3-Tier CSS Cake with Wind & Smoke Animation -->
+        <!-- Interactive 3-Tier CSS Cake with Wind & Smoke Animation -->
         <div class="cake-stage">
           <div id="wind-gust" class="wind-gust">💨</div>
           <div class="cake-plate"></div>
@@ -2347,12 +2846,12 @@ body:not(.is-locked) .lock-overlay {
           </div>
         </div>
 
-        <!-- Wish Message Box (Hidden until blown) -->
+        <!-- Wish Message Box (Reveals upon blowing) -->
         <div class="wish-reveal-box" id="wish-reveal-box">
           <div class="wish-icon">🌟</div>
-          <h3 class="wish-heading">Wish Granted, Dakshita! (My Bebe)</h3>
+          <h3 class="wish-heading">Wish Sealed in the Stars, Dakshita!</h3>
           <p class="wish-message">
-            "May your 24th year bring you boundless happiness, peace, and dreams fulfilled. You are the most caring, loyal, and stunning woman in the world, and I am so lucky to walk beside you!" 💕
+            "May your 24th year bring you unshakeable peace, skyrocketing achievements in your career, endless gut-busting laughter, and every little thing your pure heart has been praying for. I am honored to walk beside you through it all!" 💕
           </p>
         </div>
 
@@ -2360,16 +2859,16 @@ body:not(.is-locked) .lock-overlay {
         <div class="action-buttons-group">
           <button class="btn btn-primary" id="blow-candles-btn">💨 Blow the Candles!</button>
           <button class="btn btn-secondary" id="relight-candles-btn">🔥 Relight Candles</button>
-          <button class="btn btn-outline" id="secret-wish-btn">✨ Make Secret Wish</button>
+          <button class="btn btn-outline" id="secret-wish-btn">✨ Write a Secret Wish</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 3: 10 Things That Make Dakshita Irreplaceable -->
-    <section class="page-section" id="page-3" data-title="Why I Love Dakshita">
+    <!-- PAGE 3: 10 Micro-Things I Adore About Dakshita (Intimate & Observant) -->
+    <section class="page-section" id="page-3" data-title="10 Nuances I Adore">
       <div class="glass-card wide-card">
-        <h2 class="section-title">10 Reasons Why You, Dakshita, Are My Whole World 💖</h2>
-        <p class="section-desc">Click each card to reveal what makes you so completely unforgettable:</p>
+        <h2 class="section-title">10 Little Things I Adore About You, Dakshita 💖</h2>
+        <p class="section-desc">The specific, unscripted nuances that make you completely unforgettable to me:</p>
 
         <div class="cards-grid" id="reasons-grid">
           <!-- Card 1 -->
@@ -2377,12 +2876,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">01</span>
-                <span class="card-icon">🔥</span>
-                <h4>Undeniably Hot & Gorgeous</h4>
+                <span class="card-icon">🍟</span>
+                <h4>The "I'm Not Hungry" Lie</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>You are effortlessly stunning. From your radiant face to your jaw-dropping style, you take my breath away every single day.</p>
+                <p>You swear you don't want anything, but the second my food arrives, you happily steal my fries and parathas. It's the cutest food tax ever.</p>
               </div>
             </div>
           </div>
@@ -2393,11 +2892,11 @@ body:not(.is-locked) .lock-overlay {
               <div class="flip-card-front">
                 <span class="card-num">02</span>
                 <span class="card-icon">🛡️</span>
-                <h4>Fiercely Loyal</h4>
+                <h4>Your Fierce Loyalty</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Your loyalty is unmatched. In a world full of temporary people, having your steadfast loyalty makes me feel invincible.</p>
+                <p>When you love someone, you stand behind them like an unshakeable fortress. Having your fierce loyalty makes me feel truly invincible.</p>
               </div>
             </div>
           </div>
@@ -2407,12 +2906,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">03</span>
-                <span class="card-icon">🤍</span>
-                <h4>Deeply Caring Heart</h4>
+                <span class="card-icon">😂</span>
+                <h4>The Scrunched-Nose Laugh</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>The gentle way you check on me, care for the little things, and make sure I’m always okay. Your love is my true sanctuary.</p>
+                <p>The completely unfiltered, cheeks-red, nose-scrunched laugh when something is genuinely hilarious. It cures all my bad days instantly.</p>
               </div>
             </div>
           </div>
@@ -2422,12 +2921,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">04</span>
-                <span class="card-icon">🚆</span>
-                <h4>My Local Train Partner</h4>
+                <span class="card-icon">🔥</span>
+                <h4>Effortless Runway Slay</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Squeezing into crowded local trains from office to home and sharing earphones made the daily grind feel like pure romance.</p>
+                <p>Whether you're draped in an elegant traditional saree, dressed to kill for date night, or in oversized sweatpants—you are undeniably stunning.</p>
               </div>
             </div>
           </div>
@@ -2437,12 +2936,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">05</span>
-                <span class="card-icon">🛋️</span>
-                <h4>Office Couch Confidante</h4>
+                <span class="card-icon">🤍</span>
+                <h4>Your Soft Empathetic Heart</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Spending the whole night talking on the office couch until dawn. I fell in love with your mind, your stories, and your soul.</p>
+                <p>The way you melt over street animals, tear up at wholesome reels, and genuinely care about how others feel. Your kindness is pure gold.</p>
               </div>
             </div>
           </div>
@@ -2452,12 +2951,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">06</span>
-                <span class="card-icon">🏏</span>
-                <h4>"Match Results" at My Place</h4>
+                <span class="card-icon">🧥</span>
+                <h4>Stealing All My Clothes</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>The time you came over "just to watch the match results"—we both knew we just wanted any excuse to be together!</p>
+                <p>Every oversized hoodie, jacket, and comfortable shirt of mine eventually ends up in your closet. And honestly? You wear them 100x better.</p>
               </div>
             </div>
           </div>
@@ -2467,12 +2966,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">07</span>
-                <span class="card-icon">⛰️</span>
-                <h4>Lonavala Magic</h4>
+                <span class="card-icon">🎯</span>
+                <h4>Your Fierce Ambition</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Misty hills, the scenic Vistadome ride, waterfalls, and holding your hand in Lonavala. A memory permanently etched in my soul.</p>
+                <p>Watching you focus on your work with sharp determination and passion. I admire your intellect and hustle so much, Bebe.</p>
               </div>
             </div>
           </div>
@@ -2482,12 +2981,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">08</span>
-                <span class="card-icon">💍</span>
-                <h4>From "Who's The Groom?" to Me</h4>
+                <span class="card-icon">🎭</span>
+                <h4>Adorable Indecision Drama</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>We used to discuss on late night calls who would be the best fit for your groom. And look at God's plan: I am your groom!</p>
+                <p>The theatrical sigh you let out when choosing what to wear or what movie to watch: "I don't know, you pick!" Watching you overthink is pure comedy.</p>
               </div>
             </div>
           </div>
@@ -2497,12 +2996,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">09</span>
-                <span class="card-icon">💕</span>
-                <h4>Our Mutual "Bebe" Code</h4>
+                <span class="card-icon">🫂</span>
+                <h4>The Sanctuary in Your Hug</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>I call you Bebe, you call me Bebe. It's our own sweet language that nobody else can ever share.</p>
+                <p>No matter how noisy or chaotic Mumbai or the work day gets, resting my head against yours brings an instant, divine sense of peace.</p>
               </div>
             </div>
           </div>
@@ -2512,12 +3011,12 @@ body:not(.is-locked) .lock-overlay {
             <div class="flip-card-inner">
               <div class="flip-card-front">
                 <span class="card-num">10</span>
-                <span class="card-icon">👑</span>
-                <h4>My Soulmate Forever</h4>
+                <span class="card-icon">💕</span>
+                <h4>Our Unspoken "Bebe" Code</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>You are my past, my present, and every single tomorrow. Happy 24th Birthday, my love.</p>
+                <p>It's not just a nickname—it's an entire universe where you are my person, my home, and my favorite part of being alive.</p>
               </div>
             </div>
           </div>
@@ -2533,21 +3032,21 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-    <!-- PAGE 4: Our Real Story & Milestone Timeline -->
+    <!-- PAGE 4: The 5 Signature Story Milestones (Our Origin & Journey) -->
     <section class="page-section" id="page-4" data-title="Our Real Story">
       <div class="glass-card wide-card">
         <h2 class="section-title">The Real Story of Us ⏳📖</h2>
-        <p class="section-desc">From local trains to Lonavala peaks, from late-night couch talks to forever:</p>
+        <p class="section-desc">The unforgettable real-life chapters that brought us to where we stand today:</p>
 
         <div class="timeline">
           <!-- Milestone 1 -->
           <div class="timeline-item left">
             <div class="timeline-dot">🚆</div>
             <div class="timeline-content">
-              <span class="timeline-date">Daily Routine • Pure Romance</span>
-              <h3>Local Train Trips: Office ➔ Home & Back</h3>
-              <p>Rushing through crowded stations just to board the same local train. Sharing one pair of earphones, standing close in the rush hour, talking about our day, and laughing over office gossip. Those local train rides turned exhausting commutes into our sweetest routine.</p>
-              <div class="memory-tag-pill">🚆 Window breeze & shared songs</div>
+              <span class="timeline-date">The Daily Grind • Pure Magic</span>
+              <h3>Rush Hour Local Train Commutes</h3>
+              <p>Rushing through overcrowded station platforms just to spot each other by the train door. Squeezing side-by-side in the evening local, sharing one pair of tangled earphones, complaining about office chaos, and watching the city lights blur past the window. Those train rides turned tiring commutes into our daily date.</p>
+              <div class="memory-tag-pill">🚆 Window seat breezes & shared melodies</div>
               <button class="reaction-btn" data-reactions="108">💖 <span>108</span> Commutes</button>
             </div>
           </div>
@@ -2556,10 +3055,10 @@ body:not(.is-locked) .lock-overlay {
           <div class="timeline-item right">
             <div class="timeline-dot">🛋️</div>
             <div class="timeline-content">
-              <span class="timeline-date">After Hours • Pure Magic</span>
+              <span class="timeline-date">After Hours • Zero Sleep</span>
               <h3>The Whole Night on the Office Couch</h3>
-              <p>Everyone had packed up and left, but we stayed. Curled up on the office couch, talking without watching the clock. We talked about our deepest fears, our silliest childhood stories, our dreams. The sun came up, and in those quiet hours, I knew I was looking at my forever.</p>
-              <div class="memory-tag-pill">🌙 3 AM conversations & zero sleep</div>
+              <p>When the office emptied out and the world went quiet, we stayed. Curled up on the office couch, talking for hours without looking at the time. We spoke of childhood memories, our deepest insecurities, and our wild dreams until the morning sky broke into dawn. That night, I fell hopelessly in love with your mind.</p>
+              <div class="memory-tag-pill">🌙 3 AM secrets & sunrise glow</div>
               <button class="reaction-btn" data-reactions="240">🥺 <span>240</span> Awws</button>
             </div>
           </div>
@@ -2568,8 +3067,8 @@ body:not(.is-locked) .lock-overlay {
           <div class="timeline-item left">
             <div class="timeline-dot">🏏</div>
             <div class="timeline-content">
-              <span class="timeline-date">The Cute Excuse</span>
-              <h3>First Visit to My Place: "Just for the Match Results!"</h3>
+              <span class="timeline-date">The Transparent Excuse</span>
+              <h3>First Visit to My Place: "Just for Match Results!"</h3>
               <p>You came over to my place for the very first time, pretending the only reason was "to check the match results"! We both knew the match was just an excuse to be together. Sitting in my room, sharing snacks, and feeling those electric butterflies that never left.</p>
               <div class="memory-tag-pill">🍕 Match night butterflies</div>
               <button class="reaction-btn" data-reactions="312">🥰 <span>312</span> Smiles</button>
@@ -2580,10 +3079,10 @@ body:not(.is-locked) .lock-overlay {
           <div class="timeline-item right">
             <div class="timeline-dot">⛰️</div>
             <div class="timeline-content">
-              <span class="timeline-date">Our Paradise</span>
+              <span class="timeline-date">Our Mountain Escape</span>
               <h3>The Unforgettable Lonavala Getaway</h3>
-              <p>Taking the scenic train ride through the Western Ghats to Lonavala. Watching the mist roll over the green mountains, stepping out into the cool breeze, standing by the waterfalls, and holding your hand. Seeing your hair blow in the hill breeze made me realize how breathtaking you truly are.</p>
-              <div class="memory-tag-pill">🌧️ Misty hills & waterfalls</div>
+              <p>Boarding the scenic Vistadome train into Lonavala as the Western Ghats unfolded outside. Standing beside the mist-covered waterfalls, feeling the cool mountain drizzle on our skin, drinking hot chai, and holding your hand. Seeing your hair blow in the hill breeze made me realize how breathtaking you truly are.</p>
+              <div class="memory-tag-pill">🌧️ Misty hills & waterfall mist</div>
               <button class="reaction-btn" data-reactions="520">✨ <span>520</span> Memories</button>
             </div>
           </div>
@@ -2592,9 +3091,9 @@ body:not(.is-locked) .lock-overlay {
           <div class="timeline-item left">
             <div class="timeline-dot">💍</div>
             <div class="timeline-content">
-              <span class="timeline-date">Destiny Sealed</span>
-              <h3>"Who Will Be Your Groom?" ➔ Soon-To-Be Your Groom!</h3>
-              <p>We spent hours on late-night phone calls debating and discussing what kind of guy would be the best fit to be your groom. And look at where life brought us: God was laughing and smiling above, because I was the one meant to hold your hand forever. I am so proud to be your soon-to-be groom, Dakshita!</p>
+              <span class="timeline-date">Destiny's Masterpiece</span>
+              <h3>From Debating Grooms ➔ To Your Soon-To-Be Groom!</h3>
+              <p>Remember those endless late-night phone calls where we would analyze and joke about what kind of guy would make the best fit for your groom? Deep down, my soul knew who was meant for that role. God was smiling above, because the search is over: I am so proud, blessed, and excited to be your soon-to-be groom, Dakshita!</p>
               <div class="memory-tag-pill">👑 Forever my bride, forever my Bebe</div>
               <button class="reaction-btn" data-reactions="999">💍 <span>999+</span> Forever</button>
             </div>
@@ -2607,38 +3106,432 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-    <!-- PAGE 5: 5 Photo Albums (50 Pictures Total) -->
+        <!-- PAGE 5: 5 Specific Curated Photo Albums (50 Pictures Total) -->
     <section class="page-section" id="page-5" data-title="Photo Albums">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Dakshita's 5 Photo Albums 📸✨</h2>
-        <p class="section-desc">50 unforgettable moments organized into 5 curated albums. Tap any picture to open the HD Lightbox!</p>
+        <h2 class="section-title">Dakshita's 5 Specific Photo Albums 📸✨</h2>
+        <p class="section-desc">50 cherished memories across our 5 real-life chapters. Click any album tab to switch, and tap any photo to expand into the HD Lightbox!</p>
 
-        <!-- Album Selector Tabs -->
+        <!-- Specific Album Selector Tabs -->
         <div class="album-tabs-bar">
-          <button class="album-tab-btn active" data-album="album1">🚆 1. Train Commutes (10)</button>
-          <button class="album-tab-btn" data-album="album2">⛰️ 2. Lonavala Trip (10)</button>
-          <button class="album-tab-btn" data-album="album3">🛋️ 3. Office Couch (10)</button>
-          <button class="album-tab-btn" data-album="album4">🏏 4. Match Day (10)</button>
-          <button class="album-tab-btn" data-album="album5">👑 5. Hot & Gorgeous (10)</button>
+          <button class="album-tab-btn active" data-album="album1">🚆 1. Local Train Trips (10)</button>
+          <button class="album-tab-btn" data-album="album2">🛋️ 2. Office Couch Night (10)</button>
+          <button class="album-tab-btn" data-album="album3">🏏 3. Match Day at My Place (10)</button>
+          <button class="album-tab-btn" data-album="album4">⛰️ 4. Lonavala Getaway (10)</button>
+          <button class="album-tab-btn" data-album="album5">💍 5. Soon-To-Be Groom & Queen (10)</button>
         </div>
 
-        <!-- Album Photo Grids (Injected/Switched by JS) -->
+        <!-- Pre-rendered Album Display Area -->
         <div class="album-display-area" id="album-display-area">
-          <!-- Photos rendered here -->
+          <!-- Local Train Trips: Office ➔ Home & Back -->
+          <div class="album-grid-wrapper active" id="grid-album1" style="display: block;">
+            <div class="album-header-banner">
+              <h3>🚆 1. Local Train Trips (10)</h3>
+              <p class="album-header-subtitle">Local Train Trips: Office ➔ Home & Back</p>
+            </div>
+            <div class="album-grid">
+              <div class="album-photo-card" data-album="album1" data-index="0" data-tag="Platform 3: Finding Each Other in the Rush" data-caption="Rushing through the evening crowd just to catch the same train door.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo1.svg';" alt="Platform 3: Finding Each Other in the Rush">
+                </div>
+                <div class="album-tag-pill">#1 • Platform 3: Finding Each Other in the Rush</div>
+                <div class="album-caption-desc">Rushing through the evening crowd just to catch the same train door.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="1" data-tag="Sharing the Right Earphone to Our Song" data-caption="One earphone for you, one for me, drowning out the noisy commute.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo2.svg';" alt="Sharing the Right Earphone to Our Song">
+                </div>
+                <div class="album-tag-pill">#2 • Sharing the Right Earphone to Our Song</div>
+                <div class="album-caption-desc">One earphone for you, one for me, drowning out the noisy commute.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="2" data-tag="Window Seat Breeze on Your Radiant Face" data-caption="Watching the evening wind play with your hair as the city flew by.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo3.svg';" alt="Window Seat Breeze on Your Radiant Face">
+                </div>
+                <div class="album-tag-pill">#3 • Window Seat Breeze on Your Radiant Face</div>
+                <div class="album-caption-desc">Watching the evening wind play with your hair as the city flew by.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="3" data-tag="Squeezing Together in the Crowded Train" data-caption="Standing shoulder-to-shoulder in rush hour, protected in our own little bubble.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo4.svg';" alt="Squeezing Together in the Crowded Train">
+                </div>
+                <div class="album-tag-pill">#4 • Squeezing Together in the Crowded Train</div>
+                <div class="album-caption-desc">Standing shoulder-to-shoulder in rush hour, protected in our own little bubble.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="4" data-tag="Giggling Over the Day's Office Drama" data-caption="Debriefing the crazy workday and laughing until our cheeks hurt.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo5.svg';" alt="Giggling Over the Day's Office Drama">
+                </div>
+                <div class="album-tag-pill">#5 • Giggling Over the Day's Office Drama</div>
+                <div class="album-caption-desc">Debriefing the crazy workday and laughing until our cheeks hurt.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="5" data-tag="That Tired But Incredibly Sweet Smile" data-caption="Long exhausting day, but your smile made everything feel light again.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo6.svg';" alt="That Tired But Incredibly Sweet Smile">
+                </div>
+                <div class="album-tag-pill">#6 • That Tired But Incredibly Sweet Smile</div>
+                <div class="album-caption-desc">Long exhausting day, but your smile made everything feel light again.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="6" data-tag="Stealing Glances by the Open Train Door" data-caption="Looking at you looking outside, feeling so lucky you're mine.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo7.svg';" alt="Stealing Glances by the Open Train Door">
+                </div>
+                <div class="album-tag-pill">#7 • Stealing Glances by the Open Train Door</div>
+                <div class="album-caption-desc">Looking at you looking outside, feeling so lucky you're mine.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="7" data-tag="Holding Hands When the Train Jerked" data-caption="Subtle hand holds and tight grips whenever the train rattled on the tracks.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo8.svg';" alt="Holding Hands When the Train Jerked">
+                </div>
+                <div class="album-tag-pill">#8 • Holding Hands When the Train Jerked</div>
+                <div class="album-caption-desc">Subtle hand holds and tight grips whenever the train rattled on the tracks.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="8" data-tag="Our Favorite Evening Station Stop" data-caption="The station where our day ended, but we never wanted to part ways.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo9.svg';" alt="Our Favorite Evening Station Stop">
+                </div>
+                <div class="album-tag-pill">#9 • Our Favorite Evening Station Stop</div>
+                <div class="album-caption-desc">The station where our day ended, but we never wanted to part ways.</div>
+              </div>
+              <div class="album-photo-card" data-album="album1" data-index="9" data-tag="The Commute That Made Us Fall in Love" data-caption="How a daily local train ride became the most romantic part of my life.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album1/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo10.svg';" alt="The Commute That Made Us Fall in Love">
+                </div>
+                <div class="album-tag-pill">#10 • The Commute That Made Us Fall in Love</div>
+                <div class="album-caption-desc">How a daily local train ride became the most romantic part of my life.</div>
+              </div>
+            </div>
+          </div>
+          <!-- The Whole Night on the Office Couch -->
+          <div class="album-grid-wrapper " id="grid-album2" style="display: none;">
+            <div class="album-header-banner">
+              <h3>🛋️ 2. Office Couch Night (10)</h3>
+              <p class="album-header-subtitle">The Whole Night on the Office Couch</p>
+            </div>
+            <div class="album-grid">
+              <div class="album-photo-card" data-album="album2" data-index="0" data-tag="9 PM: When the Whole Office Emptied Out" data-caption="Lights dimmed, desks abandoned, and just the two of us staying behind.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo1.svg';" alt="9 PM: When the Whole Office Emptied Out">
+                </div>
+                <div class="album-tag-pill">#1 • 9 PM: When the Whole Office Emptied Out</div>
+                <div class="album-caption-desc">Lights dimmed, desks abandoned, and just the two of us staying behind.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="1" data-tag="Curled Up on the Big Leather Couch" data-caption="Kicking off shoes, pulling up feet, and getting completely comfortable.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo2.svg';" alt="Curled Up on the Big Leather Couch">
+                </div>
+                <div class="album-tag-pill">#2 • Curled Up on the Big Leather Couch</div>
+                <div class="album-caption-desc">Kicking off shoes, pulling up feet, and getting completely comfortable.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="2" data-tag="Midnight Coffee & Shared Secrets" data-caption="Warm cups, quiet whispers, and opening up about things we tell no one else.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo3.svg';" alt="Midnight Coffee & Shared Secrets">
+                </div>
+                <div class="album-tag-pill">#3 • Midnight Coffee & Shared Secrets</div>
+                <div class="album-caption-desc">Warm cups, quiet whispers, and opening up about things we tell no one else.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="3" data-tag="1 AM: Talking About Our Deepest Dreams" data-caption="Sharing our childhood memories, our fears, and where we want to go in life.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo4.svg';" alt="1 AM: Talking About Our Deepest Dreams">
+                </div>
+                <div class="album-tag-pill">#4 • 1 AM: Talking About Our Deepest Dreams</div>
+                <div class="album-caption-desc">Sharing our childhood memories, our fears, and where we want to go in life.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="4" data-tag="2 AM: Realizing We Don't Want to Sleep" data-caption="The clock was ticking, but neither of us wanted the night to ever end.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo5.svg';" alt="2 AM: Realizing We Don't Want to Sleep">
+                </div>
+                <div class="album-tag-pill">#5 • 2 AM: Realizing We Don't Want to Sleep</div>
+                <div class="album-caption-desc">The clock was ticking, but neither of us wanted the night to ever end.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="5" data-tag="3 AM: Sleepy Yawns & Adorable Messy Hair" data-caption="Fighting sleep with cute yawns, laughing at how silly we looked.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo6.svg';" alt="3 AM: Sleepy Yawns & Adorable Messy Hair">
+                </div>
+                <div class="album-tag-pill">#6 • 3 AM: Sleepy Yawns & Adorable Messy Hair</div>
+                <div class="album-caption-desc">Fighting sleep with cute yawns, laughing at how silly we looked.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="6" data-tag="Your Contagious Laugh in the Quiet Hall" data-caption="Giggles echoing through the empty office floors at 3:30 AM.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo7.svg';" alt="Your Contagious Laugh in the Quiet Hall">
+                </div>
+                <div class="album-tag-pill">#7 • Your Contagious Laugh in the Quiet Hall</div>
+                <div class="album-caption-desc">Giggles echoing through the empty office floors at 3:30 AM.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="7" data-tag="4 AM: Falling Hopelessly for Your Soul" data-caption="The exact moment I looked at you and knew you were my forever person.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo8.svg';" alt="4 AM: Falling Hopelessly for Your Soul">
+                </div>
+                <div class="album-tag-pill">#8 • 4 AM: Falling Hopelessly for Your Soul</div>
+                <div class="album-caption-desc">The exact moment I looked at you and knew you were my forever person.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="8" data-tag="First Rays of Golden Dawn Through the Window" data-caption="Watching the dark sky turn to soft pink and gold together.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo9.svg';" alt="First Rays of Golden Dawn Through the Window">
+                </div>
+                <div class="album-tag-pill">#9 • First Rays of Golden Dawn Through the Window</div>
+                <div class="album-caption-desc">Watching the dark sky turn to soft pink and gold together.</div>
+              </div>
+              <div class="album-photo-card" data-album="album2" data-index="9" data-tag="The Night Everything Changed Between Us" data-caption="No sleep, zero regrets, and the foundation of our entire love story.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album2/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo10.svg';" alt="The Night Everything Changed Between Us">
+                </div>
+                <div class="album-tag-pill">#10 • The Night Everything Changed Between Us</div>
+                <div class="album-caption-desc">No sleep, zero regrets, and the foundation of our entire love story.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Match Day: Your First Visit to My Place -->
+          <div class="album-grid-wrapper " id="grid-album3" style="display: none;">
+            <div class="album-header-banner">
+              <h3>🏏 3. Match Day at My Place (10)</h3>
+              <p class="album-header-subtitle">Match Day: Your First Visit to My Place</p>
+            </div>
+            <div class="album-grid">
+              <div class="album-photo-card" data-album="album3" data-index="0" data-tag="The Very First Knock on My Door" data-caption="Heart racing as I opened the door to see you standing there.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo1.svg';" alt="The Very First Knock on My Door">
+                </div>
+                <div class="album-tag-pill">#1 • The Very First Knock on My Door</div>
+                <div class="album-caption-desc">Heart racing as I opened the door to see you standing there.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="1" data-tag="Pretending It Was Strictly About the Score" data-caption="Claiming you 'just came to check the match results'—the cutest excuse!">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo2.svg';" alt="Pretending It Was Strictly About the Score">
+                </div>
+                <div class="album-tag-pill">#2 • Pretending It Was Strictly About the Score</div>
+                <div class="album-caption-desc">Claiming you 'just came to check the match results'—the cutest excuse!</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="2" data-tag="Cheering at the Screen Side-by-Side" data-caption="Jumping up and yelling at every boundary together on the couch.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo3.svg';" alt="Cheering at the Screen Side-by-Side">
+                </div>
+                <div class="album-tag-pill">#3 • Cheering at the Screen Side-by-Side</div>
+                <div class="album-caption-desc">Jumping up and yelling at every boundary together on the couch.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="3" data-tag="Stealing Snacks Mid-Over" data-caption="Fighting over chips, dip, and sodas between balls.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo4.svg';" alt="Stealing Snacks Mid-Over">
+                </div>
+                <div class="album-tag-pill">#4 • Stealing Snacks Mid-Over</div>
+                <div class="album-caption-desc">Fighting over chips, dip, and sodas between balls.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="4" data-tag="Electric Butterflies That Refused to Leave" data-caption="Sitting so close, feeling the tension and butterflies in the room.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo5.svg';" alt="Electric Butterflies That Refused to Leave">
+                </div>
+                <div class="album-tag-pill">#5 • Electric Butterflies That Refused to Leave</div>
+                <div class="album-caption-desc">Sitting so close, feeling the tension and butterflies in the room.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="5" data-tag="Catching You Quietly Looking at Me" data-caption="Looking away from the TV screen and catching each other's eyes.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo6.svg';" alt="Catching You Quietly Looking at Me">
+                </div>
+                <div class="album-tag-pill">#6 • Catching You Quietly Looking at Me</div>
+                <div class="album-caption-desc">Looking away from the TV screen and catching each other's eyes.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="6" data-tag="Celebrating Every Six Together" data-caption="High-fives that turned into holding hands.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo7.svg';" alt="Celebrating Every Six Together">
+                </div>
+                <div class="album-tag-pill">#7 • Celebrating Every Six Together</div>
+                <div class="album-caption-desc">High-fives that turned into holding hands.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="7" data-tag="When the Match Ended But We Stayed" data-caption="The game was over, but neither of us made a single move to leave.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo8.svg';" alt="When the Match Ended But We Stayed">
+                </div>
+                <div class="album-tag-pill">#8 • When the Match Ended But We Stayed</div>
+                <div class="album-caption-desc">The game was over, but neither of us made a single move to leave.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="8" data-tag="The Cutest Excuse We Ever Came Up With" data-caption="Admitting that the cricket match was just an excuse to be close.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo9.svg';" alt="The Cutest Excuse We Ever Came Up With">
+                </div>
+                <div class="album-tag-pill">#9 • The Cutest Excuse We Ever Came Up With</div>
+                <div class="album-caption-desc">Admitting that the cricket match was just an excuse to be close.</div>
+              </div>
+              <div class="album-photo-card" data-album="album3" data-index="9" data-tag="The Day My Room Finally Felt Like Home" data-caption="The first day your laughter and perfume lingered in my space.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album3/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo10.svg';" alt="The Day My Room Finally Felt Like Home">
+                </div>
+                <div class="album-tag-pill">#10 • The Day My Room Finally Felt Like Home</div>
+                <div class="album-caption-desc">The first day your laughter and perfume lingered in my space.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Our Unforgettable Lonavala Trip -->
+          <div class="album-grid-wrapper " id="grid-album4" style="display: none;">
+            <div class="album-header-banner">
+              <h3>⛰️ 4. Lonavala Getaway (10)</h3>
+              <p class="album-header-subtitle">Our Unforgettable Lonavala Trip</p>
+            </div>
+            <div class="album-grid">
+              <div class="album-photo-card" data-album="album4" data-index="0" data-tag="Boarding the Vistadome Mountain Coach" data-caption="Glass ceiling, scenic panoramic views, and our first mountain getaway.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo1.svg';" alt="Boarding the Vistadome Mountain Coach">
+                </div>
+                <div class="album-tag-pill">#1 • Boarding the Vistadome Mountain Coach</div>
+                <div class="album-caption-desc">Glass ceiling, scenic panoramic views, and our first mountain getaway.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="1" data-tag="Western Ghats Fog Outside the Glass Window" data-caption="Watching the lush green hills disappear into thick white clouds.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo2.svg';" alt="Western Ghats Fog Outside the Glass Window">
+                </div>
+                <div class="album-tag-pill">#2 • Western Ghats Fog Outside the Glass Window</div>
+                <div class="album-caption-desc">Watching the lush green hills disappear into thick white clouds.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="2" data-tag="Stepping Out into the Mountain Drizzle" data-caption="The cool wet mountain air hitting our faces as we stepped off.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo3.svg';" alt="Stepping Out into the Mountain Drizzle">
+                </div>
+                <div class="album-tag-pill">#3 • Stepping Out into the Mountain Drizzle</div>
+                <div class="album-caption-desc">The cool wet mountain air hitting our faces as we stepped off.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="3" data-tag="Wind in Your Hair at Tiger Point" data-caption="Standing high on the ridge, the cool mountain gale blowing your hair.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo4.svg';" alt="Wind in Your Hair at Tiger Point">
+                </div>
+                <div class="album-tag-pill">#4 • Wind in Your Hair at Tiger Point</div>
+                <div class="album-caption-desc">Standing high on the ridge, the cool mountain gale blowing your hair.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="4" data-tag="Steaming Hot Chai & Sweet Corn in the Rain" data-caption="Huddling under small roadside stalls sharing spicy corn and hot tea.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo5.svg';" alt="Steaming Hot Chai & Sweet Corn in the Rain">
+                </div>
+                <div class="album-tag-pill">#5 • Steaming Hot Chai & Sweet Corn in the Rain</div>
+                <div class="album-caption-desc">Huddling under small roadside stalls sharing spicy corn and hot tea.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="5" data-tag="Holding Hands Beside the Gushing Waterfall" data-caption="The deafening roar of water, cold spray, and tight hand-holding.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo6.svg';" alt="Holding Hands Beside the Gushing Waterfall">
+                </div>
+                <div class="album-tag-pill">#6 • Holding Hands Beside the Gushing Waterfall</div>
+                <div class="album-caption-desc">The deafening roar of water, cold spray, and tight hand-holding.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="6" data-tag="Your Radiant Smile Against the Green Hills" data-caption="Looking at you looking at nature—you were the prettiest view there.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo7.svg';" alt="Your Radiant Smile Against the Green Hills">
+                </div>
+                <div class="album-tag-pill">#7 • Your Radiant Smile Against the Green Hills</div>
+                <div class="album-caption-desc">Looking at you looking at nature—you were the prettiest view there.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="7" data-tag="Walking Through Low Clouds Together" data-caption="Felt like we were walking on clouds in our own private misty world.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo8.svg';" alt="Walking Through Low Clouds Together">
+                </div>
+                <div class="album-tag-pill">#8 • Walking Through Low Clouds Together</div>
+                <div class="album-caption-desc">Felt like we were walking on clouds in our own private misty world.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="8" data-tag="Watching the Sunset Melt Behind the Valley" data-caption="Golden hour peeking through the mountain fog as evening settled.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo9.svg';" alt="Watching the Sunset Melt Behind the Valley">
+                </div>
+                <div class="album-tag-pill">#9 • Watching the Sunset Melt Behind the Valley</div>
+                <div class="album-caption-desc">Golden hour peeking through the mountain fog as evening settled.</div>
+              </div>
+              <div class="album-photo-card" data-album="album4" data-index="9" data-tag="Our Monsoon Paradise Etched in My Heart" data-caption="A trip I would replay on a loop for the rest of my life.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album4/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo10.svg';" alt="Our Monsoon Paradise Etched in My Heart">
+                </div>
+                <div class="album-tag-pill">#10 • Our Monsoon Paradise Etched in My Heart</div>
+                <div class="album-caption-desc">A trip I would replay on a loop for the rest of my life.</div>
+              </div>
+            </div>
+          </div>
+          <!-- From 'Who's Your Groom?' to Soon-To-Be Groom! -->
+          <div class="album-grid-wrapper " id="grid-album5" style="display: none;">
+            <div class="album-header-banner">
+              <h3>💍 5. Soon-To-Be Groom & Queen (10)</h3>
+              <p class="album-header-subtitle">From 'Who's Your Groom?' to Soon-To-Be Groom!</p>
+            </div>
+            <div class="album-grid">
+              <div class="album-photo-card" data-album="album5" data-index="0" data-tag="Late-Night Calls: 'Who Will Be Your Groom?'" data-caption="Debating for hours on phone calls about the qualities of your ideal groom.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo1.svg';" alt="Late-Night Calls: 'Who Will Be Your Groom?'">
+                </div>
+                <div class="album-tag-pill">#1 • Late-Night Calls: 'Who Will Be Your Groom?'</div>
+                <div class="album-caption-desc">Debating for hours on phone calls about the qualities of your ideal groom.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="1" data-tag="The Playful Search for Your Ideal Partner" data-caption="Joking and evaluating suitors, completely unaware of destiny's plan.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo2.svg';" alt="The Playful Search for Your Ideal Partner">
+                </div>
+                <div class="album-tag-pill">#2 • The Playful Search for Your Ideal Partner</div>
+                <div class="album-caption-desc">Joking and evaluating suitors, completely unaware of destiny's plan.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="2" data-tag="The Second Destiny Clicked: It Was Always Me" data-caption="When we both realized the person we were searching for was right here.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo3.svg';" alt="The Second Destiny Clicked: It Was Always Me">
+                </div>
+                <div class="album-tag-pill">#3 • The Second Destiny Clicked: It Was Always Me</div>
+                <div class="album-caption-desc">When we both realized the person we were searching for was right here.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="3" data-tag="Undeniably Hot Draped in That Saree" data-caption="Looking like an Indian goddess in traditional ethnic drape.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo4.svg';" alt="Undeniably Hot Draped in That Saree">
+                </div>
+                <div class="album-tag-pill">#4 • Undeniably Hot Draped in That Saree</div>
+                <div class="album-caption-desc">Looking like an Indian goddess in traditional ethnic drape.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="4" data-tag="Date Night Slaying in All-Black Glamour" data-caption="Head-turner, jaw-dropper—making everyone in the room jealous of me.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo5.svg';" alt="Date Night Slaying in All-Black Glamour">
+                </div>
+                <div class="album-tag-pill">#5 • Date Night Slaying in All-Black Glamour</div>
+                <div class="album-caption-desc">Head-turner, jaw-dropper—making everyone in the room jealous of me.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="5" data-tag="Your Fierce Loyalty That Shields My Heart" data-caption="Standing by me with unwavering dedication, loyalty, and faith.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo6.svg';" alt="Your Fierce Loyalty That Shields My Heart">
+                </div>
+                <div class="album-tag-pill">#6 • Your Fierce Loyalty That Shields My Heart</div>
+                <div class="album-caption-desc">Standing by me with unwavering dedication, loyalty, and faith.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="6" data-tag="The Caring, Pure Soul Behind the Radiance" data-caption="A girl who is hot on the outside, and an angel of kindness on the inside.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo7.svg';" alt="The Caring, Pure Soul Behind the Radiance">
+                </div>
+                <div class="album-tag-pill">#7 • The Caring, Pure Soul Behind the Radiance</div>
+                <div class="album-caption-desc">A girl who is hot on the outside, and an angel of kindness on the inside.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="7" data-tag="The Sweetest Sound: You Softly Calling Me 'Bebe'" data-caption="Our mutual pet name—a code of unconditional love.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo8.svg';" alt="The Sweetest Sound: You Softly Calling Me 'Bebe'">
+                </div>
+                <div class="album-tag-pill">#8 • The Sweetest Sound: You Softly Calling Me 'Bebe'</div>
+                <div class="album-caption-desc">Our mutual pet name—a code of unconditional love.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="8" data-tag="Proud & Honored to Be Your Soon-To-Be Groom" data-caption="Counting down the days until I get to place that ring on your finger.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo9.svg';" alt="Proud & Honored to Be Your Soon-To-Be Groom">
+                </div>
+                <div class="album-tag-pill">#9 • Proud & Honored to Be Your Soon-To-Be Groom</div>
+                <div class="album-caption-desc">Counting down the days until I get to place that ring on your finger.</div>
+              </div>
+              <div class="album-photo-card" data-album="album5" data-index="9" data-tag="Walking Hand-in-Hand Into Our Forever" data-caption="To growing old together, loving each other more with every sunrise.">
+                <div class="album-img-wrap">
+                  <img src="assets/photos/album5/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo10.svg';" alt="Walking Hand-in-Hand Into Our Forever">
+                </div>
+                <div class="album-tag-pill">#10 • Walking Hand-in-Hand Into Our Forever</div>
+                <div class="album-caption-desc">To growing old together, loving each other more with every sunrise.</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="photo-hint-box">
-          💡 <em>Tip: You can add 10 pictures to each album! Place them in <code>assets/photos/album1/photo1.jpg .. photo10.jpg</code>, <code>album2/</code>, up to <code>album5/</code>.</em>
+          💡 <em>Tip: You can add 10 pictures to each album! Drop your photos into <code>assets/photos/album1/photo1.jpg .. photo10.jpg</code>, <code>album2/</code>, up to <code>album5/</code>.</em>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 6: Dakshita & Ratnesh Love Quiz -->
+    <!-- PAGE 6: Dakshita & Ratnesh Love Quiz (Fresh & Fun Trivia) -->
     <section class="page-section" id="page-6" data-title="Couple Quiz">
       <div class="glass-card quiz-card">
-        <div class="badge-pill">Mini Game • Test Your Love IQ</div>
-        <h2 class="section-title">The "Dakshita & Ratnesh" Love Quiz 🎮</h2>
-        <p class="section-desc">Answer our relationship trivia to claim your 100% Soulmate Trophy!</p>
+        <div class="badge-pill">Mini Game • How Well Do You Know Us?</div>
+        <h2 class="section-title">The "Dakshita & Ratnesh" Relationship Quiz 🎮</h2>
+        <p class="section-desc">Answer these 4 funny questions correctly to claim your 100% Soulmate Trophy!</p>
 
         <div class="quiz-container" id="quiz-container">
           <!-- Quiz questions injected by JS -->
@@ -2647,97 +3540,97 @@ body:not(.is-locked) .lock-overlay {
         <div class="quiz-score-board" id="quiz-score-board">
           <div class="badge-icon">🏆</div>
           <h3>100% Soulmate Compatibility!</h3>
-          <p id="quiz-verdict-text">You know every chapter of our love story by heart. You truly are the best partner in the universe, Dakshita!</p>
+          <p id="quiz-verdict-text">You aced the test! You know every hilarious, sweet, and secret chapter of our story by heart.</p>
           <button class="btn btn-primary" id="retry-quiz-btn">Play Again 🔁</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 7: Infinite Love Reason Generator -->
-    <section class="page-section" id="page-7" data-title="Love Slot Machine">
+    <!-- PAGE 7: The Dakshita Appreciation Machine (Slot Machine) -->
+    <section class="page-section" id="page-7" data-title="Appreciation Machine">
       <div class="glass-card slot-card">
-        <h2 class="section-title">The Infinite Love Generator 🎰✨</h2>
-        <p class="section-desc">Whenever you want a reminder of why you, Dakshita, are so deeply adored, pull the lever!</p>
+        <h2 class="section-title">The Dakshita Appreciation Machine 🎰✨</h2>
+        <p class="section-desc">Whenever you want a reminder of your beauty, intellect, and grace, pull the lever!</p>
 
         <div class="slot-machine-box">
           <div class="slot-display-screen" id="slot-screen">
             <div class="slot-emoji" id="slot-emoji">💖</div>
             <div class="slot-reason-text" id="slot-reason">
-              "Because you're not just gorgeous and hot—you have the most loyal, loving, and caring soul I have ever known!"
+              "Because you are turning 24, yet your radiant heart and timeless beauty only get more mesmerizing every single year."
             </div>
           </div>
-          <div class="slot-counter">Reasons generated so far: <strong id="slot-spin-count">1</strong></div>
+          <div class="slot-counter">Affirmations generated: <strong id="slot-spin-count">1</strong></div>
         </div>
 
         <div class="slot-controls">
-          <button class="btn btn-primary slot-lever-btn" id="slot-spin-btn">🎰 Spin For A New Reason!</button>
-          <button class="btn btn-outline" id="copy-reason-btn">📋 Copy Cute Message</button>
+          <button class="btn btn-primary slot-lever-btn" id="slot-spin-btn">🎰 Pull The Lever!</button>
+          <button class="btn btn-outline" id="copy-reason-btn">📋 Copy Message</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 8: "Open When..." Virtual Sealed Letters -->
-    <section class="page-section" id="page-8" data-title="Open When">
+    <!-- PAGE 8: "Open When..." Letters (Real Life Support) -->
+    <section class="page-section" id="page-8" data-title="Open When Letters">
       <div class="glass-card wide-card">
-        <h2 class="section-title">"Open When..." Sealed Letters 💌</h2>
-        <p class="section-desc">Handwritten letters for whenever my Bebe (Dakshita) needs a little piece of my love:</p>
+        <h2 class="section-title">"Open When..." Virtual Sealed Letters 💌</h2>
+        <p class="section-desc">Handwritten letters for different real-life moments whenever you need comfort or strength:</p>
 
         <div class="envelope-grid">
           <div class="envelope-item" data-letter="1">
-            <div class="wax-seal">🚆</div>
+            <div class="wax-seal">💼</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open When You Miss Our Train Commutes</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open When You're Exhausted by Work</span></div>
           </div>
           <div class="envelope-item" data-letter="2">
-            <div class="wax-seal">🌸</div>
+            <div class="wax-seal">🪞</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open When You're Stressed From Work</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open When Self-Doubt Creeps In</span></div>
           </div>
           <div class="envelope-item" data-letter="3">
             <div class="wax-seal">🌙</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open When You Miss The Office Couch Talks</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open When Your Mind Won't Let You Sleep</span></div>
           </div>
           <div class="envelope-item" data-letter="4">
-            <div class="wax-seal">🥺</div>
+            <div class="wax-seal">⚡</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open When You're Mad at Me (Oops!)</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open When We Had a Disagreement</span></div>
           </div>
           <div class="envelope-item" data-letter="5">
-            <div class="wax-seal">👑</div>
+            <div class="wax-seal">🫂</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open When You Forget How Hot You Are</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open When You Need a Deep Hug From Afar</span></div>
           </div>
           <div class="envelope-item" data-letter="6">
-            <div class="wax-seal">💍</div>
+            <div class="wax-seal">🎂</div>
             <div class="envelope-flap"></div>
-            <div class="envelope-body"><span class="envelope-title">Open For A Note From Your Future Groom</span></div>
+            <div class="envelope-body"><span class="envelope-title">Open on the Morning of Your 24th Birthday</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 9: Dakshita's VIP Love Coupons -->
+    <!-- PAGE 9: Dakshita's VIP Golden Coupons -->
     <section class="page-section" id="page-9" data-title="VIP Coupons">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Dakshita's Golden Love Coupons 🎟️✨</h2>
+        <h2 class="section-title">Dakshita's VIP Golden Coupons 🎟️✨</h2>
         <p class="section-desc">No expiration date. Non-transferable. 100% Guaranteed redemption anytime you ask Ratnesh!</p>
 
         <div class="coupon-grid">
           <div class="coupon-card" id="coupon-1">
-            <div class="coupon-badge">VIP PASS</div>
+            <div class="coupon-badge">ZERO EFFORT</div>
             <div class="coupon-content">
-              <h3>💆 Full Relaxing Massage</h3>
-              <p>Redeemable for a 30-minute head, back, or foot massage after a tiring day of work or train travel.</p>
+              <h3>👑 Queen for a Day Pass</h3>
+              <p>You do zero chores. Breakfast served to you, your comfort drinks prepared, and pampered like royalty all day long.</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-1')">Redeem Coupon</button></div>
           </div>
 
           <div class="coupon-card" id="coupon-2">
-            <div class="coupon-badge">SPECIAL TRIP</div>
+            <div class="coupon-badge">MIDNIGHT SWEETS</div>
             <div class="coupon-content">
-              <h3>⛰️ Return Trip to Lonavala</h3>
-              <p>Pack our bags and hop on the Vistadome train back to Lonavala for chai, waterfalls, and cool mountain air!</p>
+              <h3>🍦 Midnight Ice Cream & Long Drive</h3>
+              <p>Craving desserts or falooda at 1 AM? We get in the car or order immediately, zero questions asked!</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-2')">Redeem Coupon</button></div>
           </div>
@@ -2745,35 +3638,35 @@ body:not(.is-locked) .lock-overlay {
           <div class="coupon-card" id="coupon-3">
             <div class="coupon-badge">SUPER POWER</div>
             <div class="coupon-content">
-              <h3>🏆 "You Win Any Argument"</h3>
-              <p>Play this card anytime. Ratnesh must immediately surrender, admit you're right, and kiss your forehead.</p>
+              <h3>🏆 "You Win Any Argument" Pass</h3>
+              <p>Play this during any disagreement. Ratnesh must immediately surrender, admit you're right, and kiss your forehead.</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-3')">Redeem Coupon</button></div>
           </div>
 
           <div class="coupon-card" id="coupon-4">
-            <div class="coupon-badge">QUEEN FOR A DAY</div>
+            <div class="coupon-badge">RELAXATION</div>
             <div class="coupon-content">
-              <h3>👑 24-Hour Princess Treatment</h3>
-              <p>You don't lift a finger. Breakfast in bed, your favorite songs, your chosen movies, and spoiled non-stop.</p>
+              <h3>💆 Head & Back Massage on Demand</h3>
+              <p>A relaxing 30-minute head massage or soothing back massage whenever you feel tense or tired.</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-4')">Redeem Coupon</button></div>
           </div>
 
           <div class="coupon-card" id="coupon-5">
-            <div class="coupon-badge">MATCH NIGHT</div>
+            <div class="coupon-badge">SHOPPING TREAT</div>
             <div class="coupon-content">
-              <h3>🍿 Private Couch Date & Snacks</h3>
-              <p>Recreating our legendary couch chats with all your favorite munchies, warm blankets, and zero distractions.</p>
+              <h3>🛍️ Guilt-Free Splurge Date</h3>
+              <p>Whatever dress, jewelry, or cute home decor piece you've been eyeing online—it's on Ratnesh!</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-5')">Redeem Coupon</button></div>
           </div>
 
           <div class="coupon-card" id="coupon-6">
-            <div class="coupon-badge">GROOM PROMISE</div>
+            <div class="coupon-badge">EMPATHY PASS</div>
             <div class="coupon-content">
-              <h3>💍 Forever Yours Card</h3>
-              <p>Guaranteed to love, cherish, protect, and stand by Dakshita through every single day of our lives.</p>
+              <h3>👂 "Listen Without Advice" Voucher</h3>
+              <p>Whenever you need to vent about your day without wanting solutions—just pure validation, hugs, and tea.</p>
             </div>
             <div class="coupon-action"><button class="claim-btn" onclick="redeemCoupon('coupon-6')">Redeem Coupon</button></div>
           </div>
@@ -2781,18 +3674,18 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-    <!-- PAGE 10: Video Albums & Grand Finale -->
+    <!-- PAGE 10: Video Albums & Groom's Love Letter -->
     <section class="page-section" id="page-10" data-title="Video Albums & Letter">
       <div class="glass-card finale-card">
-        <div class="badge-pill">The Grand Finale • 3 Video Albums (12 Videos)</div>
+        <div class="badge-pill">The Grand Finale • 3 Video Albums (12 Videos Total)</div>
         <h2 class="section-title">Videos Dedicated to You, Dakshita 🎬💖</h2>
         <p class="section-desc">Select an album and play our favorite video clips:</p>
 
-        <!-- Video Album Tabs -->
+                <!-- Specific Video Album Tabs -->
         <div class="video-tabs-bar">
-          <button class="video-tab-btn active" data-valbum="album1">😂 Album 1: Goofy & Cute Clips (4)</button>
-          <button class="video-tab-btn" data-valbum="album2">🚆 Album 2: Lonavala & Trains (4)</button>
-          <button class="video-tab-btn" data-valbum="album3">🎂 Album 3: Birthday Montages (4)</button>
+          <button class="video-tab-btn active" data-valbum="album1">🚆 Album 1: Train Commutes & Office Couch (4)</button>
+          <button class="video-tab-btn" data-valbum="album2">⛰️ Album 2: Lonavala & Match Day (4)</button>
+          <button class="video-tab-btn" data-valbum="album3">💍 Album 3: Groom Vows & Birthday Tributes (4)</button>
         </div>
 
         <!-- Video Cinema Frame -->
@@ -2801,31 +3694,127 @@ body:not(.is-locked) .lock-overlay {
             <source id="main-video-source" src="assets/videos/album1/video1.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <div class="video-title-bar" id="current-video-title">Playing: Video 1 — Unfiltered Laughter</div>
+          <div class="video-title-bar" id="current-video-title">Playing: Video 1 — Evening Local Train Ride & Rush Hour Giggles</div>
         </div>
 
-        <!-- Video Playlist Selector (4 videos per album) -->
-        <div class="video-playlist-grid" id="video-playlist-grid">
-          <!-- Populated by JS -->
+        <!-- Pre-rendered Video Playlist Selectors for All 3 Albums -->
+        <div class="video-playlist-container">
+          <!-- Album 1 Videos -->
+          <div class="video-album-wrapper active" id="vwrap-album1" style="display: grid;">
+            <div class="video-card-item active" data-valbum="album1" data-vidx="0" data-src="assets/videos/album1/video1.mp4" data-title="Video 1: Evening Local Train Ride & Rush Hour Giggles">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 1: Evening Local Train Commute</div>
+                <div class="video-card-desc">Sharing earphones and watching Mumbai city lights blur past.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album1" data-vidx="1" data-src="assets/videos/album1/video2.mp4" data-title="Video 2: Empty Office Hallway 3 AM Shenanigans">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 2: Empty Office Shenanigans</div>
+                <div class="video-card-desc">When everyone packed up and the office was our private playground.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album1" data-vidx="2" data-src="assets/videos/album1/video3.mp4" data-title="Video 3: Office Couch Whispers & Zero Sleep Talks">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 3: Office Couch Night Whispers</div>
+                <div class="video-card-desc">Curled up on the leather couch sharing our deepest childhood dreams.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album1" data-vidx="3" data-src="assets/videos/album1/video4.mp4" data-title="Video 4: Watching the Sunrise from Office Windows">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 4: Office Sunrise Together</div>
+                <div class="video-card-desc">Golden dawn breaking into the room after a night of pure bonding.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Album 2 Videos -->
+          <div class="video-album-wrapper" id="vwrap-album2" style="display: none;">
+            <div class="video-card-item" data-valbum="album2" data-vidx="0" data-src="assets/videos/album2/video1.mp4" data-title="Video 1: Vistadome Mountain Train Panorama">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 1: Vistadome Mountain Train</div>
+                <div class="video-card-desc">Rolling through the lush green fog and Western Ghats into Lonavala.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album2" data-vidx="1" data-src="assets/videos/album2/video2.mp4" data-title="Video 2: Standing Beside the Gushing Waterfall">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 2: Gushing Waterfall Spray</div>
+                <div class="video-card-desc">The cool mountain drizzle, wind in your hair, and endless laughing.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album2" data-vidx="2" data-src="assets/videos/album2/video3.mp4" data-title="Video 3: Match Day Celebrations at My Place">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 3: Match Day at My Place</div>
+                <div class="video-card-desc">Jumping up on the sofa and cheering boundaries together on your first visit.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album2" data-vidx="3" data-src="assets/videos/album2/video4.mp4" data-title="Video 4: Late Night Long Drive & Song Jam">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 4: Late Night Drive & Jam</div>
+                <div class="video-card-desc">Windows down, night breeze, singing our favorite songs on repeat.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Album 3 Videos -->
+          <div class="video-album-wrapper" id="vwrap-album3" style="display: none;">
+            <div class="video-card-item" data-valbum="album3" data-vidx="0" data-src="assets/videos/album3/video1.mp4" data-title="Video 1: 24 Years of Pure Sunshine: A Tribute to Dakshita">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 1: 24 Years of Sunshine</div>
+                <div class="video-card-desc">A celebration of the prettiest, most caring soul to enter my life.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album3" data-vidx="1" data-src="assets/videos/album3/video2.mp4" data-title="Video 2: Late-Night Calls: 'Who Will Be Your Groom?'">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 2: 'Who Will Be Your Groom?'</div>
+                <div class="video-card-desc">Re-living how we debated suitors until destiny revealed it was me!</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album3" data-vidx="2" data-src="assets/videos/album3/video3.mp4" data-title="Video 3: A Special Message from Your Soon-To-Be Groom">
+              <div class="video-card-icon">▶️</div>
+              <div class="video-card-info">
+                <div class="video-card-title">Video 3: The Soon-To-Be Groom Vow</div>
+                <div class="video-card-desc">A personal promise of lifelong love, loyalty, and protection from Ratnesh.</div>
+              </div>
+            </div>
+            <div class="video-card-item" data-valbum="album3" data-vidx="3" data-src="assets/videos/album3/video4.mp4" data-title="Video 4: To Our Forever & Always, Bebe">
+              <div class="video-card-info">
+                <div class="video-card-title">Video 4: Forever & Always, Bebe</div>
+                <div class="video-card-desc">Walking hand-in-hand into our 24th year and a lifetime as husband and wife.</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Heartfelt Letter From Ratnesh -->
+        <!-- Heartfelt Letter From Her Soon-To-Be Groom -->
         <div class="letter-box">
           <div class="letter-header">
-            <h3>My Dearest Dakshita (My Bebe),</h3>
+            <h3>To My Dearest Dakshita (My Forever Bebe),</h3>
           </div>
           <div class="letter-body">
             <p>
-              Happy 24th Birthday, my love. 24 looks absolutely stunning on you. Looking at how far we have come—from rushing to catch the evening local train together, to sitting on the office couch talking all night until the sun rose, to you coming over "just to check the match results"—every single memory is golden.
+              Happy 24th Birthday, my love. 24 looks absolutely breathtaking on you. When I look at who you are today—brilliant, deeply empathetic, fiercely loyal, and undeniably gorgeous—I am filled with awe that out of 8 billion people on this planet, I get to be the one who holds your hand.
             </p>
             <p>
-              Our trip to Lonavala showed me how peaceful and perfect the world is when I'm holding your hand in the cool mountain breeze. And remember those late-night calls where we analyzed who would make the best groom for you? God knew what He was doing. Today, I am the luckiest man on earth to say: I am your soon-to-be groom.
+              We have built a world that belongs only to us: from those crowded local train rides where a single shared earphone made the whole world disappear, to staying awake on the office couch sharing our deepest truths until the morning light, to traveling through the misty mountain air of Lonavala.
             </p>
             <p>
-              You are gorgeous, you are hot, you are brilliantly caring, and your loyalty is something I cherish more than words could ever describe. Thank you for being my peace, my cheer, and my Bebe.
+              Life has an amazing sense of humor. Who would have thought that two people debating late at night about who would make the ideal groom for you would end up here? I promise you with all my heart: I will spend every day of my life striving to be the groom, partner, protector, and best friend you truly deserve.
+            </p>
+            <p>
+              May this 24th year bring you boundless happiness, peace, success, and all the love in the universe. I love you more than words could ever tell.
             </p>
             <p class="letter-sign">
-              Forever and always your Bebe & Soon-To-Be Groom,<br>
+              Forever your Bebe & Soon-To-Be Groom,<br>
               <strong>Ratnesh 💕</strong>
             </p>
           </div>
@@ -2894,6 +3883,6 @@ body:not(.is-locked) .lock-overlay {
   </div>
 
   <!-- Script -->
-  <script src="script.js"></script>
+  <script src="script.js?v=3.2"></script>
 </body>
 </html>
