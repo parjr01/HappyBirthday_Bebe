@@ -124,7 +124,130 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-    // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
+  
+  // ------------------------------------------------------------------------
+  // WAITING LOUNGE INTERACTIVE PLAY BUTTONS FOR DAKSHITA
+  // ------------------------------------------------------------------------
+  const btnPopConfetti = document.getElementById('btn-pop-confetti');
+  const btnDropTeaser = document.getElementById('btn-drop-teaser');
+  const btnSendHugs = document.getElementById('btn-send-hugs');
+  const btnFortune = document.getElementById('btn-fortune-cookie');
+  const btnPlayMelody = document.getElementById('btn-play-melody');
+  const btnPleadUnlock = document.getElementById('btn-plead-unlock');
+
+  const loungeFeedbackBox = document.getElementById('lounge-feedback-box');
+  const feedbackIcon = document.getElementById('feedback-icon');
+  const feedbackText = document.getElementById('feedback-text');
+  const hugsCountSpan = document.getElementById('hugs-count');
+
+  let hugsSent = 0;
+  let teaserIndex = 0;
+  let fortuneIndex = 0;
+  let pleadIndex = 0;
+
+  const secretTeasers = [
+    { icon: "🎂", text: "Hint #1: There's an interactive 3-tier birthday cake inside where you can literally blow out the candles!" },
+    { icon: "🚆", text: "Hint #2: 5 photo albums with 50 pictures... including our chaotic daily local train rides together!" },
+    { icon: "💍", text: "Hint #3: A secret letter from your soon-to-be groom that will make your heart flutter!" },
+    { icon: "🎟️", text: "Hint #4: 6 golden VIP coupons (massages, return trip to Lonavala, argument-pass) that Ratnesh cannot refuse!" },
+    { icon: "🛋️", text: "Hint #5: The untold memories of our legendary all-nighter on the office couch until dawn..." },
+    { icon: "🎬", text: "Hint #6: 3 video albums with 12 video clips dedicated entirely to you!" }
+  ];
+
+  const loveFortunes = [
+    { icon: "🥠", text: "Fortune: You are turning 24, but your timeless smile makes the whole world stop and stare." },
+    { icon: "🥠", text: "Fortune: Ratnesh is looking at your pictures right now smiling like the happiest man alive." },
+    { icon: "🥠", text: "Fortune: You are 100% hot, 100% sweet, and 1000% loyal." },
+    { icon: "🥠", text: "Fortune: Hearing you say 'Bebe' is Ratnesh's absolute favorite sound in the universe." },
+    { icon: "🥠", text: "Fortune: A massive wave of birthday blessings and happiness is heading straight towards you at midnight!" }
+  ];
+
+  const pleadResponses = [
+    { icon: "😜", text: "Nope! Ratnesh said strictly no peeking until 00:00! Good things come to those who wait!" },
+    { icon: "🥺", text: "Even with those adorable puppy eyes, the vault stays sealed! Only a little time left, Bebe!" },
+    { icon: "🎁", text: "The surprises inside are still being wrapped with extra love and kisses! Hold on, queen!" },
+    { icon: "⏳", text: "Patience, gorgeous! Midnight is going to be so worth the wait, promise!" },
+    { icon: "💕", text: "Bribe detected! But Ratnesh made me swear on his heart to keep it a secret until midnight!" }
+  ];
+
+  function showLoungeFeedback(icon, text) {
+    if (!loungeFeedbackBox) return;
+    loungeFeedbackBox.style.display = 'flex';
+    feedbackIcon.textContent = icon;
+    feedbackText.textContent = text;
+  }
+
+  // 1. Pop Confetti
+  if (btnPopConfetti) {
+    btnPopConfetti.addEventListener('click', () => {
+      launchConfetti(120);
+      playChime(700, 0.25);
+      showLoungeFeedback("🎉", "Pop! Sending early birthday sparkle vibes to my favorite girl in the world!");
+    });
+  }
+
+  // 2. Secret Teaser Hint
+  if (btnDropTeaser) {
+    btnDropTeaser.addEventListener('click', () => {
+      const item = secretTeasers[teaserIndex % secretTeasers.length];
+      teaserIndex++;
+      playChime(600, 0.2);
+      showLoungeFeedback(item.icon, item.text);
+    });
+  }
+
+  // 3. Send Virtual Hugs
+  if (btnSendHugs) {
+    btnSendHugs.addEventListener('click', () => {
+      hugsSent++;
+      if (hugsCountSpan) hugsCountSpan.textContent = hugsSent;
+      playChime(550, 0.15);
+      for (let i = 0; i < 6; i++) {
+        setTimeout(spawnFloatingHeart, i * 80);
+      }
+      showLoungeFeedback("🫂", `You just sent hug #${hugsSent} to Ratnesh! He felt it in his chest right this second! 💕`);
+    });
+  }
+
+  // 4. Love Fortune Cookie
+  if (btnFortune) {
+    btnFortune.addEventListener('click', () => {
+      const item = loveFortunes[fortuneIndex % loveFortunes.length];
+      fortuneIndex++;
+      playChime(750, 0.25);
+      showLoungeFeedback(item.icon, item.text);
+    });
+  }
+
+  // 5. Play Sweet Melody
+  if (btnPlayMelody) {
+    btnPlayMelody.addEventListener('click', () => {
+      initAudio();
+      if (isPlayingMusic) {
+        isPlayingMusic = false;
+        clearTimeout(musicTimer);
+        btnPlayMelody.textContent = '🎶 Play Sweet Melody';
+        showLoungeFeedback("⏸️", "Music paused. Tap again to play our sweet music box!");
+      } else {
+        isPlayingMusic = true;
+        btnPlayMelody.textContent = '⏸️ Pause Melody';
+        loopMelody();
+        showLoungeFeedback("🎶", "Playing sweet music box melody... Relax and enjoy the countdown, Bebe!");
+      }
+    });
+  }
+
+  // 6. Plead to open early
+  if (btnPleadUnlock) {
+    btnPleadUnlock.addEventListener('click', () => {
+      const item = pleadResponses[pleadIndex % pleadResponses.length];
+      pleadIndex++;
+      playChime(400, 0.2);
+      showLoungeFeedback(item.icon, item.text);
+    });
+  }
+
+  // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
   // ------------------------------------------------------------------------
   const totalPages = 10;
   let currentPage = 1;
