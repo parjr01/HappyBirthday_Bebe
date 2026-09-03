@@ -4,6 +4,44 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
+  // LIVE COUNTDOWN TO SEPTEMBER 5TH, 2026 (BEBE'S 24TH BIRTHDAY)
+  // ------------------------------------------------------------------------
+  const cdDays = document.getElementById('cd-days');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMinutes = document.getElementById('cd-minutes');
+  const cdSeconds = document.getElementById('cd-seconds');
+  const countdownBox = document.getElementById('bday-countdown-box');
+
+  function updateCountdown() {
+    const targetDate = new Date('2026-09-05T00:00:00+05:30').getTime();
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      if (countdownBox) {
+        countdownBox.innerHTML = `
+          <div class="countdown-title" style="font-size: 1.15rem; color: #c9184a;">
+            👑 IT'S SEPTEMBER 5TH! HAPPY 24TH BIRTHDAY BEBE! 🎂🎉✨
+          </div>
+        `;
+      }
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
+    if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
+    if (cdMinutes) cdMinutes.textContent = String(minutes).padStart(2, '0');
+    if (cdSeconds) cdSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ------------------------------------------------------------------------
   // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
   // ------------------------------------------------------------------------
   const totalPages = 10;
@@ -498,15 +536,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
   const quizData = [
     {
-      question: "1. Who fell in love first?",
+      question: "1. What legendary miracle occurred on 5th September 2002?",
       options: [
-        "Ratnesh (from the very first second!)",
-        "Bebe (she secretly fell first)",
-        "It was simultaneous mutual magic",
-        "The universe conspired it"
+        "The world was blessed with Bebe's birth 👼",
+        "The sweetest, prettiest angel landed on Earth ✨",
+        "The universe created Ratnesh's favorite human 💕",
+        "All of the above (100% indisputable facts!) 👑"
       ],
-      correct: 0,
-      note: "Ratnesh was completely smitten from day one! 💖"
+      correct: 3,
+      note: "All of the above! Sept 5, 2002 is the best day in history! 💖"
     },
     {
       question: "2. What is Bebe's absolute superpower?",

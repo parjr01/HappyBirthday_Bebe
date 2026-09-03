@@ -1551,3 +1551,55 @@ body {
     padding: 28px 18px;
   }
 }
+
+
+/* Countdown Box */
+.countdown-card {
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.1), rgba(255, 183, 3, 0.12));
+  border: 1.5px solid #ffccd5;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  max-width: 580px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.08);
+}
+
+.countdown-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--deep-rose);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.cd-box {
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #ffd1dc;
+  min-width: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cd-box span {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--deep-rose);
+  line-height: 1.1;
+}
+
+.cd-box small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
