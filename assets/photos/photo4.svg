@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" width="600" height="700">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fce1e4" />
+      <stop offset="100%" stop-color="#fff" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.15)"/>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grad4)" />
+  <circle cx="300" cy="280" r="140" fill="#fce1e4" stroke="#e05780" stroke-width="4" stroke-dasharray="8 6"/>
+  <path d="M 300 230 C 270 180, 200 190, 200 250 C 200 310, 300 370, 300 370 C 300 370, 400 310, 400 250 C 400 190, 330 180, 300 230 Z" fill="#e05780" opacity="0.85" filter="url(#shadow)"/>
+  <text x="300" y="470" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="28" font-weight="bold" fill="#2b2b2b" text-anchor="middle">Unstoppable Together</text>
+  <text x="300" y="515" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" fill="#666" text-anchor="middle">Replace with photo4.jpg</text>
+  <rect x="200" y="560" width="200" height="42" rx="21" fill="#e05780" />
+  <text x="300" y="587" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">Photo #4 for Bebe</text>
+</svg>
