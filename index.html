@@ -56,7 +56,7 @@ body {
 }
 
 /* ==========================================================================
-   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN
+   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN (PASSCODE ACCESS)
    ========================================================================== */
 body.is-locked {
   overflow: hidden !important;
@@ -2302,14 +2302,35 @@ body:not(.is-locked) .lock-overlay {
         <h2 class="section-title">Blow Out Your 24th Candles, Dakshita! 🕯️🎂</h2>
         <p class="section-desc">Close your eyes, make the sweetest wish in your heart, and blow out the candles!</p>
 
-        <!-- Interactive 3-Tier CSS Cake -->
+                <!-- Interactive 3-Tier CSS Cake with Wind & Smoke Animation -->
         <div class="cake-stage">
+          <div id="wind-gust" class="wind-gust">💨</div>
           <div class="cake-plate"></div>
           <div class="candles-row" id="candles-row">
-            <div class="candle lit" data-id="1"><div class="flame"></div><div class="candle-stick"></div></div>
-            <div class="candle lit" data-id="2"><div class="flame"></div><div class="candle-stick"></div></div>
-            <div class="candle lit" data-id="3"><div class="flame"></div><div class="candle-stick"></div></div>
-            <div class="candle lit" data-id="4"><div class="flame"></div><div class="candle-stick"></div></div>
+            <div class="candle lit" data-id="1">
+              <div class="smoke"></div>
+              <div class="flame"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle lit" data-id="2">
+              <div class="smoke"></div>
+              <div class="flame"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle lit" data-id="3">
+              <div class="smoke"></div>
+              <div class="flame"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle lit" data-id="4">
+              <div class="smoke"></div>
+              <div class="flame"></div>
+              <div class="wick"></div>
+              <div class="candle-stick"></div>
+            </div>
           </div>
 
           <div class="cake-tier tier-top">

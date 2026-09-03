@@ -397,6 +397,41 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   let noteIndex = 0;
 
+    // Realistic Wind Breath Sound Synthesizer
+  function playWindBlowSound() {
+    try {
+      initAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const bufferSize = Math.floor(audioCtx.sampleRate * 0.85);
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1; // White noise
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(450, audioCtx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.75);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.2);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      noise.start();
+      noise.stop(audioCtx.currentTime + 0.85);
+    } catch (e) {}
+  }
+
   function loopMelody() {
     if (!isPlayingMusic) return;
     const freq = romanticMelody[noteIndex % romanticMelody.length];
@@ -538,12 +573,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 5. PAGE 2: CAKE & CANDLE CEREMONY
+  // 5. PAGE 2: REALISTIC CANDLE BLOWING & SMOKE CEREMONY
   // ------------------------------------------------------------------------
   const candles = document.querySelectorAll('.candle');
   const blowCandlesBtn = document.getElementById('blow-candles-btn');
   const relightCandlesBtn = document.getElementById('relight-candles-btn');
   const wishRevealBox = document.getElementById('wish-reveal-box');
+  const windGust = document.getElementById('wind-gust');
   const secretWishBtn = document.getElementById('secret-wish-btn');
   const wishModal = document.getElementById('wish-modal');
   const wishCloseBtn = document.getElementById('wish-close-btn');
@@ -551,33 +587,75 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitWishBtn = document.getElementById('submit-wish-btn');
   const secretWishInput = document.getElementById('secret-wish-input');
 
+  function blowSingleCandle(candle, delay = 0) {
+    setTimeout(() => {
+      if (candle.classList.contains('blown')) return;
+      candle.classList.remove('blown');
+      candle.classList.add('blowing');
+      playChime(320, 0.12);
+
+      setTimeout(() => {
+        candle.classList.remove('blowing');
+        candle.classList.add('blown');
+        checkAllCandlesBlown();
+      }, 480);
+    }, delay);
+  }
+
+  // Click individual candles to blow out
   candles.forEach(candle => {
     candle.addEventListener('click', () => {
-      candle.classList.toggle('blown');
-      playChime(350, 0.15);
-      const allBlown = Array.from(candles).every(c => c.classList.contains('blown'));
-      if (allBlown) {
-        wishRevealBox.classList.add('show');
-        launchConfetti(120);
-        playChime(880, 0.4);
+      if (!candle.classList.contains('blown')) {
+        playWindBlowSound();
+        blowSingleCandle(candle, 0);
+      } else {
+        // Tap to relight individual candle
+        candle.classList.remove('blown');
+        candle.classList.remove('blowing');
+        playChime(523.25, 0.15);
       }
     });
   });
 
+  function checkAllCandlesBlown() {
+    const allBlown = Array.from(candles).every(c => c.classList.contains('blown'));
+    if (allBlown) {
+      setTimeout(() => {
+        if (wishRevealBox) wishRevealBox.classList.add('show');
+        launchConfetti(150);
+        playChime(880, 0.5, 'triangle');
+        setTimeout(() => playChime(1046.50, 0.6, 'sine'), 220);
+      }, 300);
+    }
+  }
+
   if (blowCandlesBtn) {
     blowCandlesBtn.addEventListener('click', () => {
-      candles.forEach(c => c.classList.add('blown'));
-      wishRevealBox.classList.add('show');
-      launchConfetti(150);
-      playChime(783.99, 0.4, 'triangle');
+      playWindBlowSound();
+
+      // Trigger wind gust swoosh across cake
+      if (windGust) {
+        windGust.classList.remove('active');
+        void windGust.offsetWidth;
+        windGust.classList.add('active');
+      }
+
+      // Staggered breath blow across candles 1, 2, 3, 4
+      candles.forEach((candle, idx) => {
+        blowSingleCandle(candle, idx * 110);
+      });
     });
   }
 
   if (relightCandlesBtn) {
     relightCandlesBtn.addEventListener('click', () => {
-      candles.forEach(c => c.classList.remove('blown'));
-      wishRevealBox.classList.remove('show');
-      playChime(523.25, 0.2);
+      candles.forEach(c => {
+        c.classList.remove('blown');
+        c.classList.remove('blowing');
+      });
+      if (wishRevealBox) wishRevealBox.classList.remove('show');
+      playChime(587.33, 0.25);
+      launchConfetti(30);
     });
   }
 
