@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Bebe! ✨💖</title>
+  <title>Happy 24th Birthday Dakshita! (My Bebe) ✨💖</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,39 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="is-locked">
+    <!-- STRICT FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5 00:00:00) -->
+  <div id="lock-screen-overlay" class="lock-overlay">
+    <div class="lock-content glass-card">
+      <div class="lock-icon-wrap">
+        <div class="lock-pulsing-circle">
+          <span class="big-lock-icon">🔒</span>
+        </div>
+      </div>
+      <div class="badge-pill">Top Secret • Surprise Locked 🎁</div>
+      <h1 class="lock-title">Hold On, <span class="highlight-text">Dakshita!</span> ✨</h1>
+      <p class="lock-subtitle">
+        Your 24th birthday celebration is safely locked and brewing with infinite love for you, Dakshita.<br>
+        It will automatically unlock the exact second the clock strikes midnight on <strong>September 5th</strong>!
+      </p>
+
+      <!-- Live Full Countdown Screen -->
+      <div class="lock-countdown-box">
+        <div class="lock-cd-label">Countdown to Dakshita's 24th Birthday (Sept 5, 2002 ➔ 2026):</div>
+        <div class="lock-cd-grid">
+          <div class="lock-cd-item"><span id="lock-days">01</span><small>Days</small></div>
+          <div class="lock-cd-item"><span id="lock-hours">08</span><small>Hours</small></div>
+          <div class="lock-cd-item"><span id="lock-minutes">47</span><small>Mins</small></div>
+          <div class="lock-cd-item"><span id="lock-seconds">00</span><small>Secs</small></div>
+        </div>
+      </div>
+
+      <div class="lock-note-box">
+        🌸 <em>"The best things in life are worth waiting for... See you at 00:00, my queen!"</em> 💕
+      </div>
+    </div>
+  </div>
+
   <!-- Canvas for Confetti & Particles -->
   <canvas id="confetti-canvas"></canvas>
   <div id="floating-hearts-container"></div>
@@ -20,7 +52,7 @@
   <header class="top-nav">
     <div class="logo">
       <span class="heart-icon">💖</span>
-      <span class="logo-text">For My Bebe</span>
+      <span class="logo-text">For Dakshita (My Bebe)</span>
     </div>
 
     <!-- Quick Page Jump & Indicator -->
@@ -65,19 +97,31 @@
     <!-- PAGE 1: Welcome Entrance & Surprise -->
     <section class="page-section active" id="page-1" data-title="Welcome Bebe">
       <div class="glass-card hero-card">
-        <div class="badge-pill">September 4 • The Most Special Day</div>
-        <h1 class="hero-title">Happy Birthday, <span class="highlight-text">Bebe!</span> 🎂✨</h1>
+        <div class="badge-pill">September 5, 2002 • Celebrating 24 Beautiful Years of Dakshita 👑</div>
+        <h1 class="hero-title">Happy 24th Birthday, <span class="highlight-text">Dakshita!</span> 🎂✨</h1>
         <p class="hero-subtitle">
-          Today is all about celebrating the most beautiful, caring, and incredible human being in the entire universe.
+          Today is all about celebrating the most beautiful, caring, and incredible human being in the universe. To my one and only Bebe, from your Bebe.
         </p>
 
         <!-- Live Love Days Counter -->
+        
+        <!-- Live Countdown to Midnight Sept 5th -->
+        <div class="countdown-card" id="bday-countdown-box">
+          <div class="countdown-title">⏰ Countdown to September 5th Midnight:</div>
+          <div class="countdown-timer" id="countdown-display">
+            <div class="cd-box"><span id="cd-days">01</span><small>Days</small></div>
+            <div class="cd-box"><span id="cd-hours">09</span><small>Hours</small></div>
+            <div class="cd-box"><span id="cd-minutes">13</span><small>Mins</small></div>
+            <div class="cd-box"><span id="cd-seconds">02</span><small>Secs</small></div>
+          </div>
+        </div>
+
         <div class="love-counter-box">
           <div class="counter-label">Celebrating Every Second With You:</div>
           <div class="counter-grid">
-            <div class="counter-item"><span id="days-count">365+</span><small>Days of Magic</small></div>
-            <div class="counter-item"><span id="hours-count">8,760+</span><small>Hours of Smiles</small></div>
-            <div class="counter-item"><span id="love-count">∞</small><small>Infinite Love</small></div>
+            <div class="counter-item"><span id="years-alive">24</span><small>Years of Sunshine</small></div>
+            <div class="counter-item"><span id="days-alive">8,766</span><small>Days on Earth</small></div>
+            <div class="counter-item"><span id="hours-alive">210,384+</span><small>Hours of Grace</small></div>
           </div>
         </div>
 
@@ -137,14 +181,14 @@
           </div>
           <div class="cake-tier tier-bottom">
             <div class="frosting-strip"></div>
-            <div class="cake-text">Happy Birthday Bebe</div>
+            <div class="cake-text">Happy 24th Birthday Dakshita</div>
           </div>
         </div>
 
         <!-- Wish Message Box (Hidden until blown) -->
         <div class="wish-reveal-box" id="wish-reveal-box">
           <div class="wish-icon">🌟</div>
-          <h3 class="wish-heading">Wish Granted, Bebe!</h3>
+          <h3 class="wish-heading">Wish Granted, Dakshita! (My Bebe)</h3>
           <p class="wish-message">
             "May every single dream you hold close to your heart come true this year. You deserve all the peace, endless giggles, and universe-sized happiness!" 💕
           </p>
@@ -168,7 +212,7 @@
     <!-- PAGE 3: 10 Things I Love About You (Interactive Flip Cards) -->
     <section class="page-section" id="page-3" data-title="10 Reasons">
       <div class="glass-card wide-card">
-        <h2 class="section-title">10 Things That Make You Irreplaceable 💖</h2>
+        <h2 class="section-title">10 Reasons Why You, Dakshita, Are My Whole World 💖</h2>
         <p class="section-desc">Click or tap each card to flip and reveal a piece of my heart:</p>
 
         <div class="cards-grid" id="reasons-grid">
@@ -313,11 +357,11 @@
               <div class="flip-card-front">
                 <span class="card-num">10</span>
                 <span class="card-icon">👑</span>
-                <h4>Simply Being Bebe</h4>
+                <h4>Our Mutual 'Bebe' Bond</h4>
                 <small class="hint-text">Tap to flip</small>
               </div>
               <div class="flip-card-back">
-                <p>Just being you is the greatest gift. You don't have to try—you are already everything I could ever dream of.</p>
+                <p>The way we both call each other 'Bebe' with pure love. You are my safe space, my best friend, and the greatest gift in my life.</p>
               </div>
             </div>
           </div>
@@ -381,9 +425,9 @@
             <div class="timeline-dot">👑</div>
             <div class="timeline-content">
               <span class="timeline-date">Today & Always</span>
-              <h3>Celebrating My Queen</h3>
+              <h3>Celebrating Dakshita (My Queen)</h3>
               <p>Watching you grow more wonderful every day. Today the whole world celebrates you, and I am the luckiest guy alive.</p>
-              <div class="memory-tag-pill">🎂 Happy Birthday Bebe!</div>
+              <div class="memory-tag-pill">🎂 Happy 24th Birthday Dakshita!</div>
               <button class="reaction-btn" data-reactions="999">🎉 <span>999+</span> Celebrations</button>
             </div>
           </div>
@@ -400,7 +444,7 @@
     <!-- PAGE 5: Polaroid Photo Wall & Gallery -->
     <section class="page-section" id="page-5" data-title="Photo Wall">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Bebe's Polaroid Wall 📸✨</h2>
+        <h2 class="section-title">Dakshita's Polaroid Wall 📸✨</h2>
         <p class="section-desc">Frozen moments of pure happiness. (Tap any photo to expand into the HD Lightbox!)</p>
 
         <!-- Category Filters -->
@@ -496,7 +540,7 @@
     <section class="page-section" id="page-6" data-title="Couple Quiz">
       <div class="glass-card quiz-card">
         <div class="badge-pill">Mini Game • Test Your Love IQ</div>
-        <h2 class="section-title">The "Bebe & Ratnesh" Love Quiz 🎮</h2>
+        <h2 class="section-title">The "Dakshita & Ratnesh" Love Quiz 🎮</h2>
         <p class="section-desc">Answer these questions correctly to claim your ultimate birthday badge!</p>
 
         <div class="quiz-container" id="quiz-container">
@@ -516,7 +560,7 @@
     <section class="page-section" id="page-7" data-title="Love Slot Machine">
       <div class="glass-card slot-card">
         <h2 class="section-title">The Infinite Love Generator 🎰✨</h2>
-        <p class="section-desc">Whenever you want a reminder of why you are adored, pull the lever!</p>
+        <p class="section-desc">Whenever you want a reminder of why you, Dakshita, are so deeply adored, pull the lever!</p>
 
         <div class="slot-machine-box">
           <div class="slot-display-screen" id="slot-screen">
@@ -543,7 +587,7 @@
     <section class="page-section" id="page-8" data-title="Open When">
       <div class="glass-card wide-card">
         <h2 class="section-title">"Open When..." Sealed Letters 💌</h2>
-        <p class="section-desc">Virtual letters handwritten for whenever you need a little piece of my love:</p>
+        <p class="section-desc">Handwritten letters for whenever my Bebe (Dakshita) needs a little piece of my love:</p>
 
         <div class="envelope-grid">
           <!-- Envelope 1 -->
@@ -606,7 +650,7 @@
     <!-- PAGE 9: Bebe's VIP Love Coupon Book -->
     <section class="page-section" id="page-9" data-title="VIP Coupons">
       <div class="glass-card wide-card">
-        <h2 class="section-title">Bebe's Golden Love Coupons 🎟️✨</h2>
+        <h2 class="section-title">Dakshita's Golden Love Coupons 🎟️✨</h2>
         <p class="section-desc">No expiration date. Non-transferable. 100% Guaranteed redemption anytime you ask!</p>
 
         <div class="coupon-grid">
@@ -689,7 +733,7 @@
     <section class="page-section" id="page-10" data-title="The Grand Finale">
       <div class="glass-card finale-card">
         <div class="badge-pill">The Grand Finale • Made With Endless Love</div>
-        <h2 class="section-title">A Special Video Just For You, Bebe 🎬💖</h2>
+        <h2 class="section-title">A Special Video Just For You, Dakshita 🎬💖</h2>
         <p class="section-desc">Press play to watch your birthday montage!</p>
 
         <!-- Video Cinema Frame -->
@@ -708,7 +752,7 @@
         <!-- Heartfelt Letter From Ratnesh -->
         <div class="letter-box">
           <div class="letter-header">
-            <h3>My Dearest Bebe,</h3>
+            <h3>My Dearest Dakshita (My Bebe),</h3>
           </div>
           <div class="letter-body">
             <p>
@@ -721,7 +765,7 @@
               I promise to always stand by you through every high and low, to celebrate all your victories, to hold your hand when things get tough, and to love you more and more with every single breath.
             </p>
             <p class="letter-sign">
-              Forever and always yours,<br>
+              Forever and always your Bebe,<br>
               <strong>Ratnesh 💕</strong>
             </p>
           </div>
@@ -782,7 +826,7 @@
       <div class="letter-modal-body" id="letter-modal-body">
         Letter content here...
       </div>
-      <div class="letter-footer-note">— Always here for you, Ratnesh 💖</div>
+      <div class="letter-footer-note">— Forever your Bebe, Ratnesh 💖</div>
     </div>
   </div>
 

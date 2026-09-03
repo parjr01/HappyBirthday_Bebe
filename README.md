@@ -1,6 +1,6 @@
-# 🎉 Happy Birthday Bebe — Interactive 10-Page Website
+# 🎉 Happy Birthday Dakshita (Bebe) — Interactive 10-Page Website
 
-A handcrafted, interactive, and romantic 10-page birthday website built specifically for your girlfriend (**Bebe**). Designed with modern aesthetics, glassmorphism, responsive mobile layouts, Web Audio synthesizers, and tons of interactive buttons!
+A handcrafted, interactive, and romantic 10-page birthday website built specifically for your girlfriend (**Dakshita (Bebe)**). Designed with modern aesthetics, glassmorphism, responsive mobile layouts, Web Audio synthesizers, and tons of interactive buttons!
 
 ---
 
@@ -15,7 +15,7 @@ A handcrafted, interactive, and romantic 10-page birthday website built specific
 2. **Page 2: Virtual Birthday Cake & Candle Ceremony 🎂**
    - 3-tier celebration cake with glowing animated flames.
    - Tap individual candles or click **"💨 Blow the Candles!"** to blow them out with celebration fanfare.
-   - **"Make Secret Wish"** modal that locks Bebe's wish into the stars.
+   - **"Make Secret Wish"** modal that locks Dakshita (Bebe)'s wish into the stars.
    - **"Relight Candles"** option to replay anytime.
 
 3. **Page 3: 10 Things That Make You Irreplaceable 💖**
@@ -32,7 +32,7 @@ A handcrafted, interactive, and romantic 10-page birthday website built specific
    - Category filters: *All Snaps*, *Pure Cuteness*, *Us Together*, *Golden Smiles*.
    - Tap any polaroid to open the full-screen HD Lightbox modal with caption details and Next/Prev navigation.
 
-6. **Page 6: The "Bebe & Ratnesh" Love Quiz 🎮**
+6. **Page 6: The "Dakshita (Bebe) & Ratnesh" Love Quiz 🎮**
    - Cute interactive 4-question trivia game with instant feedback, sound effects, and confetti.
    - Celebratory 100% Soulmate Compatibility trophy badge.
 
@@ -51,13 +51,13 @@ A handcrafted, interactive, and romantic 10-page birthday website built specific
      - *Open Right Now (Birthday!)*
    - Unseals into a vintage parchment letter modal.
 
-9. **Page 9: Bebe's VIP Love Coupon Book 🎟️**
+9. **Page 9: Dakshita (Bebe)'s VIP Love Coupon Book 🎟️**
    - 6 redeemable gift vouchers (Massage, Midnight Ice Cream Run, You Win Any Argument, Queen for a Day, Movie Night, Fancy Dinner).
-   - "Redeem Coupon" button stamps the ticket as "Claimed by Bebe!" and remembers it even after page refresh via `localStorage`.
+   - "Redeem Coupon" button stamps the ticket as "Claimed by Dakshita (Bebe)!" and remembers it even after page refresh via `localStorage`.
 
 10. **Page 10: Grand Finale: Personal Video & Love Letter 🎬**
     - Cinema-style video player ready for your personal video montage.
-    - Deeply personal letter from Ratnesh to Bebe.
+    - Deeply personal letter from Ratnesh to Dakshita (Bebe).
     - **"💖 Shower 10,000 Floating Hearts!"** button.
     - **"💬 Send Birthday Reply to Ratnesh"** button (launches pre-filled WhatsApp message).
     - Quick replay button to experience it all over again.
@@ -111,4 +111,4 @@ A handcrafted, interactive, and romantic 10-page birthday website built specific
 
 ---
 
-Made with ❤️ by Ratnesh for Bebe.
+Made with ❤️ by Ratnesh for Dakshita (Bebe).

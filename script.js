@@ -1,91 +1,59 @@
 /* ==========================================================================
-   HAPPY BIRTHDAY BEBE - INTERACTIVE MASTER JAVASCRIPT
+   HAPPY BIRTHDAY BEBE - STRICT LOCKED MASTER JAVASCRIPT
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ------------------------------------------------------------------------
-  // 1. PAGE NAVIGATION CONTROLLER (10 Pages)
-  // ------------------------------------------------------------------------
-  const totalPages = 10;
-  let currentPage = 1;
 
-  const currentPageNumEl = document.getElementById('current-page-num');
-  const prevBtn = document.getElementById('prev-page-btn');
-  const nextBtn = document.getElementById('next-page-btn');
-  const footerPrevBtn = document.getElementById('footer-prev-btn');
-  const footerNextBtn = document.getElementById('footer-next-btn');
-  const pageDotsBar = document.getElementById('page-dots-bar');
-  const pagePillBtn = document.getElementById('page-pill-btn');
-  const quickMenu = document.getElementById('quick-menu');
-  const quickMenuItems = document.querySelectorAll('.quick-menu-item');
+  // ------------------------------------------------------------------------
+  // 0. STRICT FULL-SCREEN LOCK CONTROLLER (Unlocks ONLY on Sept 5, 00:00:00)
+  // ------------------------------------------------------------------------
+  const lockOverlay = document.getElementById('lock-screen-overlay');
+  const lockDays = document.getElementById('lock-days');
+  const lockHours = document.getElementById('lock-hours');
+  const lockMinutes = document.getElementById('lock-minutes');
+  const lockSeconds = document.getElementById('lock-seconds');
 
-  // Build dots
-  for (let i = 1; i <= totalPages; i++) {
-    const dot = document.createElement('div');
-    dot.className = `page-dot ${i === 1 ? 'active' : ''}`;
-    dot.title = `Go to Page ${i}`;
-    dot.addEventListener('click', () => goToPage(i));
-    pageDotsBar.appendChild(dot);
+  // Explicit target: September 5, 2026 00:00:00 IST
+  // If tested in another year, automatically targets September 5th of current year
+  const now = new Date();
+  let targetYear = 2026;
+  if (now.getFullYear() < 2026) {
+    targetYear = now.getFullYear();
   }
+  const TARGET_UNLOCK_TIME = new Date(targetYear, 8, 5, 0, 0, 0).getTime();
 
-  function goToPage(pageNum) {
-    if (pageNum < 1 || pageNum > totalPages) return;
-    
-    // Hide all pages
-    document.querySelectorAll('.page-section').forEach(section => {
-      section.classList.remove('active');
-    });
+  function updateLockCountdown() {
+    const currentTime = new Date().getTime();
+    const diff = TARGET_UNLOCK_TIME - currentTime;
 
-    // Show target page
-    const targetSection = document.getElementById(`page-${pageNum}`);
-    if (targetSection) {
-      targetSection.classList.add('active');
+    // Check if midnight of Sept 5 has arrived
+    if (diff <= 0) {
+      if (document.body.classList.contains('is-locked')) {
+        document.body.classList.remove('is-locked');
+        if (lockOverlay) lockOverlay.style.display = 'none';
+        goToPage(1);
+        launchConfetti(250);
+        playChime(880, 0.6);
+      }
+      return;
     }
 
-    currentPage = pageNum;
-    currentPageNumEl.textContent = currentPage;
+    // Keep strictly locked
+    document.body.classList.add('is-locked');
 
-    // Update dots
-    const dots = document.querySelectorAll('.page-dot');
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx + 1 === currentPage);
-    });
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Update quick menu active item
-    quickMenuItems.forEach(item => {
-      const p = parseInt(item.getAttribute('data-page'));
-      item.classList.toggle('active', p === currentPage);
-    });
-
-    // Update prev/next button states
-    prevBtn.disabled = currentPage === 1;
-    footerPrevBtn.disabled = currentPage === 1;
-    prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
-    footerPrevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
-
-    // Scroll smoothly to top of window
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Sound effect chime
-    playChime(440 + currentPage * 40, 0.1);
+    if (lockDays) lockDays.textContent = String(days).padStart(2, '0');
+    if (lockHours) lockHours.textContent = String(hours).padStart(2, '0');
+    if (lockMinutes) lockMinutes.textContent = String(minutes).padStart(2, '0');
+    if (lockSeconds) lockSeconds.textContent = String(seconds).padStart(2, '0');
   }
 
-  prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
-  footerPrevBtn.addEventListener('click', () => goToPage(currentPage - 1));
-  nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
-  footerNextBtn.addEventListener('click', () => goToPage(currentPage + 1));
-
-  // Quick menu toggle
-  pagePillBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    quickMenu.classList.toggle('show');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!quickMenu.contains(e.target) && e.target !== pagePillBtn) {
-      quickMenu.classList.remove('show');
-    }
-  });
+  updateLockCountdown();
+  setInterval(updateLockCountdown, 1000);
 
   quickMenuItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -368,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
   submitWishBtn.addEventListener('click', () => {
     const text = secretWishInput.value.trim();
     if (!text) {
-      alert("Please write your sweet wish first, Bebe! 🌟");
+      alert("Please write your sweet wish first, Dakshita! 🌟");
       return;
     }
     wishModal.classList.remove('show');
@@ -498,18 +466,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
   const quizData = [
     {
-      question: "1. Who fell in love first?",
+      question: "1. What legendary miracle occurred on 5th September 2002?",
       options: [
-        "Ratnesh (from the very first second!)",
-        "Bebe (she secretly fell first)",
-        "It was simultaneous mutual magic",
-        "The universe conspired it"
+        "The world was blessed with Dakshita's birth 👼",
+        "The sweetest, prettiest angel landed on Earth ✨",
+        "The universe created Ratnesh's favorite human 💕",
+        "All of the above (100% indisputable facts!) 👑"
       ],
-      correct: 0,
-      note: "Ratnesh was completely smitten from day one! 💖"
+      correct: 3,
+      note: "All of the above! Sept 5, 2002 is the best day in history! 💖"
     },
     {
-      question: "2. What is Bebe's absolute superpower?",
+      question: "2. What is Dakshita's absolute superpower?",
       options: [
         "Looking ridiculously cute without even trying",
         "Lighting up any room with her smile",
@@ -520,21 +488,21 @@ document.addEventListener('DOMContentLoaded', () => {
       note: "All of the above, obviously! You are truly magical. ✨"
     },
     {
-      question: "3. What happens when Bebe gets sleepy or hungry?",
+      question: "3. What is our special mutual pet name for each other?",
       options: [
-        "She turns into an adorable grumpy kitten 🥺",
-        "Needs immediate cuddles and snacks 🍕",
-        "Both A and B!",
-        "Stays totally calm (lies!)"
+        "Bebe (I call her Bebe, and she calls me Bebe!) 💕",
+        "Babu / Shona",
+        "Cutie pie",
+        "Partner in crime"
       ],
-      correct: 2,
-      note: "Guaranteed grumpy kitten mode activated! 😂"
+      correct: 0,
+      note: "Bebe! It's our own sweet language of love! 🥰"
     },
     {
       question: "4. Where is Ratnesh's absolute favorite place on Earth?",
       options: [
         "A tropical island",
-        "Right beside Bebe, wherever she is",
+        "Right beside Dakshita (my Bebe), wherever she is",
         "A cozy cafe",
         "A mountain peak"
       ],
@@ -668,11 +636,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const letterContents = {
     "1": {
       title: "Open When You Miss Me 💌",
-      body: "My dearest Bebe,<br><br>Whenever distance feels a little too far, close your eyes and remember: you carry a giant piece of my heart with you wherever you go. I am always just one text, one call, or one thought away. Distance means nothing when you mean everything to me.<br><br>Sending you the tightest virtual hug right this second."
+      body: "My dearest Dakshita (my forever Bebe),<br><br>Whenever distance feels a little too far, close your eyes and remember: you carry a giant piece of my heart with you wherever you go. I am always just one text, one call, or one thought away. Distance means nothing when you mean everything to me.<br><br>Sending you the tightest virtual hug right this second."
     },
     "2": {
       title: "Open When You're Stressed or Tired 🌸",
-      body: "Hey my hard-working girl,<br><br>Take a deep breath right now. Drop your shoulders, unclench your jaw, and let go. You have handled so much, and you do it with so much grace. It is okay to rest. The world can wait—your peace comes first.<br><br>I am so proud of you, always."
+      body: "Hey my hard-working Dakshita,<br><br>Take a deep breath right now. Drop your shoulders, unclench your jaw, and let go. You have handled so much, and you do it with so much grace. It is okay to rest. The world can wait—your peace comes first.<br><br>I am so proud of you, always."
     },
     "3": {
       title: "Open When You Can't Sleep 🌙",
@@ -688,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     "6": {
       title: "Open on Your Birthday Night! 🎂✨",
-      body: "HAPPY BIRTHDAY AGAIN, MY BEBE!<br><br>Tonight, as another beautiful chapter begins, I hope you feel like the queen you are. This year is going to bring you so much success, joy, and peace. I am honored to celebrate it by your side.<br><br>Let's make this year unforgettable!"
+      body: "HAPPY 24TH BIRTHDAY AGAIN, DAKSHITA (MY BEBE)!<br><br>Tonight, as another beautiful chapter begins, I hope you feel like the queen you are. This year is going to bring you so much success, joy, and peace. I am honored to celebrate it by your side.<br><br>Let's make this year unforgettable!"
     }
   };
 
@@ -725,7 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.classList.add('redeemed');
     const btn = card.querySelector('.claim-btn');
     if (btn) {
-      btn.textContent = 'Claimed by Bebe! 💖';
+      btn.textContent = 'Claimed by Dakshita! 💖';
     }
 
     // Save in localStorage
@@ -743,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (card) {
         card.classList.add('redeemed');
         const btn = card.querySelector('.claim-btn');
-        if (btn) btn.textContent = 'Claimed by Bebe! 💖';
+        if (btn) btn.textContent = 'Claimed by Dakshita! 💖';
       }
     }
   }
@@ -764,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   sendReplyBtn.addEventListener('click', () => {
-    const msg = encodeURIComponent("Hey Ratnesh! 💕 I just saw my birthday website and I LOVE IT SO MUCH! Best birthday surprise ever! 🥰✨");
+    const msg = encodeURIComponent("Hey Bebe (Ratnesh)! 💕 I just saw my 24th birthday website and I LOVE IT SO MUCH! Best birthday surprise ever! 🥰✨ — Your Bebe, Dakshita");
     window.open(`https://wa.me/?text=${msg}`, '_blank');
   });
 
