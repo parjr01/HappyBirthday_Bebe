@@ -56,7 +56,7 @@ body {
 }
 
 /* ==========================================================================
-   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN (PASSCODE: 0802 ONLY)
+   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN
    ========================================================================== */
 body.is-locked {
   overflow: hidden !important;
@@ -2104,7 +2104,7 @@ body:not(.is-locked) .lock-overlay {
       </div>
 
       <!-- Glowing Padlock Icon with Interactive Click -->
-      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Tap to enter passcode 0802">
+      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Vault Status: Locked">
         <div class="lock-glow-ring">
           <div class="lock-center-circle">
             <span class="luxury-lock-icon">🔒</span>
@@ -2185,7 +2185,7 @@ body:not(.is-locked) .lock-overlay {
         </div>
       </div>
 
-      <!-- Direct Inline Passcode Access Section (Passcode: 0802) -->
+      <!-- Direct Inline Passcode Access Section -->
       <div class="passcode-section-wrapper">
         <button id="toggle-passcode-box-btn" class="luxury-passcode-toggle-btn" type="button">
           <span class="key-icon">🔑</span> Ratnesh Passcode Login
@@ -2193,7 +2193,7 @@ body:not(.is-locked) .lock-overlay {
 
         <!-- Slide-down Inline Passcode Box -->
         <div id="inline-passcode-box" class="inline-passcode-box" style="display: none;">
-          <div class="inline-passcode-title">Enter Secret Passcode (0802):</div>
+          <div class="inline-passcode-title">Enter Secret Passcode:</div>
           <div class="passcode-input-group">
             <input type="password" id="passcode-input" placeholder="Enter PIN" maxlength="10" inputmode="numeric" autocomplete="off" />
             <button id="submit-passcode-btn" class="passcode-submit-btn" type="button">Unlock 🚀</button>
@@ -2207,7 +2207,7 @@ body:not(.is-locked) .lock-overlay {
 
   <!-- Floating Banner when Preview Mode is Active -->
   <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
-    <span>👑 <strong>Ratnesh Preview Active</strong> (Passcode 0802 verified)</span>
+    <span>👑 <strong>Ratnesh Preview Active</strong> (Unlocked)</span>
     <button id="relock-website-btn" class="relock-btn" type="button">🔒 Re-enable Lock for Dakshita</button>
   </div>
 

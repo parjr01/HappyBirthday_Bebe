@@ -43,7 +43,7 @@ body {
 }
 
 /* ==========================================================================
-   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN (PASSCODE: 0802 ONLY)
+   STRICT FULL-SCREEN BIRTHDAY LOCK SCREEN (PASSCODE ACCESS)
    ========================================================================== */
 body.is-locked {
   overflow: hidden !important;
