@@ -12,6 +12,52 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 2026 00:00:00 IST) -->
+  <div id="lock-screen-overlay" class="lock-overlay">
+    <div class="lock-content glass-card">
+      <div class="lock-icon-wrap">
+        <div class="lock-pulsing-circle">
+          <span class="big-lock-icon">🔒</span>
+        </div>
+      </div>
+      <div class="badge-pill">Top Secret • Surprise Locked 🎁</div>
+      <h1 class="lock-title">Hold On, <span class="highlight-text">Bebe!</span> ✨</h1>
+      <p class="lock-subtitle">
+        Your 24th birthday celebration is safely locked and brewing with infinite love.<br>
+        It will automatically unlock the exact moment the clock strikes midnight on <strong>September 5th</strong>!
+      </p>
+
+      <!-- Live Full Countdown Screen -->
+      <div class="lock-countdown-box">
+        <div class="lock-cd-label">Countdown to Bebe's 24th Birthday:</div>
+        <div class="lock-cd-grid">
+          <div class="lock-cd-item"><span id="lock-days">01</span><small>Days</small></div>
+          <div class="lock-cd-item"><span id="lock-hours">08</span><small>Hours</small></div>
+          <div class="lock-cd-item"><span id="lock-minutes">59</span><small>Mins</small></div>
+          <div class="lock-cd-item"><span id="lock-seconds">00</span><small>Secs</small></div>
+        </div>
+      </div>
+
+      <div class="lock-note-box">
+        🌸 <em>"The best things in life are worth waiting for... See you at 00:00, my queen!"</em> 💕
+      </div>
+    </div>
+
+    <!-- Hidden Discreet Preview Tab for Ratnesh at the Bottom -->
+    <div class="secret-preview-tab-wrapper">
+      <button id="secret-preview-toggle-btn" class="secret-tab-btn" title="Click to preview the website">
+        <span class="secret-dot"></span>
+        <span class="secret-label">Ratnesh Preview Check</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Preview Banner when Bypassed -->
+  <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
+    <span>👀 <strong>Preview Mode Active</strong> (Viewing all 10 pages as Ratnesh)</span>
+    <button id="relock-website-btn" class="relock-btn">🔒 Re-enable Lock for Bebe</button>
+  </div>
+
   <!-- Canvas for Confetti & Particles -->
   <canvas id="confetti-canvas"></canvas>
   <div id="floating-hearts-container"></div>

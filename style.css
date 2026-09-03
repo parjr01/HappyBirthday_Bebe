@@ -1603,3 +1603,217 @@ body {
   text-transform: uppercase;
   font-weight: 600;
 }
+
+
+/* ==========================================================================
+   FULL-SCREEN BIRTHDAY LOCK OVERLAY & HIDDEN PREVIEW TAB
+   ========================================================================== */
+.lock-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #fff0f3 0%, #ffe5ec 60%, #fae1dd 100%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.lock-overlay.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.lock-content {
+  max-width: 650px;
+  width: 100%;
+  padding: 44px 28px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 20px 60px rgba(201, 24, 74, 0.2);
+}
+
+.lock-icon-wrap {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.lock-pulsing-circle {
+  width: 80px;
+  height: 80px;
+  background: #ffe3e8;
+  border: 2px solid #ffccd5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lockPulse 2s infinite ease-in-out;
+}
+
+.big-lock-icon {
+  font-size: 38px;
+}
+
+@keyframes lockPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.4); }
+  70% { transform: scale(1.08); box-shadow: 0 0 0 18px rgba(255, 77, 109, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
+}
+
+.lock-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.lock-subtitle {
+  font-size: 1.08rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 28px auto;
+  line-height: 1.6;
+}
+
+.lock-countdown-box {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #ffccd5;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 25px rgba(255, 77, 109, 0.1);
+}
+
+.lock-cd-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--deep-rose);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.lock-cd-grid {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lock-cd-item {
+  background: #fff8f9;
+  border: 1.5px solid #ffccd5;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  min-width: 85px;
+  box-shadow: 0 4px 12px rgba(201, 24, 74, 0.06);
+}
+
+.lock-cd-item span {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--deep-rose);
+  line-height: 1.1;
+}
+
+.lock-cd-item small {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.lock-note-box {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* Hidden Discreet Preview Tab for Ratnesh at the bottom */
+.secret-preview-tab-wrapper {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+  text-align: center;
+}
+
+.secret-tab-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px dashed rgba(201, 24, 74, 0.35);
+  color: rgba(108, 75, 94, 0.45);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.35;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.secret-tab-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--deep-rose);
+  color: var(--deep-rose);
+  box-shadow: 0 4px 14px rgba(201, 24, 74, 0.2);
+}
+
+.secret-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-pink);
+  border-radius: 50%;
+}
+
+/* Floating Banner When Preview Mode is Active */
+.preview-active-banner {
+  position: fixed;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #2b1020, #4a154b);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.relock-btn {
+  background: var(--primary-pink);
+  color: #fff;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.relock-btn:hover {
+  background: var(--deep-rose);
+}

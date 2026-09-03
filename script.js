@@ -3,6 +3,75 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ------------------------------------------------------------------------
+  // 0. FULL-SCREEN BIRTHDAY LOCK SCREEN & RATNESH PREVIEW CONTROLLER
+  // ------------------------------------------------------------------------
+  const lockOverlay = document.getElementById('lock-screen-overlay');
+  const secretPreviewBtn = document.getElementById('secret-preview-toggle-btn');
+  const previewBanner = document.getElementById('preview-active-banner');
+  const relockBtn = document.getElementById('relock-website-btn');
+
+  const lockDays = document.getElementById('lock-days');
+  const lockHours = document.getElementById('lock-hours');
+  const lockMinutes = document.getElementById('lock-minutes');
+  const lockSeconds = document.getElementById('lock-seconds');
+
+  const TARGET_UNLOCK_TIME = new Date('2026-09-05T00:00:00+05:30').getTime();
+  let isPreviewBypassed = false;
+
+  function updateLockCountdown() {
+    const now = new Date().getTime();
+    const diff = TARGET_UNLOCK_TIME - now;
+
+    // If midnight Sept 5 has arrived
+    if (diff <= 0) {
+      if (lockOverlay && !lockOverlay.classList.contains('unlocked')) {
+        lockOverlay.classList.add('unlocked');
+        launchConfetti(250);
+        playChime(880, 0.6);
+        if (previewBanner) previewBanner.style.display = 'none';
+      }
+      return;
+    }
+
+    // Otherwise calculate remaining time
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (lockDays) lockDays.textContent = String(days).padStart(2, '0');
+    if (lockHours) lockHours.textContent = String(hours).padStart(2, '0');
+    if (lockMinutes) lockMinutes.textContent = String(minutes).padStart(2, '0');
+    if (lockSeconds) lockSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  // Run timer
+  updateLockCountdown();
+  const lockTimer = setInterval(updateLockCountdown, 1000);
+
+  // Secret Preview Toggle for Ratnesh
+  if (secretPreviewBtn) {
+    secretPreviewBtn.addEventListener('click', () => {
+      isPreviewBypassed = true;
+      lockOverlay.classList.add('unlocked');
+      if (previewBanner) previewBanner.style.display = 'flex';
+      playChime(783.99, 0.3);
+      launchConfetti(40);
+    });
+  }
+
+  // Relock Button to test Bebe's view
+  if (relockBtn) {
+    relockBtn.addEventListener('click', () => {
+      isPreviewBypassed = false;
+      lockOverlay.classList.remove('unlocked');
+      if (previewBanner) previewBanner.style.display = 'none';
+      playChime(440, 0.2);
+    });
+  }
+
   // ------------------------------------------------------------------------
   // LIVE COUNTDOWN TO SEPTEMBER 5TH, 2026 (BEBE'S 24TH BIRTHDAY)
   // ------------------------------------------------------------------------
