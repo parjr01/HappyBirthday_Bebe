@@ -10,23 +10,12 @@
 // If left empty, it will automatically load 16 aesthetic sample cards!
 // ==========================================================================
 window.MEDIA_STREAM_FILES = [
- "IMG_1778.HEIC",
-"IMG_1836.HEIC",
-"IMG_1894.HEIC",
-"IMG_1905.HEIC",
-"IMG_1922.HEIC",
-"IMG_1925.HEIC",
-"IMG_3260.heic",
-"IMG_3323.JPG",
-"IMG_3328.HEIC",
-"IMG_3666.HEIC",
-"IMG_3725.JPG",
-"WhatsApp Image 2026-06-30 at 17.10.03.jpeg",
-"WhatsApp Image 2026-07-08 at 12.04.50 (1).jpeg",
-"WhatsApp Image 2026-07-08 at 12.27.01.jpeg",
-"WhatsApp Image 2026-09-04 at 10.57.45.jpeg",
-"WhatsApp Image 2026-09-04 at 14.11.11.jpeg",
-"WhatsApp Image 2026-09-04 at 14.24.56.jpeg"
+  // List your photos & videos in assets/ here, e.g.:
+  // "IMG_1024.HEIC",
+  // "my_video.mov",
+  // "bebe_smile.jpg",
+  // "train_moment.mp4",
+  // "WhatsApp_Pic.jpeg"
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -801,16 +790,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Build items metadata
+  // Build items metadata (supports local files, HEIC, Google Drive, and YouTube links!)
   allMediaItems = userFiles.map((filename, idx) => {
     let src = filename;
-    if (!src.startsWith('assets/') && !src.startsWith('http')) {
-      src = `assets/${filename}`;
+    let isVideo = false;
+    let isHeic = false;
+    let isYouTube = false;
+    let isGDrive = false;
+    let thumbUrl = '';
+    let embedUrl = '';
+
+    const ytMatch = filename.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) {
+      isYouTube = true;
+      isVideo = true;
+      const ytId = ytMatch[1];
+      thumbUrl = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+      embedUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+      src = embedUrl;
+    } else if (filename.includes('drive.google.com')) {
+      isGDrive = true;
+      isVideo = true;
+      const gMatch = filename.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (gMatch) {
+        const gId = gMatch[1];
+        thumbUrl = `https://lh3.googleusercontent.com/d/${gId}`;
+        embedUrl = `https://drive.google.com/file/d/${gId}/preview`;
+        src = embedUrl;
+      }
+    } else {
+      if (!src.startsWith('assets/') && !src.startsWith('http')) {
+        src = `assets/${filename}`;
+      }
+      const ext = filename.split('.').pop().toLowerCase().split('?')[0];
+      isVideo = ['mp4', 'mov', 'webm', 'm4v', 'ogv'].includes(ext);
+      isHeic = ['heic', 'heif'].includes(ext);
     }
-    const ext = filename.split('.').pop().toLowerCase().split('?')[0];
-    const isVideo = ['mp4', 'mov', 'webm', 'm4v', 'ogv'].includes(ext);
-    const isHeic = ['heic', 'heif'].includes(ext);
-    return { id: idx, filename, src, isVideo, isHeic };
+
+    return { id: idx, filename, src, isVideo, isHeic, isYouTube, isGDrive, thumbUrl, embedUrl };
   });
 
   // Convert HEIC file via heic2any if supported, else return direct src
@@ -823,7 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = URL.createObjectURL(conversionResult);
         imgElement.src = url;
       } catch (e) {
-        imgElement.src = src; // fallback
+        imgElement.src = src;
       }
     } else {
       imgElement.src = src;
@@ -835,7 +852,16 @@ document.addEventListener('DOMContentLoaded', () => {
     card.className = `stream-card ${item.isVideo ? 'is-video' : ''}`;
     card.setAttribute('data-idx', item.id);
 
-    if (item.isVideo) {
+    if (item.isYouTube || item.isGDrive) {
+      const img = document.createElement('img');
+      img.src = item.thumbUrl;
+      img.alt = `Media ${item.id + 1}`;
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = `assets/sample_${(item.id % 16) + 1}.svg`;
+      };
+      card.appendChild(img);
+    } else if (item.isVideo) {
       const vid = document.createElement('video');
       vid.src = item.src;
       vid.muted = true;
@@ -852,7 +878,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         img.src = item.src;
         img.onerror = function() {
-          // fallback to sample
           this.onerror = null;
           this.src = `assets/sample_${(item.id % 16) + 1}.svg`;
         };
@@ -925,7 +950,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (maximizerStage) {
       maximizerStage.innerHTML = '';
-      if (item.isVideo) {
+      if (item.isYouTube || item.isGDrive) {
+        const iframe = document.createElement('iframe');
+        iframe.src = item.embedUrl;
+        iframe.setAttribute('allow', 'autoplay; fullscreen');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        maximizerStage.appendChild(iframe);
+      } else if (item.isVideo) {
         const vid = document.createElement('video');
         vid.src = item.src;
         vid.controls = true;

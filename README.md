@@ -4,33 +4,33 @@ A handcrafted, interactive, and romantic birthday website built specifically for
 
 ---
 
-## 🎞️ Continuous Rotating Media Showcase (Page 5)
+## ⚠️ Files Too Large for GitHub? (Solutions for > 25 MB Files)
 
-All albums and video tabs have been replaced with a **single, smooth, infinite auto-scrolling rotating media showcase**:
-- Photos and looping video previews smoothly glide across the screen in two opposing continuous tracks.
-- Hovering or touching pauses the scroll.
-- **Click any photo or video to maximize**:
-  - **Photos (`.jpg`, `.png`, `.heic`, `.webp`)**: Expands into high-definition full-screen view with next/prev arrows.
-  - **Videos (`.mp4`, `.mov`, `.webm`)**: Expands into a cinematic video player with sound, scrub bar, and controls.
-  - **Apple `.HEIC` Support**: Includes automatic client-side HEIC decoding via `heic2any` so iPhone photos display on all devices!
+GitHub has a **25 MB limit** per file when uploading through the web browser. If your high-resolution iPhone videos or large photos exceed this limit, here are the two easiest ways to handle it:
 
-### How to add your photos and videos:
-1. Drop your files directly into the **`assets/`** folder. You do **NOT** need to rename them or create subfolders!
-2. Open **`script.js`** in any text editor.
-3. At the very top (line 12), simply list your filenames inside `window.MEDIA_STREAM_FILES`:
+### 🌟 Solution 1: Use Google Drive or YouTube Links (Easiest & No Upload to GitHub!)
+You do **NOT** need to push heavy video files to GitHub! 
+1. Upload your video to **Google Drive** (set sharing to *"Anyone with the link can view"*), or to **YouTube** (set visibility to *"Unlisted"* so only you and Dakshita can view it).
+2. Open `script.js`.
+3. In `window.MEDIA_STREAM_FILES` at the top of `script.js`, paste your Google Drive or YouTube link directly:
    ```javascript
    window.MEDIA_STREAM_FILES = [
-     "IMG_1024.HEIC",
-     "bebe_smile.jpg",
-     "train_clip.mov",
-     "couch_night.mp4",
-     "WhatsApp_Pic.jpeg",
-     "lonavala.png"
+     "my_photo.jpg",
+     "https://drive.google.com/file/d/1ABCXYZ.../view?usp=sharing",
+     "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
+     "another_pic.heic"
    ];
    ```
-4. Save `script.js` and push to GitHub. They will rotate seamlessly in the stream!
+4. The website will automatically fetch the thumbnail, place it in the rotating stream, and play the full video in the maximizer!
 
-*(If left blank, the website automatically loads 16 aesthetic sample cards so it works right out of the box).*
+---
+
+### 🚀 Solution 2: Quick Free Compression (Shrink 100 MB ➔ 8 MB in 10 Seconds)
+If you prefer keeping your files local inside `assets/`:
+1. **For Videos**: Go to [FreeConvert Video Compressor](https://www.freeconvert.com/video-compressor) (or [Clideo](https://clideo.com/compress-video)). Drop your video, choose target size (e.g. 15 MB), download, and drop into `assets/`.
+2. **For iPhone Photos (HEIC)**:
+   - When AirDropping or exporting from iPhone, choose **"Automatic"** or **"Most Compatible"** (JPEG) which reduces size by 80%.
+   - Or compress online at [TinyPNG](https://tinypng.com/).
 
 ---
 
