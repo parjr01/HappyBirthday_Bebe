@@ -10,12 +10,45 @@
 // If left empty, it will automatically load 16 aesthetic sample cards!
 // ==========================================================================
 window.MEDIA_STREAM_FILES = [
-  // List your photos & videos in assets/ here, e.g.:
-  // "IMG_1024.HEIC",
-  // "my_video.mov",
-  // "bebe_smile.jpg",
-  // "train_moment.mp4",
-  // "WhatsApp_Pic.jpeg"
+ WhatsApp Image 2026-09-04 at 01.54.56.jpeg",
+"WhatsApp Image 2026-09-04 at 10.57.45.jpeg",
+"WhatsApp Image 2026-09-04 at 10.58.49.jpeg",
+"WhatsApp Image 2026-09-04 at 10.59.59.jpeg",
+"WhatsApp Image 2026-09-04 at 11.00.15.jpeg",
+"WhatsApp Image 2026-09-04 at 14.05.33.jpeg",
+"WhatsApp Image 2026-09-04 at 14.11.12.jpeg",
+"WhatsApp Image 2026-09-04 at 14.49.29.jpeg",
+"WhatsApp Image 2026-09-04 at 14.50.45.jpeg",
+"WhatsApp Image 2026-09-04 at 14.57.42.jpeg",
+"WhatsApp Image 2026-09-04 at 14.58.25.jpeg",
+"WhatsApp Image 2026-09-04 at 14.58.59.jpeg",
+"WhatsApp Image 2026-09-04 at 14.59.46.jpeg",
+"WhatsApp Image 2026-09-04 at 15.00.13.jpeg",
+"WhatsApp Image 2026-09-04 at 15.42.27.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.13.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.17.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.18.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.19.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.20.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.21.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.22.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.23.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.24.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.25.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.26.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.27.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.28.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.29.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.30.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.31.jpeg",
+"WhatsApp Video 2026-09-04 at 00.57.38.mp4",
+"WhatsApp Video 2026-09-04 at 14.11.16.mp4",
+"WhatsApp Video 2026-09-04 at 14.59.31.mp4",
+"WhatsApp Video 2026-09-04 at 15.00.34.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.31.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.32.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.33.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.34.mp4"
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
