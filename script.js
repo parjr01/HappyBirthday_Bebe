@@ -10,7 +10,7 @@
 // If left empty, it will automatically load 16 aesthetic sample cards!
 // ==========================================================================
 window.MEDIA_STREAM_FILES = [
- WhatsApp Image 2026-09-04 at 01.54.56.jpeg",
+"WhatsApp Image 2026-09-04 at 01.54.56.jpeg",
 "WhatsApp Image 2026-09-04 at 10.57.45.jpeg",
 "WhatsApp Image 2026-09-04 at 10.58.49.jpeg",
 "WhatsApp Image 2026-09-04 at 10.59.59.jpeg",
