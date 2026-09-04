@@ -10,12 +10,32 @@
 // If left empty, it will automatically load 16 aesthetic sample cards!
 // ==========================================================================
 window.MEDIA_STREAM_FILES = [
-  // List your photos & videos in assets/ here, e.g.:
-  // "IMG_1024.HEIC",
-  // "my_video.mov",
-  // "bebe_smile.jpg",
-  // "train_moment.mp4",
-  // "WhatsApp_Pic.jpeg"
+ "IMG_1891.HEIC",
+"IMG_1905.HEIC",
+"IMG_1922.HEIC",
+"IMG_1925.HEIC",
+"IMG_3323.JPG",
+"IMG_3328.HEIC",
+"IMG_3361.HEIC",
+"IMG_3368.JPG",
+"IMG_3545.JPG",
+"IMG_3566.JPG",
+"IMG_3666.HEIC",
+"IMG_3725.JPG",
+"WhatsApp Image 2026-06-30 at 17.10.03.jpeg",
+"WhatsApp Image 2026-07-08 at 12.04.50 (1).jpeg",
+"WhatsApp Image 2026-07-08 at 12.04.50.jpeg",
+"WhatsApp Image 2026-07-08 at 12.27.01.jpeg",
+"WhatsApp Image 2026-08-22 at 13.01.56.jpeg",
+"WhatsApp Image 2026-09-04 at 01.54.56.jpeg",
+"WhatsApp Image 2026-09-04 at 10.57.45.jpeg",
+"WhatsApp Image 2026-09-04 at 10.58.49.jpeg",
+"WhatsApp Image 2026-09-04 at 10.59.59.jpeg",
+"WhatsApp Image 2026-09-04 at 11.00.15.jpeg",
+"WhatsApp Image 2026-09-04 at 14.11.11.jpeg",
+"WhatsApp Image 2026-09-04 at 14.11.12.jpeg",
+"WhatsApp Image 2026-09-04 at 14.24.56.jpeg",
+"photo1.HEIC"
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
