@@ -1,78 +1,24 @@
 /* ==========================================================================
-   📁 YOUR CUSTOM MEDIA FILENAMES (OPTIONAL - NO NEED TO RENAME FILES!)
-   --------------------------------------------------------------------------
-   You do NOT need to rename your photos to "photo1.jpg" or videos to "video1.mp4"!
-   Simply type your real filenames below (e.g. "IMG_2024.jpg", "bebe_trip.png", "VID_01.mp4").
-   If left empty, it will look for photo1.jpg .. photo10.jpg automatically.
+   HAPPY BIRTHDAY DAKSHITA (BEBE) - CONTINUOUS ROTATING MEDIA SHOWCASE SCRIPT
    ========================================================================== */
-window.CUSTOM_MEDIA_CONFIG = {
-  photos: {
-    album1: [
-      // Put your actual filenames here, e.g.:
-      // "IMG_1234.jpg", "WhatsApp_Image_1.jpeg", "bebe_smile.png"
-    ],
-    album2: [],
-    album3: [],
-    album4: [],
-    album5: []
-  },
-  videos: {
-    album1: [
-      // e.g. "VID_2026.mp4", "train_clip.mov"
-    ],
-    album2: [],
-    album3: []
-  }
-};
 
-/* ==========================================================================
-   HAPPY BIRTHDAY DAKSHITA (BEBE) - COMPLETE INTERACTIVE MASTER JAVASCRIPT
-   ========================================================================== */
+// ==========================================================================
+// 📁 YOUR MEDIA STREAM FILES (PUT ALL PHOTOS & VIDEOS IN assets/ FOLDER)
+// --------------------------------------------------------------------------
+// You can use ANY filenames and ANY extensions (.heic, .jpg, .png, .mp4, .mov)!
+// Simply list your filenames below.
+// If left empty, it will automatically load 16 aesthetic sample cards!
+// ==========================================================================
+window.MEDIA_STREAM_FILES = [
+  // List your photos & videos in assets/ here, e.g.:
+  // "IMG_1024.HEIC",
+  // "my_video.mov",
+  // "bebe_smile.jpg",
+  // "train_moment.mp4",
+  // "WhatsApp_Pic.jpeg"
+];
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  // ------------------------------------------------------------------------
-  // AUTO-APPLY CUSTOM FILENAMES TO DOM
-  // ------------------------------------------------------------------------
-  function resolvePhotoSrc(albumKey, index) {
-    const customList = window.CUSTOM_MEDIA_CONFIG?.photos?.[albumKey];
-    if (customList && customList[index]) {
-      return `assets/photos/${albumKey}/${customList[index]}`;
-    }
-    return `assets/photos/${albumKey}/photo${index + 1}.jpg`;
-  }
-
-  function resolveVideoSrc(albumKey, index) {
-    const customList = window.CUSTOM_MEDIA_CONFIG?.videos?.[albumKey];
-    if (customList && customList[index]) {
-      return `assets/videos/${albumKey}/${customList[index]}`;
-    }
-    return `assets/videos/${albumKey}/video${index + 1}.mp4`;
-  }
-
-  // Update pre-rendered DOM images with custom filenames if provided
-  document.querySelectorAll('.album-photo-card').forEach(card => {
-    const alb = card.getAttribute('data-album');
-    const idx = parseInt(card.getAttribute('data-index')) || 0;
-    const img = card.querySelector('img');
-    if (img) {
-      const src = resolvePhotoSrc(alb, idx);
-      const fallbackSvg = `assets/photos/${alb}/photo${idx + 1}.svg`;
-      img.src = src;
-      img.onerror = function() {
-        this.onerror = null;
-        this.src = fallbackSvg;
-      };
-    }
-  });
-
-  // Update pre-rendered DOM video cards with custom filenames if provided
-  document.querySelectorAll('.video-card-item').forEach(vcard => {
-    const alb = vcard.getAttribute('data-valbum');
-    const idx = parseInt(vcard.getAttribute('data-vidx')) || 0;
-    vcard.setAttribute('data-src', resolveVideoSrc(alb, idx));
-  });
-
 
   // ------------------------------------------------------------------------
   // 0. LUXURY FULL-SCREEN LOCK CONTROLLER (PASSCODE: 0802 ONLY)
@@ -83,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const lockMinutes = document.getElementById('lock-minutes');
   const lockSeconds = document.getElementById('lock-seconds');
 
-  // Inline Passcode Elements
   const lockIconTrigger = document.getElementById('lock-icon-trigger');
   const togglePasscodeBtn = document.getElementById('toggle-passcode-box-btn');
   const inlinePasscodeBox = document.getElementById('inline-passcode-box');
@@ -95,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let isBypassed = false;
 
-  // Target unlock timestamp: September 5, 2026 at 00:00:00 IST
   const now = new Date();
   let targetYear = 2026;
   if (now.getFullYear() < 2026) {
@@ -109,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTime = new Date().getTime();
     const diff = TARGET_UNLOCK_TIME - currentTime;
 
-    // Automatic midnight unlock on Sept 5th
     if (diff <= 0) {
       if (document.body.classList.contains('is-locked')) {
         document.body.classList.remove('is-locked');
@@ -121,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Keep strictly locked until midnight
     document.body.classList.add('is-locked');
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -138,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLockCountdown();
   setInterval(updateLockCountdown, 1000);
 
-  // Toggle Inline Passcode Box
   function togglePasscodeBox() {
     if (!inlinePasscodeBox) return;
     if (inlinePasscodeBox.style.display === 'none' || !inlinePasscodeBox.style.display) {
@@ -156,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (togglePasscodeBtn) togglePasscodeBtn.addEventListener('click', togglePasscodeBox);
   if (lockIconTrigger) lockIconTrigger.addEventListener('click', togglePasscodeBox);
 
-  // Strictly verify 0802 ONLY
   function verifyPasscode() {
     if (!passcodeInput) return;
     const entered = passcodeInput.value.trim();
@@ -183,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Relock Button
   if (relockBtn) {
     relockBtn.addEventListener('click', () => {
       isBypassed = false;
@@ -216,11 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const secretTeasers = [
     { icon: "🎂", text: "Hint #1: There's an interactive 3-tier cake where you can literally blow out the candles with real wind!" },
-    { icon: "📸", text: "Hint #2: 5 curated photo albums with 50 pictures exploring our goofiest, stylish, and cozy sides!" },
+    { icon: "🎞️", text: "Hint #2: An infinite auto-scrolling media reel rotating all our favorite photos & video clips!" },
     { icon: "💍", text: "Hint #3: A private love letter from your soon-to-be groom that will definitely make you blush..." },
     { icon: "🎟️", text: "Hint #4: 6 VIP Golden Coupons (head massage, zero chores, argument passes) Ratnesh cannot refuse!" },
-    { icon: "🛋️", text: "Hint #5: The origin story of how staying on the office couch until dawn changed everything between us..." },
-    { icon: "🎬", text: "Hint #6: 3 dedicated video albums with 12 video clips waiting inside!" }
+    { icon: "🛋️", text: "Hint #5: The untold memories of our legendary all-nighter on the office couch until dawn..." },
+    { icon: "✨", text: "Hint #6: An entire 10-page birthday universe built just for you!" }
   ];
 
   const loveFortunes = [
@@ -492,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1; // White noise
+        data[i] = Math.random() * 2 - 1;
       }
 
       const noise = audioCtx.createBufferSource();
@@ -822,87 +761,226 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 8. PAGE 5: CLEAN PHOTO GALLERY (NO ALBUM NAMES, NO CAPTIONS)
+  // 8. PAGE 5: CONTINUOUS AUTO-ROTATING MEDIA SHOWCASE (PHOTOS & VIDEOS)
   // ------------------------------------------------------------------------
-  const albumTabBtns = document.querySelectorAll('.album-tab-btn');
-  const albumWrappers = document.querySelectorAll('.album-grid-wrapper');
+  const track1 = document.getElementById('stream-track-1');
+  const track2 = document.getElementById('stream-track-2');
+  const showcaseWrapper = document.getElementById('infinite-showcase-wrapper');
+  const toggleStreamBtn = document.getElementById('toggle-stream-btn');
+  const speedPills = document.querySelectorAll('.speed-pill');
 
-  const photoModal = document.getElementById('photo-modal');
-  const photoModalBackdrop = document.getElementById('photo-modal-backdrop');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-  const modalImg = document.getElementById('modal-img');
-  const lightboxPrevBtn = document.getElementById('lightbox-prev-btn');
-  const lightboxNextBtn = document.getElementById('lightbox-next-btn');
+  // Maximizer Modal Elements
+  const maximizerModal = document.getElementById('media-maximizer-modal');
+  const maximizerBackdrop = document.getElementById('maximizer-backdrop');
+  const maximizerCloseBtn = document.getElementById('maximizer-close-btn');
+  const maximizerStage = document.getElementById('maximizer-stage');
+  const maximizerCounter = document.getElementById('maximizer-counter');
+  const maximizerPrevBtn = document.getElementById('maximizer-prev-btn');
+  const maximizerNextBtn = document.getElementById('maximizer-next-btn');
 
-  let currentActiveAlbum = 'album1';
-  let activePhotoIndex = 0;
+  let activeMediaIndex = 0;
+  let allMediaItems = [];
 
-  // Switch Album Tabs
-  albumTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      albumTabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  // Determine media list: custom or default 16 samples
+  let userFiles = window.MEDIA_STREAM_FILES || [];
+  if (userFiles.length === 0) {
+    // Default 16 samples (mix of photos and sample videos)
+    for (let i = 1; i <= 16; i++) {
+      userFiles.push(`sample_${i}.svg`);
+    }
+  }
 
-      const targetAlbum = btn.getAttribute('data-album');
-      currentActiveAlbum = targetAlbum;
+  // Build items metadata
+  allMediaItems = userFiles.map((filename, idx) => {
+    let src = filename;
+    if (!src.startsWith('assets/') && !src.startsWith('http')) {
+      src = `assets/${filename}`;
+    }
+    const ext = filename.split('.').pop().toLowerCase().split('?')[0];
+    const isVideo = ['mp4', 'mov', 'webm', 'm4v', 'ogv'].includes(ext);
+    const isHeic = ['heic', 'heif'].includes(ext);
+    return { id: idx, filename, src, isVideo, isHeic };
+  });
 
-      albumWrappers.forEach(wrap => {
-        if (wrap.id === `grid-${targetAlbum}`) {
-          wrap.style.display = 'block';
-          wrap.classList.add('active');
-        } else {
-          wrap.style.display = 'none';
-          wrap.classList.remove('active');
-        }
-      });
+  // Convert HEIC file via heic2any if supported, else return direct src
+  async function handleHeicSource(src, imgElement) {
+    if (window.heic2any) {
+      try {
+        const res = await fetch(src);
+        const blob = await res.blob();
+        const conversionResult = await heic2any({ blob, toType: 'image/jpeg', quality: 0.88 });
+        const url = URL.createObjectURL(conversionResult);
+        imgElement.src = url;
+      } catch (e) {
+        imgElement.src = src; // fallback
+      }
+    } else {
+      imgElement.src = src;
+    }
+  }
 
+  function createMediaCard(item) {
+    const card = document.createElement('div');
+    card.className = `stream-card ${item.isVideo ? 'is-video' : ''}`;
+    card.setAttribute('data-idx', item.id);
+
+    if (item.isVideo) {
+      const vid = document.createElement('video');
+      vid.src = item.src;
+      vid.muted = true;
+      vid.loop = true;
+      vid.autoplay = true;
+      vid.playsInline = true;
+      vid.setAttribute('playsinline', '');
+      card.appendChild(vid);
+    } else {
+      const img = document.createElement('img');
+      img.alt = `Media ${item.id + 1}`;
+      if (item.isHeic) {
+        handleHeicSource(item.src, img);
+      } else {
+        img.src = item.src;
+        img.onerror = function() {
+          // fallback to sample
+          this.onerror = null;
+          this.src = `assets/sample_${(item.id % 16) + 1}.svg`;
+        };
+      }
+      card.appendChild(img);
+    }
+
+    card.addEventListener('click', () => openMaximizer(item.id));
+    return card;
+  }
+
+  // Populate Track 1 (First half) and Track 2 (Second half) with duplicates for seamless infinite scroll
+  function buildTracks() {
+    if (!track1 || !track2) return;
+    track1.innerHTML = '';
+    track2.innerHTML = '';
+
+    const mid = Math.ceil(allMediaItems.length / 2);
+    const set1 = allMediaItems.slice(0, mid);
+    const set2 = allMediaItems.slice(mid);
+
+    // Track 1
+    const items1 = set1.length > 0 ? set1 : allMediaItems;
+    items1.forEach(item => track1.appendChild(createMediaCard(item)));
+    items1.forEach(item => track1.appendChild(createMediaCard(item))); // duplicate for infinite loop
+
+    // Track 2
+    const items2 = set2.length > 0 ? set2 : allMediaItems;
+    items2.forEach(item => track2.appendChild(createMediaCard(item)));
+    items2.forEach(item => track2.appendChild(createMediaCard(item))); // duplicate for infinite loop
+  }
+  buildTracks();
+
+  // Stream controls: Pause / Play toggle
+  let isStreamPaused = false;
+  if (toggleStreamBtn) {
+    toggleStreamBtn.addEventListener('click', () => {
+      isStreamPaused = !isStreamPaused;
+      if (showcaseWrapper) showcaseWrapper.classList.toggle('paused', isStreamPaused);
+      toggleStreamBtn.textContent = isStreamPaused ? '▶️ Resume Stream' : '⏸️ Pause Stream';
+      playChime(500, 0.15);
+    });
+  }
+
+  // Speed controls
+  speedPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      speedPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const speed = pill.getAttribute('data-speed');
+      let duration = '30s';
+      if (speed === 'slow') duration = '48s';
+      if (speed === 'fast') duration = '18s';
+
+      if (track1) track1.style.animationDuration = duration;
+      if (track2) track2.style.animationDuration = duration;
       playChime(600, 0.15);
     });
   });
 
-  // Attach Lightbox click to all photo cards
-  const allPhotoCards = document.querySelectorAll('.album-photo-card');
-  allPhotoCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const alb = card.getAttribute('data-album');
-      const idx = parseInt(card.getAttribute('data-index')) || 0;
-      openPhotoLightbox(alb, idx);
-    });
-  });
+  // Maximizer Modal
+  function openMaximizer(index) {
+    activeMediaIndex = index;
+    const item = allMediaItems[activeMediaIndex];
+    if (!item) return;
 
-  function openPhotoLightbox(alb, index) {
-    currentActiveAlbum = alb;
-    activePhotoIndex = index;
-
-    const imgSrc = resolvePhotoSrc(alb, index);
-    const fallbackSvg = `assets/photos/${alb}/photo${index + 1}.svg`;
-
-    if (modalImg) {
-      modalImg.src = imgSrc;
-      modalImg.onerror = function() {
-        this.onerror = null;
-        this.src = fallbackSvg;
-      };
+    if (maximizerCounter) {
+      maximizerCounter.textContent = `${activeMediaIndex + 1} / ${allMediaItems.length}`;
     }
-    if (photoModal) photoModal.classList.add('show');
+
+    if (maximizerStage) {
+      maximizerStage.innerHTML = '';
+      if (item.isVideo) {
+        const vid = document.createElement('video');
+        vid.src = item.src;
+        vid.controls = true;
+        vid.autoplay = true;
+        vid.playsInline = true;
+        vid.setAttribute('playsinline', '');
+        maximizerStage.appendChild(vid);
+      } else {
+        const img = document.createElement('img');
+        if (item.isHeic) {
+          handleHeicSource(item.src, img);
+        } else {
+          img.src = item.src;
+          img.onerror = function() {
+            this.onerror = null;
+            this.src = `assets/sample_${(item.id % 16) + 1}.svg`;
+          };
+        }
+        maximizerStage.appendChild(img);
+      }
+    }
+
+    if (maximizerModal) maximizerModal.classList.add('show');
+    playChime(650, 0.2);
   }
 
-  if (modalCloseBtn) modalCloseBtn.addEventListener('click', () => photoModal.classList.remove('show'));
-  if (photoModalBackdrop) photoModalBackdrop.addEventListener('click', () => photoModal.classList.remove('show'));
+  function closeMaximizer() {
+    if (maximizerModal) maximizerModal.classList.remove('show');
+    if (maximizerStage) {
+      const vid = maximizerStage.querySelector('video');
+      if (vid) vid.pause();
+      maximizerStage.innerHTML = '';
+    }
+  }
 
-  if (lightboxPrevBtn) {
-    lightboxPrevBtn.addEventListener('click', () => {
-      activePhotoIndex = (activePhotoIndex - 1 + 10) % 10;
-      openPhotoLightbox(currentActiveAlbum, activePhotoIndex);
+  if (maximizerCloseBtn) maximizerCloseBtn.addEventListener('click', closeMaximizer);
+  if (maximizerBackdrop) maximizerBackdrop.addEventListener('click', closeMaximizer);
+
+  if (maximizerPrevBtn) {
+    maximizerPrevBtn.addEventListener('click', () => {
+      activeMediaIndex = (activeMediaIndex - 1 + allMediaItems.length) % allMediaItems.length;
+      openMaximizer(activeMediaIndex);
     });
   }
 
-  if (lightboxNextBtn) {
-    lightboxNextBtn.addEventListener('click', () => {
-      activePhotoIndex = (activePhotoIndex + 1) % 10;
-      openPhotoLightbox(currentActiveAlbum, activePhotoIndex);
+  if (maximizerNextBtn) {
+    maximizerNextBtn.addEventListener('click', () => {
+      activeMediaIndex = (activeMediaIndex + 1) % allMediaItems.length;
+      openMaximizer(activeMediaIndex);
     });
   }
+
+  // Keyboard navigation for maximizer
+  document.addEventListener('keydown', (e) => {
+    if (maximizerModal && maximizerModal.classList.contains('show')) {
+      if (e.key === 'ArrowRight') {
+        activeMediaIndex = (activeMediaIndex + 1) % allMediaItems.length;
+        openMaximizer(activeMediaIndex);
+      } else if (e.key === 'ArrowLeft') {
+        activeMediaIndex = (activeMediaIndex - 1 + allMediaItems.length) % allMediaItems.length;
+        openMaximizer(activeMediaIndex);
+      } else if (e.key === 'Escape') {
+        closeMaximizer();
+      }
+    }
+  });
 
   // ------------------------------------------------------------------------
   // 9. PAGE 6: DAKSHITA & RATNESH QUIZ (FRESH & WITTY)
@@ -1158,61 +1236,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 13. PAGE 10: CLEAN VIDEOS (NO ALBUM NAMES, NO CAPTIONS)
+  // 13. PAGE 10: FINALE ACTIONS
   // ------------------------------------------------------------------------
-  const videoTabBtns = document.querySelectorAll('.video-tab-btn');
-  const videoWrappers = document.querySelectorAll('.video-album-wrapper');
-  const mainVideoPlayer = document.getElementById('main-video-player');
-  const mainVideoSource = document.getElementById('main-video-source');
-  const allVideoCards = document.querySelectorAll('.video-card-item');
-
-  videoTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      videoTabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const targetValbum = btn.getAttribute('data-valbum');
-
-      videoWrappers.forEach(wrap => {
-        if (wrap.id === `vwrap-${targetValbum}`) {
-          wrap.style.display = 'flex';
-          wrap.classList.add('active');
-          const firstCard = wrap.querySelector('.video-card-item');
-          if (firstCard) {
-            wrap.querySelectorAll('.video-card-item').forEach(c => c.classList.remove('active'));
-            firstCard.classList.add('active');
-            playVideoCard(firstCard);
-          }
-        } else {
-          wrap.style.display = 'none';
-          wrap.classList.remove('active');
-        }
-      });
-
-      playChime(650, 0.15);
-    });
-  });
-
-  allVideoCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const parentWrap = card.closest('.video-album-wrapper');
-      if (parentWrap) {
-        parentWrap.querySelectorAll('.video-card-item').forEach(c => c.classList.remove('active'));
-      }
-      card.classList.add('active');
-      playVideoCard(card);
-    });
-  });
-
-  function playVideoCard(card) {
-    if (!mainVideoPlayer || !mainVideoSource) return;
-    const src = card.getAttribute('data-src');
-    mainVideoSource.src = src;
-    mainVideoPlayer.load();
-    playChime(700, 0.12);
-  }
-
-  // Finale Actions
   const showerHeartsBtn = document.getElementById('shower-hearts-btn');
   const sendReplyBtn = document.getElementById('send-reply-btn');
   const restartJourneyBtn = document.getElementById('restart-journey-btn');

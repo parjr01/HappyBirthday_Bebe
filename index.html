@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.0" />
+  <link rel="stylesheet" href="style.css?v=5.0" />
 <style>
 /* ==========================================================================
    HAPPY BIRTHDAY DAKSHITA (BEBE) - MASTER LUXURY STYLESHEET
@@ -2656,7 +2656,248 @@ body:not(.is-locked) .lock-overlay {
   object-fit: contain;
 }
 
+
+/* ==========================================================================
+   INFINITE ROTATING MEDIA SHOWCASE (PHOTOS & VIDEOS)
+   ========================================================================== */
+.media-showcase-card {
+  padding: 36px 24px !important;
+}
+
+.showcase-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.stream-btn {
+  background: #ffffff;
+  border: 1.5px solid #ffccd5;
+  color: var(--deep-rose);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 3px 10px rgba(255, 77, 109, 0.1);
+}
+
+.stream-btn:hover {
+  background: var(--soft-blush);
+  border-color: var(--primary-pink);
+  transform: translateY(-2px);
+}
+
+.speed-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ctrl-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.speed-pill {
+  background: #ffffff;
+  border: 1px solid #ffd1dc;
+  color: var(--text-dark);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.speed-pill.active, .speed-pill:hover {
+  background: var(--primary-pink);
+  color: #ffffff;
+  border-color: var(--primary-pink);
+}
+
+/* Infinite Scrolling Rows */
+.infinite-showcase-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.stream-track-container {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.stream-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+}
+
+.stream-track.scroll-left {
+  animation: scrollTrackLeft 30s linear infinite;
+}
+
+.stream-track.scroll-right {
+  animation: scrollTrackRight 30s linear infinite;
+}
+
+@keyframes scrollTrackLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollTrackRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.infinite-showcase-wrapper:hover .stream-track,
+.infinite-showcase-wrapper.paused .stream-track {
+  animation-play-state: paused !important;
+}
+
+/* Individual Media Cards */
+.stream-card {
+  width: 200px;
+  height: 250px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1.5px solid #ffd1dc;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.stream-card:hover {
+  transform: scale(1.08) translateY(-6px);
+  z-index: 10;
+  border-color: var(--primary-pink);
+  box-shadow: 0 16px 36px rgba(255, 77, 109, 0.28);
+}
+
+.stream-card img,
+.stream-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Video badge overlay */
+.stream-card.is-video::after {
+  content: '▶️ Video';
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(16, 6, 18, 0.75);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Universal Media Maximizer Modal */
+.maximizer-content {
+  max-width: 900px !important;
+  width: 95% !important;
+  background: rgba(16, 6, 18, 0.95) !important;
+  border: 1.5px solid rgba(255, 182, 193, 0.4) !important;
+  padding: 20px !important;
+  border-radius: 24px !important;
+  color: #fff !important;
+  text-align: center !important;
+}
+
+.maximizer-stage {
+  width: 100%;
+  height: 520px;
+  max-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.maximizer-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.maximizer-stage video {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.maximizer-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.max-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 209, 102, 0.4);
+  color: #ffd166;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.max-btn:hover {
+  background: var(--primary-pink);
+  color: #fff;
+  border-color: var(--primary-pink);
+}
+
+.max-counter {
+  font-size: 0.88rem;
+  color: #ffccd5;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .stream-card {
+    width: 150px;
+    height: 190px;
+  }
+  .maximizer-stage {
+    height: 340px;
+  }
+}
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 </head>
 <body class="is-locked">
   <!-- LUXURY FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
@@ -2806,12 +3047,12 @@ body:not(.is-locked) .lock-overlay {
         <div class="quick-menu-item" data-page="2">2. Cake & Candle Ceremony 🎂</div>
         <div class="quick-menu-item" data-page="3">3. 10 Nuances I Adore 💖</div>
         <div class="quick-menu-item" data-page="4">4. Our Real Love Story ⏳</div>
-        <div class="quick-menu-item" data-page="5">5. Photo Gallery 📸</div>
+        <div class="quick-menu-item" data-page="5">5. Rotating Showcase 🎞️</div>
         <div class="quick-menu-item" data-page="6">6. Dakshita & Ratnesh Quiz 🎮</div>
         <div class="quick-menu-item" data-page="7">7. Appreciation Machine 🎰</div>
         <div class="quick-menu-item" data-page="8">8. "Open When" Letters 💌</div>
         <div class="quick-menu-item" data-page="9">9. VIP Golden Coupons 🎟️</div>
-        <div class="quick-menu-item" data-page="10">10. Videos & Finale 🎬</div>
+        <div class="quick-menu-item" data-page="10">10. Grand Finale & Vows 💌</div>
       </div>
     </div>
 
@@ -3179,297 +3420,43 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-            <!-- PAGE 5: Clean Photo Gallery (No Album Names, No Captions/Tags) -->
-    <section class="page-section" id="page-5" data-title="Photos">
-      <div class="glass-card wide-card">
-        <h2 class="section-title">Photo Gallery 📸✨</h2>
-        <p class="section-desc">Tap any photo to view in full screen:</p>
+                <!-- PAGE 5: Infinite Auto-Rotating Media Showcase (Photos & Videos) -->
+    <section class="page-section" id="page-5" data-title="Rotating Showcase">
+      <div class="glass-card wide-card media-showcase-card">
+        <div class="badge-pill">Continuous Media Stream 🎞️✨</div>
+        <h2 class="section-title">Moments of Us in Motion 💖</h2>
+        <p class="section-desc">Photos and video snippets rotating smoothly. Hover or touch to pause, and tap any item to maximize full screen!</p>
 
-        <!-- Clean Numbered Album Tabs -->
-        <div class="album-tabs-bar">
-          <button class="album-tab-btn active" data-album="album1">Album 1</button>
-          <button class="album-tab-btn" data-album="album2">Album 2</button>
-          <button class="album-tab-btn" data-album="album3">Album 3</button>
-          <button class="album-tab-btn" data-album="album4">Album 4</button>
-          <button class="album-tab-btn" data-album="album5">Album 5</button>
+        <!-- Stream Controls -->
+        <div class="showcase-controls-bar">
+          <button id="toggle-stream-btn" class="stream-btn" type="button">⏸️ Pause Stream</button>
+          <div class="speed-controls">
+            <span class="ctrl-label">Speed:</span>
+            <button class="speed-pill" data-speed="slow" type="button">Slow</button>
+            <button class="speed-pill active" data-speed="normal" type="button">Normal</button>
+            <button class="speed-pill" data-speed="fast" type="button">Fast</button>
+          </div>
         </div>
 
-        <!-- Clean Pre-rendered Photo Grids (10 photos per album, NO text/captions) -->
-        <div class="album-display-area" id="album-display-area">
-          <div class="album-grid-wrapper active" id="grid-album1" style="display: block;">
-            <div class="album-grid clean-grid">
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="0">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo1.svg';" alt="Photo 1">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="1">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo2.svg';" alt="Photo 2">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="2">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo3.svg';" alt="Photo 3">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="3">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo4.svg';" alt="Photo 4">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="4">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo5.svg';" alt="Photo 5">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="5">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo6.svg';" alt="Photo 6">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="6">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo7.svg';" alt="Photo 7">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="7">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo8.svg';" alt="Photo 8">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="8">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo9.svg';" alt="Photo 9">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album1" data-index="9">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album1/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album1/photo10.svg';" alt="Photo 10">
-                </div>
-              </div>
+        <!-- Infinite Scrolling Rotating Showcase -->
+        <div class="infinite-showcase-wrapper" id="infinite-showcase-wrapper">
+          <!-- Row 1: Left to Right Stream -->
+          <div class="stream-track-container">
+            <div class="stream-track scroll-left" id="stream-track-1">
+              <!-- Injected dynamically by JS (photos & videos) -->
             </div>
           </div>
-          <div class="album-grid-wrapper " id="grid-album2" style="display: none;">
-            <div class="album-grid clean-grid">
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="0">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo1.svg';" alt="Photo 1">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="1">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo2.svg';" alt="Photo 2">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="2">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo3.svg';" alt="Photo 3">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="3">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo4.svg';" alt="Photo 4">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="4">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo5.svg';" alt="Photo 5">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="5">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo6.svg';" alt="Photo 6">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="6">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo7.svg';" alt="Photo 7">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="7">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo8.svg';" alt="Photo 8">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="8">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo9.svg';" alt="Photo 9">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album2" data-index="9">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album2/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album2/photo10.svg';" alt="Photo 10">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="album-grid-wrapper " id="grid-album3" style="display: none;">
-            <div class="album-grid clean-grid">
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="0">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo1.svg';" alt="Photo 1">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="1">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo2.svg';" alt="Photo 2">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="2">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo3.svg';" alt="Photo 3">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="3">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo4.svg';" alt="Photo 4">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="4">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo5.svg';" alt="Photo 5">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="5">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo6.svg';" alt="Photo 6">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="6">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo7.svg';" alt="Photo 7">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="7">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo8.svg';" alt="Photo 8">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="8">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo9.svg';" alt="Photo 9">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album3" data-index="9">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album3/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album3/photo10.svg';" alt="Photo 10">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="album-grid-wrapper " id="grid-album4" style="display: none;">
-            <div class="album-grid clean-grid">
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="0">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo1.svg';" alt="Photo 1">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="1">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo2.svg';" alt="Photo 2">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="2">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo3.svg';" alt="Photo 3">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="3">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo4.svg';" alt="Photo 4">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="4">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo5.svg';" alt="Photo 5">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="5">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo6.svg';" alt="Photo 6">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="6">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo7.svg';" alt="Photo 7">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="7">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo8.svg';" alt="Photo 8">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="8">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo9.svg';" alt="Photo 9">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album4" data-index="9">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album4/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album4/photo10.svg';" alt="Photo 10">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="album-grid-wrapper " id="grid-album5" style="display: none;">
-            <div class="album-grid clean-grid">
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="0">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo1.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo1.svg';" alt="Photo 1">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="1">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo2.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo2.svg';" alt="Photo 2">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="2">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo3.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo3.svg';" alt="Photo 3">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="3">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo4.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo4.svg';" alt="Photo 4">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="4">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo5.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo5.svg';" alt="Photo 5">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="5">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo6.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo6.svg';" alt="Photo 6">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="6">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo7.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo7.svg';" alt="Photo 7">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="7">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo8.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo8.svg';" alt="Photo 8">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="8">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo9.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo9.svg';" alt="Photo 9">
-                </div>
-              </div>
-              <div class="album-photo-card clean-photo-card" data-album="album5" data-index="9">
-                <div class="album-img-wrap">
-                  <img src="assets/photos/album5/photo10.jpg" onerror="this.onerror=null; this.src='assets/photos/album5/photo10.svg';" alt="Photo 10">
-                </div>
-              </div>
+
+          <!-- Row 2: Right to Left Stream -->
+          <div class="stream-track-container">
+            <div class="stream-track scroll-right" id="stream-track-2">
+              <!-- Injected dynamically by JS (photos & videos) -->
             </div>
           </div>
         </div>
 
         <div class="photo-hint-box">
-          💡 <em>Tip: Place your pictures inside <code>assets/photos/album1/photo1.jpg .. photo10.jpg</code>, <code>album2/</code>, up to <code>album5/</code>.</em>
+          💡 <em>Tip: Place your photos & videos directly into the <code>assets/</code> folder (supports <code>.jpg</code>, <code>.png</code>, <code>.heic</code>, <code>.mp4</code>, <code>.mov</code>, etc.). Simply list their names at the top of <code>script.js</code>!</em>
         </div>
       </div>
     </section>
@@ -3622,81 +3609,12 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-    <!-- PAGE 10: Video Albums & Groom's Love Letter -->
-    <section class="page-section" id="page-10" data-title="Video Albums & Letter">
+        <!-- PAGE 10: Grand Finale & Letter -->
+    <section class="page-section" id="page-10" data-title="The Grand Finale">
       <div class="glass-card finale-card">
-        <div class="badge-pill">The Grand Finale • 3 Video Albums (12 Videos Total)</div>
-        <h2 class="section-title">Videos Dedicated to You, Dakshita 🎬💖</h2>
-        <p class="section-desc">Select an album and play our favorite video clips:</p>
-
-                    <!-- PAGE 10: Videos & Letter (No Album Names, No Video Captions) -->
-    <section class="page-section" id="page-10" data-title="Videos">
-      <div class="glass-card finale-card">
-        <h2 class="section-title">Videos 🎬💖</h2>
-        <p class="section-desc">Select a video to play:</p>
-
-        <!-- Clean Video Tabs -->
-        <div class="video-tabs-bar clean-video-tabs">
-          <button class="video-tab-btn active" data-valbum="album1">Set 1</button>
-          <button class="video-tab-btn" data-valbum="album2">Set 2</button>
-          <button class="video-tab-btn" data-valbum="album3">Set 3</button>
-        </div>
-
-        <!-- Video Cinema Frame -->
-        <div class="video-cinema-frame">
-          <video id="main-video-player" controls poster="assets/photos/album1/photo1.svg">
-            <source id="main-video-source" src="assets/videos/album1/video1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
-        <!-- Clean Video Selectors (4 videos per set, NO captions) -->
-        <div class="video-playlist-container">
-          <div class="video-album-wrapper active" id="vwrap-album1" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;">
-            <div class="video-card-item active clean-vcard" data-valbum="album1" data-vidx="0" data-src="assets/videos/album1/video1.mp4">
-              <span class="video-card-icon">▶️</span> Video 1
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album1" data-vidx="1" data-src="assets/videos/album1/video2.mp4">
-              <span class="video-card-icon">▶️</span> Video 2
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album1" data-vidx="2" data-src="assets/videos/album1/video3.mp4">
-              <span class="video-card-icon">▶️</span> Video 3
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album1" data-vidx="3" data-src="assets/videos/album1/video4.mp4">
-              <span class="video-card-icon">▶️</span> Video 4
-            </div>
-          </div>
-
-          <div class="video-album-wrapper" id="vwrap-album2" style="display: none; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;">
-            <div class="video-card-item active clean-vcard" data-valbum="album2" data-vidx="0" data-src="assets/videos/album2/video1.mp4">
-              <span class="video-card-icon">▶️</span> Video 1
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album2" data-vidx="1" data-src="assets/videos/album2/video2.mp4">
-              <span class="video-card-icon">▶️</span> Video 2
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album2" data-vidx="2" data-src="assets/videos/album2/video3.mp4">
-              <span class="video-card-icon">▶️</span> Video 3
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album2" data-vidx="3" data-src="assets/videos/album2/video4.mp4">
-              <span class="video-card-icon">▶️</span> Video 4
-            </div>
-          </div>
-
-          <div class="video-album-wrapper" id="vwrap-album3" style="display: none; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;">
-            <div class="video-card-item active clean-vcard" data-valbum="album3" data-vidx="0" data-src="assets/videos/album3/video1.mp4">
-              <span class="video-card-icon">▶️</span> Video 1
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album3" data-vidx="1" data-src="assets/videos/album3/video2.mp4">
-              <span class="video-card-icon">▶️</span> Video 2
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album3" data-vidx="2" data-src="assets/videos/album3/video3.mp4">
-              <span class="video-card-icon">▶️</span> Video 3
-            </div>
-            <div class="video-card-item clean-vcard" data-valbum="album3" data-vidx="3" data-src="assets/videos/album3/video4.mp4">
-              <span class="video-card-icon">▶️</span> Video 4
-            </div>
-          </div>
-        </div>
+        <div class="badge-pill">The Grand Finale • Made With Eternal Love</div>
+        <h2 class="section-title">To My Queen, Dakshita 👑💖</h2>
+        <p class="section-desc">A birthday vow from your Bebe (and soon-to-be groom):</p>
 
         <!-- Heartfelt Letter From Her Soon-To-Be Groom -->
         <div class="letter-box">
@@ -3732,8 +3650,6 @@ body:not(.is-locked) .lock-overlay {
       </div>
     </section>
 
-  </main>
-
   <!-- Bottom Floating Page Navigation Bar -->
   <footer class="bottom-nav-bar">
     <button class="footer-nav-btn" id="footer-prev-btn">❮ Previous</button>
@@ -3741,17 +3657,20 @@ body:not(.is-locked) .lock-overlay {
     <button class="footer-nav-btn" id="footer-next-btn">Next Page ❯</button>
   </footer>
 
-    <!-- Lightbox Modal for Full-Screen Photos (Clean, No Captions) -->
-  <div class="modal" id="photo-modal">
-    <div class="modal-backdrop" id="photo-modal-backdrop"></div>
-    <div class="modal-content polaroid-lightbox clean-modal">
-      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
-      <div class="modal-img-wrap full-screen-img-wrap">
-        <img id="modal-img" src="" alt="Enlarged Photo">
+      <!-- Fullscreen Media Maximizer Modal (Handles Images, HEIC & Videos) -->
+  <div class="modal" id="media-maximizer-modal">
+    <div class="modal-backdrop" id="maximizer-backdrop"></div>
+    <div class="modal-content maximizer-content">
+      <button class="modal-close-btn" id="maximizer-close-btn">&times;</button>
+      
+      <div class="maximizer-stage" id="maximizer-stage">
+        <!-- Dynamically injected: <img> or <video controls autoplay> -->
       </div>
-      <div class="lightbox-nav">
-        <button id="lightbox-prev-btn">❮ Prev</button>
-        <button id="lightbox-next-btn">Next ❯</button>
+
+      <div class="maximizer-nav-bar">
+        <button id="maximizer-prev-btn" class="max-btn" type="button">❮ Prev</button>
+        <span id="maximizer-counter" class="max-counter">1 / 16</span>
+        <button id="maximizer-next-btn" class="max-btn" type="button">Next ❯</button>
       </div>
     </div>
   </div>
@@ -3782,6 +3701,6 @@ body:not(.is-locked) .lock-overlay {
   </div>
 
   <!-- Script -->
-  <script src="script.js?v=4.0"></script>
+  <script src="script.js?v=5.0"></script>
 </body>
 </html>

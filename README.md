@@ -1,46 +1,36 @@
 # 🎉 Happy 24th Birthday Dakshita (My Bebe) — Interactive Website
 
-A handcrafted, interactive, and romantic 10-page birthday website built specifically for **Dakshita (Bebe)** by **Ratnesh (her soon-to-be groom)**.
+A handcrafted, interactive, and romantic birthday website built specifically for **Dakshita (Bebe)** by **Ratnesh (her soon-to-be groom)**.
 
 ---
 
-## 📸 Adding Your Photos & Videos (NO RENAMING REQUIRED!)
+## 🎞️ Continuous Rotating Media Showcase (Page 5)
 
-You do **NOT** have to rename your photos or videos to `photo1.jpg` or `video1.mp4`! You can keep your original filenames (like `IMG_20240512.jpg`, `WhatsApp_Image.jpeg`, `bebe_smile.png`, `VID_2026.mp4`).
+All albums and video tabs have been replaced with a **single, smooth, infinite auto-scrolling rotating media showcase**:
+- Photos and looping video previews smoothly glide across the screen in two opposing continuous tracks.
+- Hovering or touching pauses the scroll.
+- **Click any photo or video to maximize**:
+  - **Photos (`.jpg`, `.png`, `.heic`, `.webp`)**: Expands into high-definition full-screen view with next/prev arrows.
+  - **Videos (`.mp4`, `.mov`, `.webm`)**: Expands into a cinematic video player with sound, scrub bar, and controls.
+  - **Apple `.HEIC` Support**: Includes automatic client-side HEIC decoding via `heic2any` so iPhone photos display on all devices!
 
-### How to use your own filenames:
-1. Place your pictures in `assets/photos/album1/` to `album5/` and your videos in `assets/videos/album1/` to `album3/`.
-2. Open `script.js` in any text editor.
-3. At the very top of `script.js`, simply list your filenames inside the `CUSTOM_MEDIA_CONFIG` block:
+### How to add your photos and videos:
+1. Drop your files directly into the **`assets/`** folder. You do **NOT** need to rename them or create subfolders!
+2. Open **`script.js`** in any text editor.
+3. At the very top (line 12), simply list your filenames inside `window.MEDIA_STREAM_FILES`:
    ```javascript
-   window.CUSTOM_MEDIA_CONFIG = {
-     photos: {
-       album1: [
-         "IMG_20240512.jpg",
-         "WhatsApp_Image.jpeg",
-         "bebe_smile.png"
-       ],
-       album2: [
-         "lonavala_rain.jpg",
-         "waterfall.jpg"
-       ],
-       album3: [],
-       album4: [],
-       album5: []
-     },
-     videos: {
-       album1: [
-         "train_clip.mp4",
-         "office_couch.mov"
-       ],
-       album2: [],
-       album3: []
-     }
-   };
+   window.MEDIA_STREAM_FILES = [
+     "IMG_1024.HEIC",
+     "bebe_smile.jpg",
+     "train_clip.mov",
+     "couch_night.mp4",
+     "WhatsApp_Pic.jpeg",
+     "lonavala.png"
+   ];
    ```
-4. Save `script.js`. The website will automatically display your custom photos and videos!
+4. Save `script.js` and push to GitHub. They will rotate seamlessly in the stream!
 
-*(If you don't list custom names, it will automatically look for `photo1.jpg` to `photo10.jpg` and `video1.mp4` to `video4.mp4` with clean SVG fallbacks).*
+*(If left blank, the website automatically loads 16 aesthetic sample cards so it works right out of the box).*
 
 ---
 
