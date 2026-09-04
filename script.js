@@ -1,8 +1,78 @@
 /* ==========================================================================
+   📁 YOUR CUSTOM MEDIA FILENAMES (OPTIONAL - NO NEED TO RENAME FILES!)
+   --------------------------------------------------------------------------
+   You do NOT need to rename your photos to "photo1.jpg" or videos to "video1.mp4"!
+   Simply type your real filenames below (e.g. "IMG_2024.jpg", "bebe_trip.png", "VID_01.mp4").
+   If left empty, it will look for photo1.jpg .. photo10.jpg automatically.
+   ========================================================================== */
+window.CUSTOM_MEDIA_CONFIG = {
+  photos: {
+    album1: [
+      // Put your actual filenames here, e.g.:
+      // "IMG_1234.jpg", "WhatsApp_Image_1.jpeg", "bebe_smile.png"
+    ],
+    album2: [],
+    album3: [],
+    album4: [],
+    album5: []
+  },
+  videos: {
+    album1: [
+      // e.g. "VID_2026.mp4", "train_clip.mov"
+    ],
+    album2: [],
+    album3: []
+  }
+};
+
+/* ==========================================================================
    HAPPY BIRTHDAY DAKSHITA (BEBE) - COMPLETE INTERACTIVE MASTER JAVASCRIPT
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ------------------------------------------------------------------------
+  // AUTO-APPLY CUSTOM FILENAMES TO DOM
+  // ------------------------------------------------------------------------
+  function resolvePhotoSrc(albumKey, index) {
+    const customList = window.CUSTOM_MEDIA_CONFIG?.photos?.[albumKey];
+    if (customList && customList[index]) {
+      return `assets/photos/${albumKey}/${customList[index]}`;
+    }
+    return `assets/photos/${albumKey}/photo${index + 1}.jpg`;
+  }
+
+  function resolveVideoSrc(albumKey, index) {
+    const customList = window.CUSTOM_MEDIA_CONFIG?.videos?.[albumKey];
+    if (customList && customList[index]) {
+      return `assets/videos/${albumKey}/${customList[index]}`;
+    }
+    return `assets/videos/${albumKey}/video${index + 1}.mp4`;
+  }
+
+  // Update pre-rendered DOM images with custom filenames if provided
+  document.querySelectorAll('.album-photo-card').forEach(card => {
+    const alb = card.getAttribute('data-album');
+    const idx = parseInt(card.getAttribute('data-index')) || 0;
+    const img = card.querySelector('img');
+    if (img) {
+      const src = resolvePhotoSrc(alb, idx);
+      const fallbackSvg = `assets/photos/${alb}/photo${idx + 1}.svg`;
+      img.src = src;
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = fallbackSvg;
+      };
+    }
+  });
+
+  // Update pre-rendered DOM video cards with custom filenames if provided
+  document.querySelectorAll('.video-card-item').forEach(vcard => {
+    const alb = vcard.getAttribute('data-valbum');
+    const idx = parseInt(vcard.getAttribute('data-vidx')) || 0;
+    vcard.setAttribute('data-src', resolveVideoSrc(alb, idx));
+  });
+
 
   // ------------------------------------------------------------------------
   // 0. LUXURY FULL-SCREEN LOCK CONTROLLER (PASSCODE: 0802 ONLY)
@@ -804,7 +874,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentActiveAlbum = alb;
     activePhotoIndex = index;
 
-    const imgSrc = `assets/photos/${alb}/photo${index + 1}.jpg`;
+    const imgSrc = resolvePhotoSrc(alb, index);
     const fallbackSvg = `assets/photos/${alb}/photo${index + 1}.svg`;
 
     if (modalImg) {
