@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=6.0" />
+  <link rel="stylesheet" href="style.css?v=7.0" />
 <style>
 /* ==========================================================================
    HAPPY BIRTHDAY DAKSHITA (BEBE) - MASTER LUXURY STYLESHEET
@@ -2932,128 +2932,7 @@ body:not(.is-locked) .lock-overlay {
 
 </style>
 </head>
-<body class="is-locked">
-  <!-- LUXURY FULL-SCREEN BIRTHDAY LOCK OVERLAY (Active until Sept 5, 00:00:00 IST) -->
-  <div id="lock-screen-overlay" class="lock-overlay">
-    <!-- Ambient glowing light orbs -->
-    <div class="lock-glow-orb orb-1"></div>
-    <div class="lock-glow-orb orb-2"></div>
-    <div class="lock-glow-orb orb-3"></div>
-
-    <div class="lock-content glass-card luxury-lock-card">
-      <!-- Shimmering Top Badge -->
-      <div class="luxury-badge">
-        <span class="sparkle-star">✨</span> Top Secret • Birthday Vault <span class="sparkle-star">✨</span>
-      </div>
-
-      <!-- Glowing Padlock Icon with Interactive Click -->
-      <div class="lock-icon-wrap" id="lock-icon-trigger" title="Vault Status: Locked">
-        <div class="lock-glow-ring">
-          <div class="lock-center-circle">
-            <span class="luxury-lock-icon">🔒</span>
-          </div>
-        </div>
-      </div>
-
-      <h1 class="lock-title">Hold On, <span class="highlight-text-luxury">Dakshita!</span> 💖</h1>
-      <p class="lock-subtitle">
-        Your 24th birthday celebration is safely locked and brewing with infinite love from your Bebe (Ratnesh).<br>
-        It will automatically unlock the exact second the clock strikes midnight on <strong>September 5th</strong>!
-      </p>
-
-      <!-- High-End Glass Countdown Timer -->
-      <div class="luxury-countdown-box">
-        <div class="luxury-cd-header">
-          <span class="cd-dot"></span> Countdown to 5th September 2026, 00:00:00 IST <span class="cd-dot"></span>
-        </div>
-        <div class="luxury-cd-grid">
-          <div class="luxury-cd-tile">
-            <span class="cd-num" id="lock-days">01</span>
-            <span class="cd-unit">Days</span>
-          </div>
-          <div class="luxury-cd-separator">:</div>
-          <div class="luxury-cd-tile">
-            <span class="cd-num" id="lock-hours">08</span>
-            <span class="cd-unit">Hours</span>
-          </div>
-          <div class="luxury-cd-separator">:</div>
-          <div class="luxury-cd-tile">
-            <span class="cd-num" id="lock-minutes">31</span>
-            <span class="cd-unit">Mins</span>
-          </div>
-          <div class="luxury-cd-separator">:</div>
-          <div class="luxury-cd-tile">
-            <span class="cd-num" id="lock-seconds">20</span>
-            <span class="cd-unit">Secs</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="luxury-quote">
-        🌸 <em>"The most beautiful girl in the world deserves the most unforgettable surprise. See you at midnight, my queen!"</em> 💕
-      </div>
-
-      <!-- WAITING LOUNGE: INTERACTIVE PLAY BUTTONS FOR DAKSHITA -->
-      <div class="lock-waiting-lounge">
-        <div class="waiting-lounge-header">
-          <span class="lounge-sparkle">✨</span> Dakshita's Pre-Midnight Play Lounge <span class="lounge-sparkle">✨</span>
-        </div>
-        <p class="waiting-lounge-subtitle">Bored waiting for the countdown? Tap these interactive buttons!</p>
-
-        <div class="lounge-buttons-grid">
-          <button id="btn-pop-confetti" class="lounge-btn btn-confetti" type="button">
-            🎉 Pop Confetti
-          </button>
-          <button id="btn-drop-teaser" class="lounge-btn btn-teaser" type="button">
-            🔮 Reveal a Secret Hint
-          </button>
-          <button id="btn-send-hugs" class="lounge-btn btn-hugs" type="button">
-            🫂 Send Hugs (<span id="hugs-count">0</span>)
-          </button>
-          <button id="btn-fortune-cookie" class="lounge-btn btn-fortune" type="button">
-            🥠 Love Fortune Cookie
-          </button>
-          <button id="btn-play-melody" class="lounge-btn btn-melody" type="button">
-            🎶 Play Sweet Melody
-          </button>
-          <button id="btn-plead-unlock" class="lounge-btn btn-plead" type="button">
-            🥺 "Can I Open Now?"
-          </button>
-        </div>
-
-        <!-- Dynamic Feedback Display Box -->
-        <div id="lounge-feedback-box" class="lounge-feedback-box" style="display: none;">
-          <div class="feedback-icon" id="feedback-icon">💌</div>
-          <div class="feedback-text" id="feedback-text">Tap any button above to play!</div>
-        </div>
-      </div>
-
-      <!-- Direct Inline Passcode Access Section -->
-      <div class="passcode-section-wrapper">
-        <button id="toggle-passcode-box-btn" class="luxury-passcode-toggle-btn" type="button">
-          <span class="key-icon">🔑</span> Ratnesh Passcode Login
-        </button>
-
-        <!-- Slide-down Inline Passcode Box  -->
-        <div id="inline-passcode-box" class="inline-passcode-box" style="display: none;">
-          <div class="inline-passcode-title">Enter Secret Passcode:</div>
-          <div class="passcode-input-group">
-            <input type="password" id="passcode-input" placeholder="Enter PIN" maxlength="10" inputmode="numeric" autocomplete="off" />
-            <button id="submit-passcode-btn" class="passcode-submit-btn" type="button">Unlock 🚀</button>
-          </div>
-          <div id="passcode-error-msg" class="passcode-error-text"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Floating Banner when Preview Mode is Active -->
-  <div id="preview-active-banner" class="preview-active-banner" style="display:none;">
-    <span>👑 <strong>Ratnesh Preview Active</strong> (Admin Access Unlocked)</span>
-    <button id="relock-website-btn" class="relock-btn" type="button">🔒 Re-enable Lock for Dakshita</button>
-  </div>
-
+<body>
   <!-- Canvas for Confetti & Particles -->
   <canvas id="confetti-canvas"></canvas>
   <div id="floating-hearts-container"></div>
@@ -3734,6 +3613,6 @@ body:not(.is-locked) .lock-overlay {
   </div>
 
   <!-- Script -->
-  <script src="script.js?v=6.0"></script>
+  <script src="script.js?v=7.0"></script>
 </body>
 </html>
