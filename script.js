@@ -22,6 +22,12 @@ window.MEDIA_STREAM_FILES = [
 "WhatsApp Image 2026-09-04 at 14.57.42.jpeg",
 "WhatsApp Image 2026-09-04 at 14.58.25.jpeg",
 "WhatsApp Image 2026-09-04 at 14.58.59.jpeg",
+"WhatsApp Video 2026-09-04 at 14.59.31.mp4",
+"WhatsApp Video 2026-09-04 at 15.00.34.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.31.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.32.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.33.mp4",
+"WhatsApp Video 2026-09-04 at 21.14.34.mp4",
 "WhatsApp Image 2026-09-04 at 14.59.46.jpeg",
 "WhatsApp Image 2026-09-04 at 15.00.13.jpeg",
 "WhatsApp Image 2026-09-04 at 15.42.27.jpeg",
@@ -40,7 +46,7 @@ window.MEDIA_STREAM_FILES = [
 "WhatsApp Image 2026-09-04 at 21.14.28.jpeg",
 "WhatsApp Image 2026-09-04 at 21.14.29.jpeg",
 "WhatsApp Image 2026-09-04 at 21.14.30.jpeg",
-"WhatsApp Image 2026-09-04 at 21.14.31.jpeg",
+"WhatsApp Image 2026-09-04 at 21.14.31.jpeg"
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
