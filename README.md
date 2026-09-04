@@ -4,33 +4,33 @@ A handcrafted, interactive, and romantic birthday website built specifically for
 
 ---
 
-## ⚠️ Files Too Large for GitHub? (Solutions for > 25 MB Files)
+## ⚡ High-Performance Media Stream (Silky Smooth & Fast)
 
-GitHub has a **25 MB limit** per file when uploading through the web browser. If your high-resolution iPhone videos or large photos exceed this limit, here are the two easiest ways to handle it:
-
-### 🌟 Solution 1: Use Google Drive or YouTube Links (Easiest & No Upload to GitHub!)
-You do **NOT** need to push heavy video files to GitHub! 
-1. Upload your video to **Google Drive** (set sharing to *"Anyone with the link can view"*), or to **YouTube** (set visibility to *"Unlisted"* so only you and Dakshita can view it).
-2. Open `script.js`.
-3. In `window.MEDIA_STREAM_FILES` at the top of `script.js`, paste your Google Drive or YouTube link directly:
-   ```javascript
-   window.MEDIA_STREAM_FILES = [
-     "my_photo.jpg",
-     "https://drive.google.com/file/d/1ABCXYZ.../view?usp=sharing",
-     "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
-     "another_pic.heic"
-   ];
-   ```
-4. The website will automatically fetch the thumbnail, place it in the rotating stream, and play the full video in the maximizer!
+The media showcase on Page 5 has been engineered for maximum speed, zero browser freezing, and smooth 60fps scrolling:
+- **No Background Video Lag**: Videos in the stream display lightweight preview cards with a glowing `▶️` badge. The video and audio only decode when clicked to maximize!
+- **Safe Filenames**: Supports filenames with spaces, dates, or symbols (e.g., `WhatsApp Image 2026-08-15 at 12.30.45.jpeg`).
+- **Cloud & Local Media**: Supports local files in `assets/` as well as direct YouTube and Google Drive links.
 
 ---
 
-### 🚀 Solution 2: Quick Free Compression (Shrink 100 MB ➔ 8 MB in 10 Seconds)
-If you prefer keeping your files local inside `assets/`:
-1. **For Videos**: Go to [FreeConvert Video Compressor](https://www.freeconvert.com/video-compressor) (or [Clideo](https://clideo.com/compress-video)). Drop your video, choose target size (e.g. 15 MB), download, and drop into `assets/`.
-2. **For iPhone Photos (HEIC)**:
-   - When AirDropping or exporting from iPhone, choose **"Automatic"** or **"Most Compatible"** (JPEG) which reduces size by 80%.
-   - Or compress online at [TinyPNG](https://tinypng.com/).
+## 📁 How to Add Your Photos & Videos:
+
+1. Place your photos and videos directly into the **`assets/`** folder.
+2. Open **`script.js`** in any text editor.
+3. At the very top (line 12), list your file names inside `window.MEDIA_STREAM_FILES`:
+   ```javascript
+   window.MEDIA_STREAM_FILES = [
+     "my_photo_1.jpg",
+     "WhatsApp Image 2026-08-15.jpeg",
+     "video_clip.mov",
+     "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
+     "https://drive.google.com/file/d/YOUR_DRIVE_ID/view?usp=sharing",
+     "my_photo_2.png"
+   ];
+   ```
+4. Save `script.js` and push to GitHub.
+
+*(If left blank, the website automatically loads 16 aesthetic sample cards so it works right out of the box).*
 
 ---
 

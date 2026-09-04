@@ -2882,3 +2882,37 @@ body:not(.is-locked) .lock-overlay {
     height: 340px;
   }
 }
+
+
+/* Video Play Badge Overlay for Stream Cards */
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  background: rgba(16, 6, 18, 0.75);
+  border: 2px solid rgba(255, 209, 102, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 5;
+}
+
+.stream-card:hover .video-play-overlay {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: rgba(255, 77, 109, 0.9);
+  border-color: #ffffff;
+}
+
+.stream-card {
+  will-change: transform;
+  contain: paint;
+}
